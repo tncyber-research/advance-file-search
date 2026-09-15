@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 940"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="940" fill="none"/>
+<rect x="370" y="16" width="300" height="42" rx="21" fill="#e3eef3" stroke="#1d6f8b" stroke-width="1.4"/><text x="520" y="42" font-size="13" fill="#1d6f8b" font-weight="600" text-anchor="middle">เริ่ม: ผู้ใช้กดค้นหา หรือสั่งอัปเดตดัชนี</text>
+<path d="M520 58 L520 84" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<polygon points="520,84 685,120 520,156 355,120" fill="#fff3cd" stroke="#f2b705" stroke-width="1.8"/>
+<text x="520" y="125" font-size="13" fill="#f2b705" font-weight="600" text-anchor="middle">ยังไม่มีดัชนีของโฟลเดอร์นี้?</text>
+<text x="710" y="112" font-size="12" fill="#5a6b7b" font-weight="400" text-anchor="start">มีแล้ว → อัปเดตเฉพาะส่วนที่เปลี่ยน</text>
+<path d="M520 156 L520 184" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="290" y="184" width="460" height="84" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="290" y="184" width="7" height="84" rx="3.5" fill="#5f4b9b"/>
+<text x="310" y="210" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">1. เดินสำรวจไฟล์ (Scanner)</text>
+<text x="310" y="234" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไล่ดูไฟล์ในโฟลเดอร์ที่เลือกและโฟลเดอร์ย่อย</text>
+<text x="310" y="254" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">กรองไฟล์ที่ไม่ควรแตะตั้งแต่ชั้นนี้</text>
+<rect x="290" y="286" width="460" height="84" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="290" y="286" width="7" height="84" rx="3.5" fill="#5f4b9b"/>
+<text x="310" y="312" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">2. คำนวณลายนิ้วมือไฟล์ (Fingerprint)</text>
+<text x="310" y="336" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ขนาด + เวลาแก้ไข + เวอร์ชันตัวอ่าน</text>
+<text x="310" y="356" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไม่ต้องอ่านทั้งไฟล์เพื่อรู้ว่าเปลี่ยนหรือยัง</text>
+<path d="M520 268 L520 284" fill="none" stroke="#5f4b9b" stroke-width="2.4" marker-end="url(#ar_violet)"/>
+<path d="M520 370 L520 396" fill="none" stroke="#5f4b9b" stroke-width="2.4" marker-end="url(#ar_violet)"/>
+<polygon points="520,396 690,434 520,472 350,434" fill="#fff3cd" stroke="#f2b705" stroke-width="1.8"/>
+<text x="520" y="439" font-size="13" fill="#f2b705" font-weight="600" text-anchor="middle">ลายนิ้วมือตรงกับที่เก็บไว้?</text>
+<path d="M690 434 L806 434" fill="none" stroke="#1f7a4d" stroke-width="2.4" marker-end="url(#ar_green)"/>
+<rect x="806" y="404" width="210" height="60" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="806" y="404" width="7" height="60" rx="3.5" fill="#1f7a4d"/>
+<text x="826" y="430" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">ข้าม</text>
+<text x="826" y="454" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">นับเป็น unchanged</text>
+<path d="M520 472 L520 498" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<text x="544" y="492" font-size="12" fill="#1d6f8b" font-weight="400" text-anchor="start">ไม่ตรง → ต้องอ่านใหม่</text>
+<rect x="290" y="498" width="460" height="84" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="290" y="498" width="7" height="84" rx="3.5" fill="#1f7a4d"/>
+<text x="310" y="524" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">3. เลือกตัวอ่านตามนามสกุลไฟล์</text>
+<text x="310" y="548" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">PDF → PyMuPDF · DOCX → python-docx</text>
+<text x="310" y="568" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">XLSX → openpyxl · TXT → ตรวจรหัสอักขระเอง</text>
+<rect x="290" y="600" width="460" height="84" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="290" y="600" width="7" height="84" rx="3.5" fill="#1f7a4d"/>
+<text x="310" y="626" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">4. แยกข้อความออกเป็น “หน่วย”</text>
+<text x="310" y="650" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">1 หน้า / 1 ย่อหน้า / 1 เซลล์ / 1 บรรทัด</text>
+<text x="310" y="670" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แต่ละหน่วยจำตำแหน่งของตัวเองไว้</text>
+<rect x="290" y="702" width="460" height="84" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="290" y="702" width="7" height="84" rx="3.5" fill="#1f7a4d"/>
+<text x="310" y="728" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">5. เขียนลงฐานข้อมูลแบบทีละไฟล์</text>
+<text x="310" y="752" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ใช้ SAVEPOINT ต่อไฟล์ — ไฟล์เสียหนึ่งไฟล์ไม่ทำให้ทั้งงานล้ม</text>
+<text x="310" y="772" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ทริกเกอร์ของ SQLite อัปเดตดัชนี FTS ให้เอง</text>
+<path d="M520 582 L520 598" fill="none" stroke="#1f7a4d" stroke-width="2.4" marker-end="url(#ar_green)"/>
+<path d="M520 684 L520 700" fill="none" stroke="#1f7a4d" stroke-width="2.4" marker-end="url(#ar_green)"/>
+<path d="M520 786 L520 812" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="290" y="812" width="460" height="84" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="290" y="812" width="7" height="84" rx="3.5" fill="#1d6f8b"/>
+<text x="310" y="838" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">6. ปิดงานและสรุปผล</text>
+<text x="310" y="862" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไฟล์ที่ไม่พบในรอบนี้ = ถูกลบ → เอาออกจากดัชนี</text>
+<text x="310" y="882" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">บันทึกสถิติของรอบนี้ลงตาราง index_runs</text>
+<rect x="24" y="184" width="240" height="200" rx="12" fill="#ffffff" stroke="#d9480f" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="24" y="184" width="7" height="200" rx="3.5" fill="#d9480f"/>
+<text x="44" y="210" font-size="15" fill="#d9480f" font-weight="700" text-anchor="start">กรองออกตั้งแต่ต้น</text>
+<text x="44" y="234" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ทางลัด (.lnk) และ junction</text>
+<text x="44" y="254" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไฟล์ชั่วคราวของ Office (~$)</text>
+<text x="44" y="274" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไฟล์ใหญ่เกินค่าที่ตั้งไว้</text>
+<text x="44" y="294" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">นามสกุลที่ไม่รองรับ</text>
+<text x="44" y="314" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไฟล์บนคลาวด์ที่ยังไม่ดาวน์โหลด</text>
+<text x="44" y="334" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไม่มีการ “เปิด” ไฟล์ให้ทำงาน</text>
+<rect x="776" y="498" width="240" height="200" rx="12" fill="#eef2f6" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="776" y="498" width="7" height="200" rx="3.5" fill="#41566b"/>
+<text x="796" y="524" font-size="15" fill="#41566b" font-weight="700" text-anchor="start">ผลของแต่ละไฟล์</text>
+<text x="796" y="548" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">indexed — อ่านข้อความได้</text>
+<text x="796" y="568" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">unchanged — ไม่ได้แก้ไข</text>
+<text x="796" y="588" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">no_text — ไม่มีข้อความ เช่น PDF สแกน</text>
+<text x="796" y="608" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">failed — ไฟล์เสียหรือถูกล็อก</text>
+<text x="796" y="628" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">skipped — ถูกกรองออก</text>
+<text x="796" y="648" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">deleted — ไฟล์หายไปแล้ว</text>
+<text x="520" y="926" font-size="13" fill="#5f4b9b" font-weight="600" text-anchor="middle">ยกเลิกได้ทุกเมื่อ: งานจะหยุดที่ขอบเขตของไฟล์ถัดไป ดัชนีที่ทำไปแล้วยังใช้ได้</text>
+</svg>

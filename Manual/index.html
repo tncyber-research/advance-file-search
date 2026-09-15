@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>คู่มือการใช้งาน — Advance File Search 1.0</title>
+<!--
+  เอกสารนี้เป็นไฟล์ในเครื่องที่สมบูรณ์ในตัวเอง
+
+  ไม่มีการอ้างอิงแบบอักษร แผ่นรูปแบบ สคริปต์ ภาพ หรือปลายทางใด ๆ จากเครือข่าย
+  รายการแบบอักษรระบุชื่อชุดแบบอักษรที่อาจติดตั้งอยู่ในเครื่องของผู้อ่าน
+  โดยเรียง Sarabun ไว้ลำดับแรก และถอยไปใช้แบบอักษรภาษาไทยที่ระบบปฏิบัติการ
+  มีมาให้อยู่แล้วเมื่อไม่พบ ไม่มีการดาวน์โหลดแบบอักษรจากอินเทอร์เน็ต
+  ภาพประกอบทุกภาพอยู่ในโฟลเดอร์ ./images/ ข้างไฟล์นี้
+  การเปิดอ่านเอกสารนี้ขณะไม่ได้เชื่อมต่ออินเทอร์เน็ตให้ผลเหมือนกันทุกประการ
+-->
+<style>
+  :root {
+    --ink: #1b2733;
+    --muted: #55677a;
+    --faint: #8797a5;
+    --accent: #1d6f8b;
+    --accent-light: #39b3c9;
+    --accent-soft: #e8f2f6;
+    --accent-line: #cfe2ea;
+    --surface: #ffffff;
+    --page: #f3f7f9;
+    --border: #dde5ea;
+    --amber: #a87400;
+    --amber-soft: #fff6e2;
+    --amber-line: #f0dba8;
+    --green: #1c7146;
+    --green-soft: #e7f5ee;
+    --green-line: #b9e0cb;
+    --coral: #b93d0b;
+    --coral-soft: #fdeee6;
+    --coral-line: #f5cdb8;
+    --violet: #5a4795;
+    --violet-soft: #f0ecfa;
+    --violet-line: #ddd4f2;
+    --radius: 16px;
+    --shadow: 0 1px 2px rgba(27, 39, 51, .04), 0 6px 18px rgba(27, 39, 51, .07);
+    --shadow-lg: 0 10px 30px rgba(27, 39, 51, .12);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1100px 500px at 12% -8%, #e7f1f6 0%, rgba(231, 241, 246, 0) 60%),
+      radial-gradient(900px 480px at 92% 4%, #eef0fa 0%, rgba(238, 240, 250, 0) 55%),
+      var(--page);
+    background-attachment: fixed;
+    color: var(--ink);
+    /* ใช้ Sarabun เมื่อเครื่องของผู้อ่านมีติดตั้งอยู่ หากไม่มี จะไล่ไปใช้
+       แบบอักษรภาษาไทยที่ Windows และ macOS มีมาให้ ไม่มีการดาวน์โหลดใด ๆ */
+    font-family: "Sarabun", "TH Sarabun New", "Leelawadee UI", "Noto Sans Thai",
+                 "Thonburi", "Segoe UI", Tahoma, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.9;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ---------- โครงหน้า ---------- */
+  .wrap {
+    display: flex; gap: 26px; max-width: 1460px; margin: 0 auto; padding: 22px;
+    align-items: flex-start;
+  }
+
+  nav {
+    position: sticky; top: 20px; align-self: flex-start;
+    width: 262px; flex: 0 0 262px; max-height: calc(100vh - 40px); overflow-y: auto;
+    background: rgba(255, 255, 255, .92); backdrop-filter: blur(6px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 8px 16px 16px;
+  }
+  nav h2 {
+    margin: 0 0 10px; font-size: 16px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--faint); font-weight: 700;
+  }
+  nav ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav li { counter-increment: toc; }
+  nav a {
+    display: block; padding: 7px 8px 7px 34px; border-radius: 9px;
+    color: var(--muted); text-decoration: none; font-size: 16px; position: relative;
+    transition: background .15s ease, color .15s ease;
+  }
+  nav a::before {
+    content: counter(toc); position: absolute; left: 6px; top: 8px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 700; line-height: 22px; text-align: center;
+  }
+  nav a:hover { background: var(--accent-soft); color: var(--accent); }
+
+  main { flex: 1 1 auto; min-width: 0; }
+
+  /* ---------- หัวเรื่อง ---------- */
+  header.hero {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #17627d 0%, #2a8ba8 52%, #45bcd0 100%);
+    color: #fff; border-radius: 22px; padding: 34px 38px;
+    box-shadow: var(--shadow-lg); margin-bottom: 22px;
+  }
+  header.hero::after {
+    content: ""; position: absolute; right: -70px; top: -90px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.38), rgba(255,255,255,0) 62%);
+  }
+  header.hero h1 { margin: 0 0 4px; font-size: 31px; font-weight: 700; letter-spacing: .01em; }
+  header.hero .sub { font-size: 17px; opacity: .96; margin-bottom: 16px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
+  .hero-badges span {
+    background: rgba(255, 255, 255, .18); border: 1px solid rgba(255, 255, 255, .36);
+    border-radius: 999px; padding: 5px 15px; font-size: 16px;
+  }
+
+  /* ---------- ส่วนเนื้อหา ---------- */
+  section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 24px 30px 28px; margin-bottom: 20px;
+  }
+  section > h2 {
+    margin: 0 0 18px; padding-bottom: 11px; border-bottom: 2px solid var(--accent-soft);
+    font-size: 23px; color: var(--accent); display: flex; align-items: center; gap: 12px;
+  }
+  section > h2 .n {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 11px;
+    background: linear-gradient(140deg, var(--accent-light), var(--accent));
+    color: #fff; font-size: 17px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(29, 111, 139, .3);
+  }
+  h3 { font-size: 19px; margin: 28px 0 9px; color: var(--ink); }
+  h3:first-of-type { margin-top: 6px; }
+  h4 { font-size: 16.5px; margin: 20px 0 7px; color: var(--accent); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 5px; }
+  code {
+    background: var(--accent-soft); color: var(--accent); padding: 1px 6px;
+    border-radius: 5px; font-family: Consolas, "Cascadia Mono", monospace;
+    font-size: 1em; word-break: break-word;
+  }
+  a { color: var(--accent); }
+  b, strong { font-weight: 700; }
+
+  /* ---------- ภาพประกอบ ---------- */
+  figure { margin: 18px 0; }
+  figure img {
+    display: block; width: 100%; height: auto; border-radius: 12px;
+    border: 1px solid var(--border); background: #fff;
+  }
+  figure.plain img { border: none; background: transparent; }
+  figure.shot img { border: 1px solid var(--accent-line); box-shadow: var(--shadow); }
+  figure.narrow { max-width: 560px; margin-left: auto; margin-right: auto; }
+  figcaption {
+    margin-top: 10px; font-size: 16px; color: var(--muted); text-align: center;
+  }
+  figcaption b { color: var(--accent); }
+
+  /* ---------- รายการหมายเลขที่ตรงกับภาพ ---------- */
+  .callouts { list-style: none; padding: 0; margin: 14px 0 0; counter-reset: c; }
+  .callouts > li {
+    position: relative; padding: 11px 15px 11px 54px; margin-bottom: 9px;
+    background: var(--page); border: 1px solid var(--border); border-radius: 11px;
+  }
+  .callouts > li::before {
+    counter-increment: c; content: counter(c);
+    position: absolute; left: 12px; top: 11px;
+    width: 29px; height: 29px; border-radius: 50%;
+    background: linear-gradient(140deg, #f08a5d, #d9480f); color: #fff;
+    font-size: 16px; font-weight: 700; line-height: 29px; text-align: center;
+    box-shadow: 0 3px 8px rgba(217, 72, 15, .32);
+  }
+  .callouts b { display: block; color: var(--ink); font-size: 16.5px; }
+  .callouts span { color: var(--muted); font-size: 16px; }
+
+  /* ---------- ขั้นตอน ---------- */
+  .steps { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: s; }
+  .steps > li {
+    position: relative; padding: 0 0 22px 54px; border-left: 2px dashed var(--accent-line);
+    margin-left: 18px;
+  }
+  .steps > li:last-child { border-left-color: transparent; padding-bottom: 2px; }
+  .steps > li::before {
+    counter-increment: s; content: counter(s);
+    position: absolute; left: -18px; top: -4px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(140deg, var(--accent-light), var(--accent));
+    color: #fff; box-shadow: 0 0 0 5px var(--accent-soft);
+    font-size: 17px; font-weight: 700; line-height: 36px; text-align: center;
+  }
+  .steps b { display: block; font-size: 17px; margin-bottom: 4px; }
+
+  /* ---------- กล่องข้อความพิเศษ ---------- */
+  .note, .warn, .tip, .danger {
+    border-radius: 12px; padding: 13px 17px 13px 48px; margin: 16px 0;
+    position: relative; font-size: 16px; border: 1px solid;
+  }
+  .note::before, .warn::before, .tip::before, .danger::before {
+    position: absolute; left: 15px; top: 13px; font-size: 18px; font-weight: 700;
+    width: 22px; text-align: center;
+  }
+  .note   { background: var(--accent-soft); border-color: var(--accent-line); }
+  .note::before   { content: "i"; color: var(--accent); font-style: italic; }
+  .tip    { background: var(--green-soft);  border-color: var(--green-line); }
+  .tip::before    { content: "\2713"; color: var(--green); }
+  .warn   { background: var(--amber-soft);  border-color: var(--amber-line); }
+  .warn::before   { content: "!"; color: var(--amber); }
+  .danger { background: var(--coral-soft);  border-color: var(--coral-line); }
+  .danger::before { content: "\00D7"; color: var(--coral); }
+  .note b, .tip b, .warn b, .danger b { display: block; margin-bottom: 2px; }
+
+  /* ---------- ตาราง ---------- */
+  .tablewrap { overflow-x: auto; margin: 16px 0; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 440px; }
+  th, td { text-align: left; padding: 10px 13px; border-bottom: 1px solid var(--border);
+           vertical-align: top; }
+  th { background: var(--accent-soft); color: var(--accent); font-weight: 700;
+       white-space: nowrap; }
+  tbody tr:nth-child(even) { background: #fafcfd; }
+
+  /* ---------- การ์ด ---------- */
+  .grid { display: grid; gap: 14px; margin: 16px 0; }
+  .grid.two { grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); }
+  .grid.three { grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); }
+  .card {
+    background: var(--page); border: 1px solid var(--border);
+    border-radius: 13px; padding: 15px 17px;
+  }
+  .card h4 { margin: 0 0 5px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card.accent { background: var(--accent-soft); border-color: var(--accent-line); }
+  .card.green  { background: var(--green-soft);  border-color: var(--green-line); }
+  .card.amber  { background: var(--amber-soft);  border-color: var(--amber-line); }
+  .card.violet { background: var(--violet-soft); border-color: var(--violet-line); }
+  .card.coral  { background: var(--coral-soft);  border-color: var(--coral-line); }
+
+  /* ---------- คำถามที่พบบ่อย ---------- */
+  details {
+    background: var(--page); border: 1px solid var(--border);
+    border-radius: 11px; margin-bottom: 9px; padding: 0 16px;
+  }
+  details[open] { background: #fff; border-color: var(--accent-line); }
+  summary {
+    cursor: pointer; padding: 13px 0; font-weight: 600; font-size: 16px;
+    list-style: none; display: flex; gap: 10px; align-items: flex-start;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "?"; flex: 0 0 auto; width: 23px; height: 23px; border-radius: 50%;
+    background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-line);
+    font-size: 15px; line-height: 21px; text-align: center; margin-top: 1px;
+  }
+  details p:last-child { margin-bottom: 12px; }
+
+  /* ---------- ปุ่มบนแป้นพิมพ์ ---------- */
+  kbd {
+    background: #fff; border: 1px solid var(--border); border-bottom-width: 2px;
+    border-radius: 5px; padding: 2px 7px; font-size: 1em;
+    font-family: Consolas, monospace; color: var(--ink);
+  }
+
+  /* ---------- ท้ายเอกสาร ---------- */
+  footer.credit {
+    text-align: center; padding: 26px 16px 42px; color: var(--muted); font-size: 16px;
+  }
+  footer.credit .sig {
+    display: inline-block; margin-top: 6px; padding: 8px 22px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    color: var(--accent); font-weight: 700; letter-spacing: .04em; box-shadow: var(--shadow);
+  }
+
+  /* ---------- การแสดงผลบนจอขนาดต่าง ๆ ---------- */
+  @media (max-width: 1100px) {
+    .wrap { flex-direction: column; padding: 14px; gap: 16px; align-items: stretch; }
+    nav, main { width: 100%; max-width: 100%; }
+    nav {
+      position: static; flex: none; max-height: none;
+      padding: 14px 14px 10px;
+    }
+    nav ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    body { line-height: 1.85; }
+    section { padding: 18px 15px 22px; border-radius: 13px; }
+    section > h2 { font-size: 20px; }
+    header.hero { padding: 22px 18px; border-radius: 16px; }
+    header.hero h1 { font-size: 23px; }
+    header.hero .sub { font-size: 16px; }
+    h3 { font-size: 17px; }
+    .callouts > li { padding-left: 50px; }
+    .steps > li { padding-left: 42px; }
+  }
+
+  @media print {
+    nav { display: none; }
+    body { background: #fff; font-size: 12pt; }
+    section { break-inside: avoid; box-shadow: none; border-color: #ccc; }
+    header.hero { background: #17627d !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <h2>สารบัญ</h2>
+  <ol>
+    <li><a href="#s1">คำนำและวัตถุประสงค์</a></li>
+    <li><a href="#s2">ความต้องการของระบบ</a></li>
+    <li><a href="#s3">การติดตั้งและการเปิดโปรแกรม</a></li>
+    <li><a href="#s4">ส่วนประกอบของหน้าจอหลัก</a></li>
+    <li><a href="#s5">หน้าจอย่อยและกล่องโต้ตอบ</a></li>
+    <li><a href="#s6">ฟังก์ชันการทำงาน</a></li>
+    <li><a href="#s7">ขั้นตอนการใช้งานทีละขั้น</a></li>
+    <li><a href="#s8">ขอบเขตของระบบ</a></li>
+    <li><a href="#s9">ข้อกำหนดและข้อจำกัด</a></li>
+    <li><a href="#s10">ปัญหาและวิธีแก้ไข</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <h1>คู่มือการใช้งาน Advance File Search</h1>
+  <div class="sub">โปรแกรมค้นหาไฟล์และเนื้อหาเอกสารภายในเครื่อง · รุ่น 1.0.0</div>
+  <div class="hero-badges">
+    <span>ทำงานแบบออฟไลน์ทั้งหมด</span>
+    <span>รองรับภาษาไทยและภาษาอังกฤษ</span>
+    <span>PDF · DOCX · XLSX · TXT</span>
+    <span>Windows 10 / 11 (64 บิต)</span>
+  </div>
+</header>
+
+<!-- ==================================================================== -->
+<section id="s1">
+  <h2><span class="n">1</span> คำนำ วัตถุประสงค์ และประโยชน์ของโปรแกรม</h2>
+
+  <h3>1.1 คำนำ</h3>
+  <p>
+    ในการปฏิบัติงานประจำวัน หน่วยงานย่อมมีเอกสารสะสมเป็นจำนวนมาก
+    ผู้ปฏิบัติงานจึงมักประสบปัญหาว่าจำได้เพียงข้อความบางส่วนที่ปรากฏอยู่ภายในเอกสาร
+    แต่ไม่อาจระบุได้ว่าข้อความดังกล่าวอยู่ในแฟ้มใด
+    การค้นหาด้วยชื่อแฟ้มเพียงอย่างเดียวจึงไม่เพียงพอต่อการปฏิบัติงานจริง
+  </p>
+  <p>
+    <b>Advance File Search</b> พัฒนาขึ้นเพื่อแก้ไขปัญหาดังกล่าวโดยเฉพาะ
+    โปรแกรมจะอ่านข้อความที่อยู่ภายในเอกสารประเภท PDF, Microsoft Word, Microsoft Excel
+    และแฟ้มข้อความ แล้วจัดทำ “ดัชนีค้นหา” เก็บไว้ในเครื่องคอมพิวเตอร์ของผู้ใช้
+    ผู้ใช้จึงสามารถค้นหาคำหรือข้อความที่ปรากฏอยู่ภายในเอกสารได้อย่างรวดเร็ว
+    พร้อมทั้งทราบตำแหน่งที่พบว่าอยู่ที่หน้าใด ย่อหน้าใด เซลล์ใด หรือบรรทัดที่เท่าใด
+  </p>
+  <p>
+    ประการสำคัญที่แตกต่างจากบริการค้นหาทั่วไป คือ
+    <b>ข้อมูลทั้งหมดคงอยู่ภายในเครื่องคอมพิวเตอร์ของผู้ใช้เท่านั้น</b>
+    ทั้งตัวเอกสาร ข้อความที่สกัดออกมา ดัชนีค้นหา และคำค้นของผู้ใช้
+    ไม่มีการส่งออกไปยังระบบภายนอกไม่ว่ากรณีใด
+    จึงเหมาะสมกับเอกสารราชการ เอกสารภายในองค์กร
+    และเอกสารส่วนบุคคลซึ่งไม่สมควรนำขึ้นสู่ระบบคลาวด์
+  </p>
+
+  <h3>1.2 วัตถุประสงค์</h3>
+  <figure class="plain">
+    <img src="images/fig_objectives.svg" alt="แผนภาพวัตถุประสงค์หลักสี่ประการของโปรแกรม">
+    <figcaption>ภาพที่ 1 — วัตถุประสงค์หลักสี่ประการของการพัฒนาโปรแกรม</figcaption>
+  </figure>
+  <ol>
+    <li>เพื่อให้ผู้ใช้ค้นหาเอกสารจาก <b>เนื้อหาภายในเอกสาร</b> มิใช่เพียงชื่อแฟ้ม</li>
+    <li>เพื่อให้การค้นหาภาษาไทยได้ผลถูกต้องครบถ้วน แม้ข้อความนั้นไม่มีการเว้นวรรคระหว่างคำ</li>
+    <li>เพื่อให้ผู้ใช้ทราบตำแหน่งที่พบข้อความภายในเอกสารได้อย่างเจาะจง</li>
+    <li>เพื่อรักษาความลับของเอกสาร โดยไม่มีการเชื่อมต่อออกสู่ภายนอกในทุกกรณี</li>
+  </ol>
+
+  <h3>1.3 ประโยชน์ที่ได้รับ</h3>
+  <div class="grid two">
+    <div class="card accent">
+      <h4>ลดระยะเวลาในการสืบค้นเอกสาร</h4>
+      <p>
+        เมื่อจัดทำดัชนีแล้ว การค้นหาในเอกสารหลักพันแฟ้มใช้เวลาไม่ถึงหนึ่งวินาที
+        ผู้ใช้จึงไม่ต้องเปิดเอกสารทีละแฟ้มเพื่อตรวจสอบด้วยตนเอง
+      </p>
+    </div>
+    <div class="card green">
+      <h4>รักษาความลับของข้อมูล</h4>
+      <p>
+        เอกสารไม่ถูกอัปโหลดไปยังบริการภายนอก ไม่มีการเก็บสถิติการใช้งาน
+        และโปรแกรมยังทำงานได้ตามปกติแม้ถอดสายเครือข่ายออกทั้งหมด
+      </p>
+    </div>
+    <div class="card violet">
+      <h4>ลดความซ้ำซ้อนของการจัดทำเอกสาร</h4>
+      <p>
+        ผู้ใช้ตรวจสอบได้ทันทีว่าเคยจัดทำเอกสารเรื่องเดียวกันไว้แล้วหรือไม่
+        จึงลดการจัดทำเอกสารซ้ำโดยไม่จำเป็น
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>ใช้งานได้ทันทีโดยไม่ต้องติดตั้งระบบเพิ่ม</h4>
+      <p>
+        ไม่ต้องติดตั้งฐานข้อมูล ไม่ต้องมีเครื่องแม่ข่าย และไม่ต้องขอสิทธิ์ผู้ดูแลระบบ
+        เพียงคัดลอกโฟลเดอร์โปรแกรมไปยังเครื่องที่ต้องการใช้งาน
+      </p>
+    </div>
+  </div>
+
+  <h3>1.4 แนวทางการนำโปรแกรมไปใช้</h3>
+  <figure class="plain">
+    <img src="images/fig_usecases.svg" alt="แผนภาพลักษณะงานที่เหมาะสมกับการใช้โปรแกรม">
+    <figcaption>ภาพที่ 2 — ลักษณะงานที่โปรแกรมนี้นำไปใช้ได้โดยตรง</figcaption>
+  </figure>
+  <p>
+    โปรแกรมนี้เหมาะสำหรับงานที่มีเอกสารสะสมจำนวนมากและต้องการสืบค้นย้อนหลังอยู่เสมอ
+    ตัวอย่างเช่น งานสารบรรณและงานธุรการ งานงบประมาณและพัสดุ
+    งานวิชาการและงานวิจัย ตลอดจนการรวบรวมเอกสารประกอบการตรวจสอบภายใน
+    ทั้งนี้ ผู้ใช้ควรจัดเก็บเอกสารไว้ในโฟลเดอร์ที่มีโครงสร้างชัดเจน
+    เพื่อให้กำหนดขอบเขตการจัดทำดัชนีได้อย่างเหมาะสม
+  </p>
+
+  <h3>1.5 หลักการทำงานโดยสังเขป</h3>
+  <figure class="plain">
+    <img src="images/fig_concept.svg" alt="แผนภาพแสดงว่าทุกขั้นตอนเกิดขึ้นภายในเครื่องของผู้ใช้">
+    <figcaption>ภาพที่ 3 — ทุกขั้นตอนเกิดขึ้นภายในเครื่องของผู้ใช้ ไม่มีการติดต่อออกสู่ภายนอก</figcaption>
+  </figure>
+  <p>
+    โปรแกรมอ่านข้อความจากเอกสารในโฟลเดอร์ที่ผู้ใช้กำหนด
+    แล้วจัดเก็บข้อความดังกล่าวพร้อมตำแหน่งไว้ในฐานข้อมูล SQLite ภายในเครื่อง
+    เมื่อผู้ใช้สั่งค้นหา โปรแกรมจะค้นจากดัชนีที่จัดทำไว้ จึงได้ผลลัพธ์อย่างรวดเร็ว
+    โดยไม่ต้องเปิดอ่านเอกสารทุกแฟ้มซ้ำอีก
+  </p>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s2">
+  <h2><span class="n">2</span> ความต้องการของระบบ</h2>
+
+  <figure class="plain">
+    <img src="images/fig_requirements.svg" alt="ตารางความต้องการของระบบขั้นต่ำและที่แนะนำ">
+    <figcaption>ภาพที่ 4 — ความต้องการของระบบโดยสรุป</figcaption>
+  </figure>
+
+  <h3>2.1 สภาพแวดล้อมของระบบ</h3>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>รายการ</th><th>ขั้นต่ำ</th><th>ที่แนะนำ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ระบบปฏิบัติการ</td><td>Windows 10 รุ่น 64 บิต (รุ่น 1809 ขึ้นไป)</td><td>Windows 11 รุ่น 64 บิต</td></tr>
+        <tr><td>หน่วยประมวลผล</td><td>2 แกน ความเร็ว 1.6 กิกะเฮิรตซ์</td><td>4 แกนขึ้นไป</td></tr>
+        <tr><td>หน่วยความจำหลัก</td><td>4 กิกะไบต์</td><td>8 กิกะไบต์ขึ้นไป</td></tr>
+        <tr><td>พื้นที่ว่างในหน่วยเก็บข้อมูล</td><td>500 เมกะไบต์ สำหรับตัวโปรแกรม และพื้นที่สำหรับดัชนี</td><td>1 กิกะไบต์ขึ้นไป และควรเป็นหน่วยเก็บข้อมูลแบบ SSD</td></tr>
+        <tr><td>ความละเอียดของจอภาพ</td><td>1366 × 768 จุด</td><td>1920 × 1080 จุดขึ้นไป</td></tr>
+        <tr><td>สิทธิ์ของผู้ใช้</td><td>ผู้ใช้ทั่วไป ไม่ต้องเป็นผู้ดูแลระบบ</td><td>เช่นเดียวกัน</td></tr>
+        <tr><td>การเชื่อมต่ออินเทอร์เน็ต</td><td><b>ไม่จำเป็นต้องใช้</b></td><td><b>ไม่จำเป็นต้องใช้</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 โปรแกรมอื่นที่ต้องติดตั้งก่อน</h3>
+  <div class="tip">
+    <b>ไม่ต้องติดตั้งโปรแกรมใดเพิ่มเติม</b>
+    ชุดโปรแกรมนี้รวมส่วนประกอบที่จำเป็นไว้ครบถ้วนแล้ว
+    ผู้ใช้ไม่ต้องติดตั้งภาษา Python ไม่ต้องติดตั้งไลบรารีใด ๆ
+    ไม่ต้องติดตั้งระบบจัดการฐานข้อมูล และไม่ต้องติดตั้ง Microsoft Office
+    ก็สามารถค้นหาข้อความในเอกสาร Word และ Excel ได้
+  </div>
+  <p>
+    อย่างไรก็ดี หากผู้ใช้ประสงค์จะ <b>เปิดเอกสาร</b> ที่ค้นพบ
+    เครื่องคอมพิวเตอร์ต้องมีโปรแกรมสำหรับเปิดเอกสารประเภทนั้นอยู่แล้ว
+    เช่น โปรแกรมอ่าน PDF หรือ Microsoft Word
+    เนื่องจากโปรแกรมนี้ทำหน้าที่ส่งคำสั่งเปิดแฟ้มไปยังระบบปฏิบัติการเท่านั้น
+    มิได้เปิดเอกสารขึ้นแสดงด้วยตนเอง
+  </p>
+
+  <h3>2.3 ระบบปฏิบัติการอื่น</h3>
+  <div class="warn">
+    <b>รุ่นปัจจุบันรองรับเฉพาะ Windows</b>
+    โปรแกรมรุ่น 1.0 ทำงานบน Windows 10 และ Windows 11 รุ่น 64 บิตเท่านั้น
+    <b>ยังไม่รองรับ Linux และ macOS</b> เนื่องจากมีส่วนที่ทำงานร่วมกับ Windows โดยตรง
+    ได้แก่ การจัดการเส้นทางแฟ้มแบบยาว การตรวจสอบจุดเชื่อมโยงของระบบแฟ้ม
+    การเรียกหน้าต่าง File Explorer และกลไกป้องกันการเปิดโปรแกรมซ้ำซ้อน
+    หากจำเป็นต้องใช้งานบน Linux ผู้ใช้อาจพิจารณาใช้ผ่านชั้นความเข้ากันได้
+    ซึ่งอยู่นอกขอบเขตการรับรองของรุ่นนี้
+  </div>
+
+  <h3>2.4 ปริมาณงานที่รองรับ</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>รายการ</th><th>ค่าที่ออกแบบไว้</th><th>ผลการทดสอบจริง</th></tr></thead>
+      <tbody>
+        <tr><td>จำนวนแฟ้มต่อหนึ่งโฟลเดอร์ที่จัดทำดัชนี</td><td>2,000–3,000 แฟ้ม</td><td>ทดสอบที่ 1,000 แฟ้ม ใช้เวลาจัดทำดัชนี 2.95 วินาที</td></tr>
+        <tr><td>ระยะเวลาการค้นหา</td><td>ไม่เกินประมาณ 1 วินาที</td><td>น้อยกว่า 10 มิลลิวินาที</td></tr>
+        <tr><td>ขนาดแฟ้มสูงสุดที่อ่าน</td><td>500 เมกะไบต์ต่อแฟ้ม</td><td>ปรับได้สูงสุด 4 กิกะไบต์</td></tr>
+        <tr><td>จำนวนผลลัพธ์ต่อการค้นหาหนึ่งครั้ง</td><td>200 แฟ้ม</td><td>ปรับได้สูงสุด 5,000 แฟ้ม</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s3">
+  <h2><span class="n">3</span> การติดตั้งและการเปิดโปรแกรม</h2>
+
+  <p>
+    โปรแกรมนี้เป็นชุดโปรแกรมแบบพร้อมใช้ (portable) ไม่มีตัวติดตั้งและไม่เขียนค่าลงรีจิสทรี
+    ผู้ใช้เพียงคัดลอกโฟลเดอร์โปรแกรมไปยังเครื่องที่ต้องการ แล้วเรียกใช้งานได้ทันที
+  </p>
+
+  <figure class="plain">
+    <img src="images/fig_install.svg" alt="ภาพประกอบแสดงส่วนประกอบภายในโฟลเดอร์โปรแกรมและขั้นตอนการเปิดใช้งาน">
+    <figcaption>ภาพที่ 5 — ส่วนประกอบภายในโฟลเดอร์โปรแกรม และขั้นตอนการเริ่มใช้งาน (ภาพประกอบ)</figcaption>
+  </figure>
+
+  <h3>3.1 ส่วนประกอบภายในโฟลเดอร์โปรแกรม</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ชื่อ</th><th>ประเภท</th><th>หน้าที่</th></tr></thead>
+      <tbody>
+        <tr><td><code>AdvanceFileSearch.exe</code></td><td>แฟ้มโปรแกรม</td><td><b>แฟ้มสำหรับเปิดโปรแกรม</b> ให้ดับเบิลคลิกที่แฟ้มนี้</td></tr>
+        <tr><td><code>_internal</code></td><td>โฟลเดอร์</td><td>ส่วนประกอบภายในของโปรแกรม <b>ห้ามลบหรือแก้ไข</b></td></tr>
+        <tr><td><code>Manual</code></td><td>โฟลเดอร์</td><td>คู่มือการใช้งานฉบับนี้ และรายงานสรุปโครงการ</td></tr>
+        <tr><td><code>LICENSES</code></td><td>โฟลเดอร์</td><td>สัญญาอนุญาตของซอฟต์แวร์ที่นำมาใช้ประกอบ</td></tr>
+        <tr><td><code>README.txt</code></td><td>แฟ้มข้อความ</td><td>คำอธิบายโดยย่อของชุดโปรแกรม</td></tr>
+        <tr><td><code>PRIVACY.txt</code></td><td>แฟ้มข้อความ</td><td>คำแถลงเกี่ยวกับความเป็นส่วนตัวของข้อมูล</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.2 ขั้นตอนการติดตั้ง</h3>
+  <ol class="steps">
+    <li><b>คัดลอกโฟลเดอร์โปรแกรม</b>
+      คัดลอกโฟลเดอร์ <code>Advance File Search</code> ทั้งโฟลเดอร์ไปยังตำแหน่งที่ต้องการ
+      เช่น <code>D:\Programs\Advance File Search</code>
+      ไม่ควรวางไว้ในโฟลเดอร์ที่ต้องใช้สิทธิ์ผู้ดูแลระบบในการเขียน</li>
+    <li><b>ดับเบิลคลิกแฟ้ม AdvanceFileSearch.exe</b>
+      โปรแกรมจะเปิดขึ้นภายในไม่กี่วินาที โดยไม่ปรากฏหน้าต่างบรรทัดคำสั่ง
+      หากระบบป้องกันของ Windows แจ้งเตือนเนื่องจากเป็นโปรแกรมที่ไม่ได้ลงลายมือชื่อดิจิทัล
+      ให้เลือก “ข้อมูลเพิ่มเติม” แล้วเลือก “เรียกใช้ต่อไป”</li>
+    <li><b>ตรวจสอบสัญลักษณ์ของโปรแกรม</b>
+      เมื่อเปิดสำเร็จ จะปรากฏสัญลักษณ์รูปแว่นขยายบนเอกสารที่แถบชื่อเรื่องและแถบงาน
+      ซึ่งใช้ยืนยันได้ว่าเป็นโปรแกรมที่ถูกต้อง</li>
+  </ol>
+
+  <figure class="narrow">
+    <img src="images/13_app_icon.png" alt="สัญลักษณ์ของโปรแกรมที่ขนาดต่าง ๆ ห้าขนาด">
+    <figcaption>ภาพที่ 6 — สัญลักษณ์ของโปรแกรมที่ขนาด 16, 24, 32, 48 และ 64 จุด</figcaption>
+  </figure>
+
+  <h3>3.3 หน้าจอเมื่อเปิดโปรแกรมครั้งแรก</h3>
+  <figure class="shot">
+    <img src="images/01_first_run.png" alt="หน้าจอของโปรแกรมเมื่อเปิดใช้งานครั้งแรก">
+    <figcaption>ภาพที่ 7 — หน้าจอเมื่อเปิดโปรแกรมครั้งแรก ยังไม่ได้เลือกโฟลเดอร์</figcaption>
+  </figure>
+  <p>
+    ในการเปิดใช้งานครั้งแรก ช่องค้นหาจะยังไม่เปิดให้ใช้งาน
+    เนื่องจากโปรแกรมยังไม่ทราบว่าผู้ใช้ประสงค์จะค้นหาภายในโฟลเดอร์ใด
+    ให้เลือกปุ่ม <b>เลือกโฟลเดอร์…</b> ที่กึ่งกลางหน้าจอเพื่อกำหนดขอบเขตการค้นหาก่อน
+  </p>
+  <div class="note">
+    <b>ตำแหน่งจัดเก็บข้อมูลของโปรแกรม</b>
+    โปรแกรมจัดเก็บดัชนีค้นหา ค่าที่ตั้งไว้ และบันทึกการทำงานไว้ที่
+    <code>%LOCALAPPDATA%\Advance File Search\</code>
+    ซึ่งเป็นพื้นที่ของผู้ใช้แต่ละราย มิได้เก็บไว้ในโฟลเดอร์โปรแกรม
+    ดังนั้นการลบโฟลเดอร์โปรแกรมจึงไม่ทำให้ดัชนีหายไป
+    และผู้ใช้แต่ละรายบนเครื่องเดียวกันจะมีดัชนีแยกจากกัน
+  </div>
+
+  <h3>3.4 การถอนการติดตั้ง</h3>
+  <p>
+    ให้ลบโฟลเดอร์โปรแกรมทิ้ง และหากประสงค์จะลบข้อมูลที่โปรแกรมสร้างขึ้นด้วย
+    ให้ลบโฟลเดอร์ <code>%LOCALAPPDATA%\Advance File Search\</code>
+    ซึ่งเข้าถึงได้โดยสะดวกจากเมนู <b>สถานะดัชนี → เปิดโฟลเดอร์ข้อมูลโปรแกรม</b>
+    การลบข้อมูลดังกล่าวไม่กระทบต่อเอกสารต้นฉบับของผู้ใช้แต่อย่างใด
+  </p>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s4">
+  <h2><span class="n">4</span> ส่วนประกอบของหน้าจอหลัก</h2>
+
+  <p>
+    หน้าจอหลักประกอบด้วยส่วนสำคัญสี่ส่วน เรียงจากบนลงล่างตามลำดับการใช้งาน
+    เพื่อความชัดเจนในการอธิบาย คู่มือฉบับนี้แยกอธิบายทีละส่วน
+    โดยแต่ละส่วนมีภาพประกอบและหมายเลขกำกับของตนเอง
+  </p>
+
+  <figure class="shot">
+    <img src="images/04_main_screen.png" alt="ภาพรวมหน้าจอหลักขณะแสดงผลการค้นหา">
+    <figcaption>ภาพที่ 8 — ภาพรวมหน้าจอหลักขณะแสดงผลการค้นหา</figcaption>
+  </figure>
+
+  <div class="grid two">
+    <div class="card accent">
+      <h4>ส่วนที่ 1 — แถบด้านบน</h4>
+      <p>สำหรับเลือกโฟลเดอร์ ตรวจสอบสถานะดัชนี และเข้าถึงเมนูต่าง ๆ (หัวข้อ 4.1)</p>
+    </div>
+    <div class="card violet">
+      <h4>ส่วนที่ 2 — แถบค้นหา</h4>
+      <p>สำหรับพิมพ์คำค้น กำหนดขอบเขต และเรียงลำดับผลลัพธ์ (หัวข้อ 4.2)</p>
+    </div>
+    <div class="card green">
+      <h4>ส่วนที่ 3 — ผลลัพธ์และรายละเอียด</h4>
+      <p>แสดงรายการแฟ้มที่พบ ข้อความที่ตรงกัน และข้อมูลของแฟ้ม (หัวข้อ 4.3)</p>
+    </div>
+    <div class="card amber">
+      <h4>ส่วนที่ 4 — แถบคำสั่งด้านล่าง</h4>
+      <p>สำหรับเปิดแฟ้ม เปิดโฟลเดอร์ และคัดลอกเส้นทางแฟ้ม (หัวข้อ 4.4)</p>
+    </div>
+  </div>
+
+  <h3>4.1 ส่วนที่ 1 — แถบด้านบน</h3>
+  <figure class="shot">
+    <img src="images/20_area_top.png" alt="แถบด้านบนของหน้าจอ พร้อมหมายเลขกำกับหกจุด">
+    <figcaption>ภาพที่ 9 — แถบด้านบน พร้อมหมายเลขกำกับ</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ช่องแสดงโฟลเดอร์ที่ค้น</b><span>
+      แสดงโฟลเดอร์ที่กำลังใช้งานอยู่ และเก็บรายการโฟลเดอร์ที่เคยใช้ไว้ให้เลือกสลับได้ทันที
+      การเปลี่ยนค่าที่ช่องนี้เท่ากับการเปลี่ยนขอบเขตการค้นหาทั้งหมด</span></li>
+    <li><b>ปุ่มเลือกโฟลเดอร์…</b><span>
+      เปิดกล่องโต้ตอบของ Windows เพื่อเลือกโฟลเดอร์หรือไดรฟ์ภายในเครื่อง
+      โปรแกรมจะปฏิเสธตำแหน่งที่อยู่บนเครือข่ายพร้อมแจ้งเหตุผล</span></li>
+    <li><b>แถบแสดงสถานะดัชนี</b><span>
+      แจ้งว่าดัชนีพร้อมใช้งานหรือไม่ มีจำนวนกี่แฟ้ม และปรับปรุงล่าสุดเมื่อใด
+      หากจำนวนแฟ้มไม่ตรงกับความเป็นจริง แสดงว่าถึงเวลาปรับปรุงดัชนี</span></li>
+    <li><b>เมนูสถานะดัชนี</b><span>
+      รวมคำสั่งทั้งหมดที่เกี่ยวกับดัชนีไว้ในเมนูเดียว รายละเอียดอยู่ในหัวข้อ 5.2</span></li>
+    <li><b>ปุ่มตั้งค่า</b><span>
+      เปิดกล่องตั้งค่าซึ่งแบ่งเป็นสามแท็บ รายละเอียดอยู่ในหัวข้อ 5.3</span></li>
+    <li><b>ปุ่มคู่มือการใช้งาน</b><span>
+      เปิดคู่มือฉบับนี้ด้วยเว็บเบราว์เซอร์ที่ติดตั้งอยู่ในเครื่อง
+      คู่มือเป็นแฟ้มในเครื่องทั้งหมด จึงเปิดอ่านได้แม้ไม่ได้เชื่อมต่ออินเทอร์เน็ต</span></li>
+  </ul>
+
+  <h3>4.2 ส่วนที่ 2 — แถบค้นหา</h3>
+  <figure class="shot">
+    <img src="images/21_area_search.png" alt="แถบค้นหาและแถบสรุปผลลัพธ์ พร้อมหมายเลขกำกับหกจุด">
+    <figcaption>ภาพที่ 10 — แถบค้นหาและแถบสรุปผลลัพธ์ พร้อมหมายเลขกำกับ</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ช่องคำค้น</b><span>
+      พิมพ์คำหรือวลีที่ต้องการค้นหา ใช้เครื่องหมายอัญประกาศเพื่อค้นทั้งวลี
+      ใช้เครื่องหมาย <code>*</code> แทนอักขระจำนวนเท่าใดก็ได้
+      และ <code>?</code> แทนอักขระหนึ่งตัว กดสัญลักษณ์กากบาทท้ายช่องเพื่อล้างคำค้น</span></li>
+    <li><b>ปุ่มค้นหา</b><span>
+      เริ่มการค้นหา หากยังไม่มีดัชนีของโฟลเดอร์นี้ โปรแกรมจะจัดทำดัชนีให้ก่อนโดยอัตโนมัติ
+      แล้วจึงค้นหาต่อให้เอง หากมีดัชนีอยู่แล้วจะแสดงผลทันที
+      พร้อมตรวจหาแฟ้มที่เปลี่ยนแปลงในเบื้องหลัง</span></li>
+    <li><b>ขอบเขตการค้น</b><span>
+      กำหนดว่าจะค้นเฉพาะชื่อแฟ้ม เฉพาะเนื้อหา หรือทั้งสองอย่าง
+      การค้นเฉพาะชื่อแฟ้มให้ผลเร็วที่สุด เนื่องจากใช้ดัชนีคนละชุดกับเนื้อหา</span></li>
+    <li><b>ตัวกรองขั้นสูง</b><span>
+      พับเก็บไว้โดยปริยาย เมื่อเลือกจะกางแผงตัวเลือกเพิ่มเติม รายละเอียดอยู่ในหัวข้อ 5.4</span></li>
+    <li><b>จำนวนผลลัพธ์และระยะเวลาที่ใช้</b><span>
+      แจ้งจำนวนแฟ้มที่พบและระยะเวลาที่ใช้ค้นหาเป็นมิลลิวินาที
+      หากผลลัพธ์ถูกจำกัดจำนวนไว้ จะมีข้อความแจ้งไว้ที่ตำแหน่งนี้เช่นกัน</span></li>
+    <li><b>การเรียงลำดับผลลัพธ์</b><span>
+      เลือกได้ระหว่าง ความเกี่ยวข้อง (ค่าโดยปริยาย) ชื่อแฟ้ม ขนาด
+      วันที่แก้ไข วันที่สร้าง และชนิดของแฟ้ม</span></li>
+  </ul>
+
+  <h3>4.3 ส่วนที่ 3 — ตารางผลลัพธ์และแผงรายละเอียด</h3>
+  <figure class="shot">
+    <img src="images/22_area_results.png" alt="ตารางผลลัพธ์และแผงรายละเอียด พร้อมหมายเลขกำกับสามจุด">
+    <figcaption>ภาพที่ 11 — ตารางผลลัพธ์และแผงรายละเอียด พร้อมหมายเลขกำกับ</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ตารางผลลัพธ์</b><span>
+      แสดงหนึ่งแถวต่อหนึ่งแฟ้ม เรียงตามเกณฑ์ที่เลือกไว้
+      เลือกแถวใดแถวหนึ่งเพื่อดูรายละเอียดทางด้านขวา
+      และกดลูกศรหน้าแถวเพื่อกางดูทุกตำแหน่งที่พบภายในแฟ้มนั้น</span></li>
+    <li><b>กล่องข้อความที่ตรงกัน</b><span>
+      แสดงข้อความจริงจากเอกสารบริเวณที่พบคำค้น ประมาณ 2–3 บรรทัด
+      พร้อมแรเงาเน้นคำที่ตรงกัน และระบุตำแหน่งในเอกสารไว้ด้านบน
+      ข้อความนี้แสดงเป็นข้อความล้วนเสมอ จึงปลอดภัยแม้เอกสารมีข้อความลักษณะเป็นรหัสคำสั่ง</span></li>
+    <li><b>ข้อมูลของแฟ้ม</b><span>
+      แสดงเส้นทางเต็มของแฟ้ม ขนาด วันที่สร้าง วันที่แก้ไข และแหล่งที่ตรงกัน
+      (ชื่อแฟ้ม เนื้อหา หรือทั้งสองอย่าง) เส้นทางที่ยาวจะถูกย่อที่ขอบโฟลเดอร์
+      และแสดงเต็มเมื่อนำตัวชี้ไปวางค้างไว้</span></li>
+  </ul>
+
+  <h4>คอลัมน์ทั้งหกของตารางผลลัพธ์</h4>
+  <figure class="shot">
+    <img src="images/05_result_table.png" alt="ตารางผลลัพธ์พร้อมหมายเลขกำกับหกคอลัมน์">
+    <figcaption>ภาพที่ 12 — คอลัมน์ทั้งหกของตารางผลลัพธ์</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ชื่อไฟล์</b><span>ชื่อแฟ้มพร้อมแรเงาเน้นส่วนที่ตรงกับคำค้น แฟ้มที่ไม่พบแล้วจะแสดงด้วยเส้นขีดฆ่า</span></li>
+    <li><b>ข้อความที่ตรงกัน</b><span>ข้อความจากภายในเอกสารบริเวณที่พบคำค้น พร้อมแรเงาเน้น</span></li>
+    <li><b>ชนิด</b><span>ชนิดของแฟ้มโดยย่อ เช่น PDF, DOCX, XLSX, TXT</span></li>
+    <li><b>ขนาด</b><span>ขนาดของแฟ้มในหน่วยที่อ่านเข้าใจได้</span></li>
+    <li><b>วันที่แก้ไข</b><span>วันและเวลาที่แฟ้มถูกแก้ไขล่าสุดตามที่ระบบแฟ้มบันทึกไว้</span></li>
+    <li><b>เปิด</b><span>ปุ่มสัญลักษณ์สองปุ่มประจำแถว ปุ่มซ้ายรูปโฟลเดอร์สำหรับเปิด File Explorer ไปยังโฟลเดอร์ที่เก็บแฟ้มนั้น ปุ่มขวารูปเอกสารสำหรับเปิดแฟ้มนั้นทันที (ดูหัวข้อ 6.5)</span></li>
+  </ul>
+
+  <h3>4.4 ส่วนที่ 4 — แถบคำสั่งด้านล่าง</h3>
+  <figure class="shot">
+    <img src="images/23_area_actions.png" alt="แถบคำสั่งด้านล่าง พร้อมหมายเลขกำกับสี่จุด">
+    <figcaption>ภาพที่ 13 — แถบคำสั่งด้านล่าง พร้อมหมายเลขกำกับ</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ปุ่มเปิดไฟล์</b><span>
+      เปิดเอกสารที่เลือกด้วยโปรแกรมที่ระบบกำหนดไว้สำหรับชนิดแฟ้มนั้น
+      หากแฟ้มถูกย้ายหรือลบไปแล้ว ปุ่มนี้จะถูกปิดการใช้งานพร้อมแสดงคำเตือน</span></li>
+    <li><b>ปุ่มเปิดโฟลเดอร์</b><span>
+      เปิด File Explorer ไปยังโฟลเดอร์ที่เก็บแฟ้ม พร้อมเลือกแฟ้มนั้นไว้ให้</span></li>
+    <li><b>ปุ่มคัดลอกพาธ</b><span>
+      คัดลอกเส้นทางเต็มของแฟ้มไปยังคลิปบอร์ด เพื่อนำไปวางในเอกสารหรือจดหมายอิเล็กทรอนิกส์</span></li>
+    <li><b>คำอธิบายสัญลักษณ์แทน</b><span>
+      ข้อความเตือนความจำเกี่ยวกับการใช้ <code>*</code> <code>?</code> และเครื่องหมายอัญประกาศ
+      แสดงไว้ตลอดเวลาเพื่อให้ผู้ใช้ไม่ต้องเปิดคู่มือซ้ำ</span></li>
+  </ul>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s5">
+  <h2><span class="n">5</span> หน้าจอย่อยและกล่องโต้ตอบ</h2>
+
+  <h3>5.1 กล่องแสดงความคืบหน้าการจัดทำดัชนี</h3>
+  <figure class="shot narrow">
+    <img src="images/03_indexing.png" alt="กล่องแสดงความคืบหน้าการจัดทำดัชนี พร้อมหมายเลขกำกับสี่จุด">
+    <figcaption>ภาพที่ 14 — กล่องแสดงความคืบหน้าขณะจัดทำดัชนี</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ขั้นตอนที่กำลังดำเนินการ</b><span>
+      แจ้งว่าขณะนี้อยู่ระหว่างการสำรวจแฟ้ม การอ่านเอกสาร หรือการปิดงาน</span></li>
+    <li><b>แถบความคืบหน้า</b><span>
+      แสดงสัดส่วนที่ดำเนินการแล้วเมื่อทราบจำนวนแฟ้มทั้งหมดแล้ว
+      ก่อนหน้านั้นจะแสดงเป็นแถบเคลื่อนไหวโดยไม่ระบุสัดส่วน</span></li>
+    <li><b>แฟ้มที่กำลังดำเนินการและตัวนับ</b><span>
+      แสดงจำนวนแฟ้มที่จัดทำดัชนีแล้ว ไม่มีการเปลี่ยนแปลง ถูกข้าม และไม่สำเร็จ</span></li>
+    <li><b>ปุ่มยกเลิก</b><span>
+      หยุดการทำงานที่ขอบเขตของแฟ้มถัดไป ดัชนีส่วนที่ทำไปแล้วยังใช้งานได้ตามปกติ
+      และไม่เกิดความเสียหายแก่ฐานข้อมูล</span></li>
+  </ul>
+  <p>
+    เมื่อดำเนินการเสร็จสิ้น หากมีแฟ้มที่อ่านไม่ได้ โปรแกรมจะแสดงรายการพร้อมเหตุผลที่เข้าใจได้
+    เช่น “แฟ้มถูกกำหนดรหัสผ่าน” “ไม่พบข้อความที่ค้นหาได้ อาจเป็น PDF จากการสแกน”
+    หรือ “แฟ้มเสียหาย” ซึ่งถือเป็นผลลัพธ์ตามปกติ มิใช่ความผิดพลาดของโปรแกรม
+  </p>
+
+  <h3>5.2 เมนูสถานะดัชนี</h3>
+  <figure class="narrow">
+    <img src="images/11_index_menu_callouts.png" alt="เมนูสถานะดัชนี พร้อมหมายเลขกำกับห้ารายการ">
+    <figcaption>ภาพที่ 15 — คำสั่งทั้งห้าในเมนูสถานะดัชนี</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>อัปเดตดัชนี</b><span>
+      ตรวจหาแฟ้มที่เพิ่มขึ้น ถูกแก้ไข หรือถูกลบ แล้วปรับปรุงเฉพาะส่วนที่เปลี่ยนแปลง
+      เป็นคำสั่งที่ใช้บ่อยที่สุดและใช้เวลาน้อยที่สุด
+      โดยปกติผู้ใช้ไม่จำเป็นต้องสั่งเอง เนื่องจากการค้นหาจะดำเนินการให้อยู่แล้ว</span></li>
+    <li><b>สร้างดัชนีใหม่ทั้งหมด</b><span>
+      อ่านเอกสารทุกแฟ้มใหม่ทั้งหมดโดยไม่พิจารณาลายนิ้วมือแฟ้ม
+      ใช้เมื่อสงสัยว่าดัชนีไม่ตรงกับความเป็นจริง
+      หรือเมื่อเปลี่ยนค่าตั้งที่มีผลต่อสิ่งที่ถูกอ่านเข้าดัชนี</span></li>
+    <li><b>ลบดัชนี</b><span>
+      ลบเฉพาะดัชนีของโฟลเดอร์ที่เลือกไว้ <b>ไม่กระทบต่อเอกสารต้นฉบับ</b>
+      และสร้างขึ้นใหม่ได้เสมอเมื่อต้องการ</span></li>
+    <li><b>เปิดโฟลเดอร์ข้อมูลโปรแกรม</b><span>
+      เปิดโฟลเดอร์ <code>%LOCALAPPDATA%\Advance File Search\</code>
+      ซึ่งเก็บดัชนี ค่าที่ตั้งไว้ และบันทึกการทำงาน
+      มีประโยชน์เมื่อต้องส่งบันทึกการทำงานให้ผู้ดูแลระบบตรวจสอบ</span></li>
+    <li><b>เกี่ยวกับโปรแกรม</b><span>
+      แสดงรุ่นของโปรแกรม คำแถลงความเป็นส่วนตัว ข้อจำกัดที่ควรทราบ
+      และสัญญาอนุญาตของซอฟต์แวร์ที่นำมาใช้ประกอบ รายละเอียดอยู่ในหัวข้อ 5.5</span></li>
+  </ul>
+
+  <h3>5.3 หน้าจอการตั้งค่า</h3>
+  <p>
+    กล่องตั้งค่าแบ่งออกเป็นสามแท็บตามลักษณะของค่าที่ตั้ง
+    การแก้ไขในกล่องนี้กระทำกับสำเนาของค่าที่ตั้งไว้เสมอ
+    หากเลือก <b>ยกเลิก</b> ค่าจะไม่เปลี่ยนแปลงแต่อย่างใด
+  </p>
+
+  <h4>5.3.1 แท็บ “การสร้างดัชนี”</h4>
+  <figure class="shot narrow">
+    <img src="images/10_settings_callouts.png" alt="แท็บการสร้างดัชนีของกล่องตั้งค่า พร้อมหมายเลขกำกับห้าจุด">
+    <figcaption>ภาพที่ 16 — แท็บ “การสร้างดัชนี”</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>แถบแท็บทั้งสาม</b><span>
+      การสร้างดัชนี · การค้นหา · ความเป็นส่วนตัวและบันทึก</span></li>
+    <li><b>ข้ามไฟล์ที่ใหญ่กว่า (เมกะไบต์)</b><span>
+      ค่าโดยปริยายคือ 500 เมกะไบต์ แฟ้มที่ใหญ่กว่านี้จะถูกข้าม
+      เพื่อมิให้การจัดทำดัชนีใช้เวลานานผิดปกติ ปรับได้สูงสุด 4,096 เมกะไบต์</span></li>
+    <li><b>จัดดัชนีไฟล์ที่ซ่อนอยู่</b><span>
+      ปิดไว้โดยปริยาย เมื่อเปิดใช้งาน แฟ้มที่ตั้งคุณสมบัติซ่อนไว้จะถูกอ่านด้วย
+      ทั้งนี้ แฟ้มระบบจะถูกข้ามเสมอไม่ว่าตั้งค่าอย่างไร</span></li>
+    <li><b>จัดดัชนีไฟล์ .md, .csv และ .log ด้วย</b><span>
+      เปิดรับชนิดแฟ้มข้อความเพิ่มเติมนอกเหนือจาก <code>.txt</code>
+      เมื่อเปลี่ยนค่านี้ต้องสร้างดัชนีใหม่จึงจะเห็นผล</span></li>
+    <li><b>จัดดัชนีหัวกระดาษและท้ายกระดาษของ DOCX</b><span>
+      เปิดไว้โดยปริยาย เนื่องจากเลขที่หนังสือและชื่อหน่วยงานในเอกสารราชการไทย
+      มักปรากฏอยู่ในส่วนหัวกระดาษหรือท้ายกระดาษ</span></li>
+  </ul>
+
+  <h4>5.3.2 แท็บ “การค้นหา”</h4>
+  <figure class="shot narrow">
+    <img src="images/24_settings_search.png" alt="แท็บการค้นหาของกล่องตั้งค่า พร้อมหมายเลขกำกับสี่จุด">
+    <figcaption>ภาพที่ 17 — แท็บ “การค้นหา”</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>จำนวนผลลัพธ์ที่โหลดต่อครั้ง</b><span>
+      กำหนดจำนวนแฟ้มสูงสุดที่แสดงต่อการค้นหาหนึ่งครั้ง ค่าโดยปริยายคือ 200 แฟ้ม
+      การตั้งค่าสูงเกินไปทำให้ตารางแสดงผลช้าลงโดยไม่จำเป็น</span></li>
+    <li><b>จำนวนตำแหน่งที่แสดงต่อไฟล์</b><span>
+      กำหนดจำนวนตำแหน่งที่พบซึ่งจะแสดงเมื่อกางแถวย่อยของแต่ละแฟ้ม
+      ค่าโดยปริยายคือ 10 ตำแหน่ง</span></li>
+    <li><b>ค้นหาใน (ขอบเขตโดยปริยาย)</b><span>
+      กำหนดว่าเมื่อเปิดโปรแกรมขึ้นใหม่ ให้เริ่มต้นด้วยการค้นชื่อแฟ้ม เนื้อหา หรือทั้งสองอย่าง</span></li>
+    <li><b>จดจำตัวกรองขั้นสูงไว้ใช้ครั้งถัดไป</b><span>
+      เมื่อเปิดใช้งาน โปรแกรมจะจดจำค่าตัวกรองที่ผู้ใช้ตั้งไว้
+      แล้วนำกลับมาใช้อีกในการเปิดโปรแกรมครั้งถัดไป
+      เหมาะกับผู้ที่ใช้เงื่อนไขเดิมเป็นประจำ</span></li>
+  </ul>
+
+  <h4>5.3.3 แท็บ “ความเป็นส่วนตัวและบันทึก”</h4>
+  <figure class="shot narrow">
+    <img src="images/25_settings_privacy.png" alt="แท็บความเป็นส่วนตัวและบันทึก พร้อมหมายเลขกำกับสามจุด">
+    <figcaption>ภาพที่ 18 — แท็บ “ความเป็นส่วนตัวและบันทึก”</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ภาษาของหน้าจอ</b><span>
+      เลือกได้ระหว่างภาษาไทยและภาษาอังกฤษ การเปลี่ยนภาษามีผลกับข้อความทุกส่วนของโปรแกรม</span></li>
+    <li><b>ระดับของบันทึกการทำงาน</b><span>
+      กำหนดความละเอียดของบันทึก ตั้งแต่ระดับที่บันทึกเฉพาะข้อผิดพลาด
+      ไปจนถึงระดับที่บันทึกรายละเอียดสำหรับการตรวจสอบปัญหา</span></li>
+    <li><b>บันทึกพาธไฟล์ลงในบันทึก</b><span>
+      เปิดไว้โดยปริยาย เพื่อช่วยในการตรวจสอบปัญหาที่เกิดกับแฟ้มใดแฟ้มหนึ่ง
+      หากหน่วยงานมีข้อกำหนดที่เข้มงวดเป็นพิเศษ ให้ปิดตัวเลือกนี้
+      บันทึกการทำงานจะไม่มีชื่อแฟ้มหรือเส้นทางของเอกสารปรากฏอยู่เลย
+      ทั้งนี้ <b>ไม่ว่าจะตั้งค่าอย่างไร บันทึกการทำงานจะไม่มีเนื้อหาของเอกสารและไม่มีคำค้นของผู้ใช้</b></span></li>
+  </ul>
+  <p>
+    แท็บนี้ยังมีปุ่ม <b>เปิดโฟลเดอร์บันทึก</b> สำหรับเปิดตำแหน่งที่เก็บบันทึกการทำงาน
+    และปุ่ม <b>ลบบันทึก</b> สำหรับลบบันทึกทั้งหมดทิ้ง
+    ซึ่งไม่กระทบต่อดัชนีค้นหาและเอกสารของผู้ใช้แต่อย่างใด
+  </p>
+  <div class="warn">
+    <b>ค่าตั้งที่ต้องจัดทำดัชนีใหม่</b>
+    ค่าที่มีผลต่อ “สิ่งที่ถูกอ่านเข้าไปในดัชนี” เช่น ชนิดแฟ้มเพิ่มเติม
+    หรือการอ่านหัวกระดาษและท้ายกระดาษ จะมีข้อความแจ้งเตือนว่าต้องสร้างดัชนีใหม่จึงจะเห็นผล
+    เนื่องจากดัชนีที่มีอยู่เดิมจัดทำขึ้นภายใต้ค่าตั้งเดิม
+  </div>
+
+  <h3>5.4 แผงตัวกรองขั้นสูง</h3>
+  <figure class="shot">
+    <img src="images/07_filters_callouts.png" alt="แผงตัวกรองขั้นสูง พร้อมหมายเลขกำกับหกจุด">
+    <figcaption>ภาพที่ 19 — ตัวเลือกในแผงตัวกรองขั้นสูง</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ตรงตัวพิมพ์เล็ก–ใหญ่</b><span>
+      เมื่อเปิดใช้งาน คำว่า <code>Budget</code> จะไม่ตรงกับ <code>budget</code>
+      มีผลกับภาษาอังกฤษเป็นหลัก</span></li>
+    <li><b>วลีตรงทั้งหมด</b><span>
+      กำหนดให้ทุกคำต้องเรียงติดกันตามลำดับที่พิมพ์ ให้ผลเช่นเดียวกับการใส่เครื่องหมายอัญประกาศ</span></li>
+    <li><b>ทั้งคำ</b><span>
+      ค้นคำว่า <code>budget</code> จะไม่ตรงกับ <code>prebudgeting</code>
+      มีประโยชน์มากเมื่อค้นคำภาษาอังกฤษที่สั้น</span></li>
+    <li><b>ช่วงวันที่แก้ไข</b><span>
+      จำกัดผลลัพธ์เฉพาะแฟ้มที่แก้ไขภายในช่วงเวลาที่กำหนด
+      หากไม่กำหนดจะเว้นว่างไว้ มิได้แสดงวันที่สมมุติแต่อย่างใด</span></li>
+    <li><b>ช่วงขนาดของแฟ้ม</b><span>กำหนดขนาดต่ำสุดและสูงสุดเป็นกิโลไบต์</span></li>
+    <li><b>โฟลเดอร์ย่อย</b><span>
+      จำกัดผลลัพธ์ให้อยู่ภายใต้โฟลเดอร์ย่อยที่ระบุเท่านั้น เช่น <code>งบประมาณ\2568</code></span></li>
+  </ul>
+  <p>
+    นอกจากนี้ยังมีตัวกรองชนิดของแฟ้ม สำหรับเลือกค้นเฉพาะ PDF, DOCX, XLSX หรือ TXT
+    ตัวกรองทั้งหมดทำงานร่วมกันในลักษณะ “และ” กล่าวคือ ผลลัพธ์ต้องเป็นไปตามทุกเงื่อนไขที่เปิดใช้งาน
+  </p>
+
+  <h3>5.5 กล่องเกี่ยวกับโปรแกรม</h3>
+  <figure class="shot narrow">
+    <img src="images/26_about.png" alt="กล่องเกี่ยวกับโปรแกรม แสดงแท็บความเป็นส่วนตัวและบันทึก">
+    <figcaption>ภาพที่ 20 — กล่องเกี่ยวกับโปรแกรม</figcaption>
+  </figure>
+  <p>
+    เข้าถึงได้จากเมนู <b>สถานะดัชนี → เกี่ยวกับโปรแกรม</b> ประกอบด้วยสามแท็บ ได้แก่
+  </p>
+  <ul>
+    <li><b>ความเป็นส่วนตัวและบันทึก</b> — คำแถลงว่าโปรแกรมประมวลผลเอกสารและคำค้นภายในเครื่องเท่านั้น
+      พร้อมแสดงตำแหน่งโฟลเดอร์ข้อมูลของโปรแกรม</li>
+    <li><b>ข้อจำกัดที่ทราบ</b> — ข้อจำกัดตามที่ระบุไว้ในหัวข้อที่ 9 ของคู่มือฉบับนี้</li>
+    <li><b>สัญญาอนุญาตของไลบรารีภายนอก</b> — รายการซอฟต์แวร์ที่นำมาใช้ประกอบและสัญญาอนุญาตของแต่ละรายการ</li>
+  </ul>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s6">
+  <h2><span class="n">6</span> ฟังก์ชันการทำงาน</h2>
+
+  <h3>6.1 การค้นหาชื่อแฟ้มและเนื้อหาเอกสาร</h3>
+  <p>
+    ฟังก์ชันหลักของโปรแกรม ผู้ใช้พิมพ์คำค้นแล้วเลือกขอบเขตได้สามลักษณะ ดังนี้
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ขอบเขต</th><th>ค้นจากอะไร</th><th>เหมาะกับกรณีใด</th></tr></thead>
+      <tbody>
+        <tr><td>ชื่อไฟล์และเนื้อหา</td><td>ทั้งชื่อแฟ้มและข้อความภายในเอกสาร</td><td>ใช้เป็นค่าโดยปริยาย เหมาะกับการค้นหาทั่วไป</td></tr>
+        <tr><td>ชื่อไฟล์เท่านั้น</td><td>ชื่อแฟ้มและเส้นทางย่อย</td><td>เมื่อจำชื่อแฟ้มได้ และต้องการผลลัพธ์ที่กระชับและเร็วที่สุด</td></tr>
+        <tr><td>เนื้อหาเท่านั้น</td><td>ข้อความภายในเอกสาร</td><td>เมื่อจำได้เพียงข้อความภายใน และไม่ต้องการให้ชื่อแฟ้มมารบกวนผลลัพธ์</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>6.2 การค้นหาภาษาไทย</h3>
+  <figure class="plain">
+    <img src="images/fig_thai.svg" alt="แผนภาพอธิบายการค้นหาคำที่อยู่กลางข้อความภาษาไทยซึ่งไม่เว้นวรรค">
+    <figcaption>ภาพที่ 21 — การค้นหาคำที่อยู่กลางข้อความภาษาไทยซึ่งไม่มีการเว้นวรรค</figcaption>
+  </figure>
+  <p>
+    ภาษาไทยไม่มีการเว้นวรรคระหว่างคำ ระบบค้นหาทั่วไปจึงมักไม่พบคำที่อยู่กลางข้อความ
+    โปรแกรมนี้ใช้วิธีจัดทำดัชนีแบบ <b>สามอักขระต่อเนื่อง (trigram)</b>
+    ซึ่งทำให้ค้นหาข้อความย่อยได้ทุกตำแหน่ง ไม่ว่าคำนั้นจะอยู่ต้น กลาง หรือท้ายข้อความ
+  </p>
+  <figure class="shot">
+    <img src="images/09_thai_search.png" alt="ผลการค้นหาคำภาษาไทยในเอกสารตัวอย่าง">
+    <figcaption>ภาพที่ 22 — ผลการค้นหาคำว่า “ครุภัณฑ์” ซึ่งอยู่กลางข้อความภาษาไทย</figcaption>
+  </figure>
+  <p>
+    ทั้งนี้ โปรแกรมแยกเลขไทย (๒๕๖๘) กับเลขอารบิก (2568) ออกจากกัน
+    หากไม่แน่ใจว่าเอกสารใช้เลขแบบใด ควรทดลองค้นทั้งสองแบบ
+  </p>
+
+  <h3>6.3 การใช้สัญลักษณ์แทนและการค้นทั้งวลี</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>รูปแบบที่พิมพ์</th><th>ความหมาย</th><th>ตัวอย่างผลลัพธ์</th></tr></thead>
+      <tbody>
+        <tr><td><code>งบประมาณ</code></td><td>ค้นคำนี้ในทุกตำแหน่งของข้อความ</td><td>พบทั้งที่อยู่ต้นและกลางข้อความ</td></tr>
+        <tr><td><code>"งบประมาณครุภัณฑ์"</code></td><td>ค้นทั้งวลี โดยคำต้องเรียงติดกัน</td><td>ไม่พบเอกสารที่มีสองคำนี้อยู่คนละที่</td></tr>
+        <tr><td><code>bud*et</code></td><td><code>*</code> แทนอักขระจำนวนเท่าใดก็ได้</td><td>พบ <code>budget</code> และ <code>budgeting set</code></td></tr>
+        <tr><td><code>need?e</code></td><td><code>?</code> แทนอักขระหนึ่งตัวพอดี</td><td>พบ <code>needle</code> แต่ไม่พบ <code>needdle</code></td></tr>
+        <tr><td><code>รายงาน 2568</code></td><td>หลายคำ โดยไม่ต้องเรียงติดกัน</td><td>พบเอกสารที่มีทั้งสองคำ แม้อยู่คนละบรรทัด</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <b>ข้อพึงระวังเรื่องคำค้นที่สั้น</b>
+    คำค้นที่สั้นกว่าสามอักขระไม่สามารถใช้ดัชนีได้ตามหลักการของวิธี trigram
+    โปรแกรมจะเปลี่ยนไปใช้การอ่านตรวจแบบจำกัดจำนวนแถวแทน
+    ผลลัพธ์ยังถูกต้อง แต่ใช้เวลามากกว่าปกติเมื่อเอกสารมีจำนวนมาก
+  </div>
+
+  <h3>6.4 การแสดงตำแหน่งที่พบภายในเอกสาร</h3>
+  <figure class="plain">
+    <img src="images/fig_locations.svg" alt="ตารางแสดงรูปแบบการรายงานตำแหน่งที่พบของเอกสารแต่ละชนิด">
+    <figcaption>ภาพที่ 23 — รูปแบบการรายงานตำแหน่งที่พบ แยกตามชนิดของเอกสาร</figcaption>
+  </figure>
+  <figure class="shot">
+    <img src="images/08_expanded_locations.png" alt="แถวผลลัพธ์ที่กางออกเพื่อแสดงทุกตำแหน่งที่พบ">
+    <figcaption>ภาพที่ 24 — กางแถวผลลัพธ์เพื่อดูทุกตำแหน่งที่พบภายในแฟ้มเดียวกัน</figcaption>
+  </figure>
+  <p>
+    เมื่อกดลูกศรหน้าแถวผลลัพธ์ โปรแกรมจะแสดงทุกตำแหน่งที่พบคำค้นภายในแฟ้มนั้น
+    พร้อมข้อความโดยรอบ ผู้ใช้จึงตัดสินใจได้ว่าจะเปิดเอกสารฉบับใด
+    และเมื่อเปิดแล้วควรไปที่หน้าใดหรือย่อหน้าใด
+    การดับเบิลคลิกที่ตำแหน่งใดก็ตามจะเป็นการเปิดเอกสารฉบับนั้น
+  </p>
+
+  <h3>6.5 การเปิดเอกสารและการเปิดโฟลเดอร์</h3>
+  <figure class="shot">
+    <img src="images/12_open_button.png" alt="แถวผลลัพธ์หนึ่งแถว พร้อมหมายเลขกำกับปุ่มสองปุ่ม">
+    <figcaption>ภาพที่ 25 — ปุ่มประจำแถวสองปุ่มในคอลัมน์สุดท้าย</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ปุ่มเปิดโฟลเดอร์</b><span>
+      ปุ่มสัญลักษณ์รูปโฟลเดอร์ ขนาด 30 × 24 จุด เมื่อเลือกจะเปิด File Explorer
+      ไปยังโฟลเดอร์ของแฟ้มนั้นพร้อมเลือกแฟ้มไว้ให้
+      รองรับชื่อโฟลเดอร์ภาษาไทยที่มีการเว้นวรรคได้อย่างถูกต้อง</span></li>
+    <li><b>ปุ่มเปิดไฟล์</b><span>
+      ปุ่มสัญลักษณ์รูปเอกสาร เมื่อเลือกจะเปิดแฟ้มนั้นด้วยโปรแกรมที่ระบบกำหนดไว้ทันที
+      โดยไม่ต้องเลือกแถวแล้วกดปุ่มที่แถบด้านล่าง
+      หากเครื่องยังไม่มีโปรแกรมสำหรับแฟ้มชนิดนั้น เช่น ไม่มี Microsoft Word สำหรับแฟ้ม
+      <code>.docx</code> ระบบจะเปิดหน้าต่าง <b>“เปิดด้วย” (Open with)</b> ของ Windows
+      ให้ผู้ใช้เลือกโปรแกรมเอง แทนที่จะแจ้งว่าเปิดไม่ได้</span></li>
+  </ul>
+  <p>
+    ทั้งสองปุ่มไม่ทำงานกับแถวย่อยซึ่งเป็นตำแหน่งที่พบ และไม่ทำงานกับแฟ้มที่ถูกลบไปแล้ว
+    เนื่องจากเป็นสัญลักษณ์ล้วน จึงมีคำอธิบายปรากฏเมื่อนำตัวชี้ไปวางค้างไว้
+  </p>
+  <p>
+    นอกจากปุ่มประจำแถวแล้ว ยังใช้ปุ่มที่แถบคำสั่งด้านล่างได้เช่นกัน (หัวข้อ 4.4)
+    โดยโปรแกรมเพียงส่งคำสั่งให้ระบบปฏิบัติการเป็นผู้เปิดแฟ้ม
+    มิได้เปิดหรือประมวลผลเอกสารด้วยตนเอง และไม่มีการเรียกใช้มาโครในเอกสารไม่ว่ากรณีใด
+  </p>
+
+  <h3>6.6 การจัดทำและปรับปรุงดัชนี</h3>
+  <p>
+    ดัชนีคือสำเนาข้อความที่สกัดจากเอกสาร จัดเก็บในรูปแบบที่ค้นหาได้รวดเร็ว
+    โปรแกรมจัดการดัชนีให้โดยอัตโนมัติเป็นหลัก ผู้ใช้จึงไม่จำเป็นต้องสั่งเอง
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>สถานการณ์</th><th>สิ่งที่โปรแกรมดำเนินการเมื่อกดค้นหา</th></tr></thead>
+      <tbody>
+        <tr><td>ยังไม่เคยจัดทำดัชนีของโฟลเดอร์นี้</td><td>จัดทำดัชนีให้ทันที พร้อมแสดงกล่องความคืบหน้า แล้วจึงค้นหาต่อให้เอง</td></tr>
+        <tr><td>มีดัชนีอยู่แล้ว</td><td>แสดงผลจากดัชนีทันที แล้วตรวจหาแฟ้มที่เปลี่ยนแปลงในเบื้องหลังโดยไม่รบกวนการใช้งาน</td></tr>
+        <tr><td>เพิ่งค้นหาไปเมื่อครู่</td><td>ไม่ตรวจซ้ำ เนื่องจากมีการหน่วงเวลาไว้ เพื่อมิให้สำรวจแฟ้มซ้ำโดยไม่จำเป็น</td></tr>
+        <tr><td>ผู้ใช้เพียงพิมพ์คำค้น ยังไม่กดค้นหา</td><td>ไม่มีการจัดทำดัชนีใด ๆ เกิดขึ้น</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    การปรับปรุงดัชนีอาศัย <b>ลายนิ้วมือของแฟ้ม</b> ซึ่งประกอบด้วยขนาดของแฟ้ม
+    เวลาที่แก้ไขล่าสุด และรุ่นของตัวอ่านเอกสาร แฟ้มที่ลายนิ้วมือไม่เปลี่ยนจะถูกข้ามไป
+    การปรับปรุงจึงใช้เวลาน้อยมากเมื่อเทียบกับการจัดทำครั้งแรก
+  </p>
+
+  <h3>6.7 การจัดลำดับและการเรียงผลลัพธ์</h3>
+  <p>
+    โดยปริยาย โปรแกรมเรียงผลลัพธ์ตาม <b>ความเกี่ยวข้อง</b> ซึ่งพิจารณาจาก
+    การตรงที่ชื่อแฟ้มซึ่งมีน้ำหนักมากกว่าการตรงที่เนื้อหา จำนวนครั้งที่พบภายในแฟ้มเดียวกัน
+    และความใหม่ของแฟ้มเป็นเกณฑ์ตัดสินเมื่อคะแนนเท่ากัน
+    ผู้ใช้เปลี่ยนไปเรียงตามชื่อแฟ้ม ขนาด วันที่แก้ไข วันที่สร้าง หรือชนิดของแฟ้มได้ตลอดเวลา
+  </p>
+
+  <h3>6.8 ปุ่มลัดบนแป้นพิมพ์</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ปุ่มลัด</th><th>หน้าที่</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td>ย้ายเคอร์เซอร์ไปที่ช่องค้นหา</td></tr>
+        <tr><td><kbd>Enter</kbd> ในช่องค้นหา</td><td>เริ่มการค้นหา</td></tr>
+        <tr><td><kbd>Enter</kbd> ในตารางผลลัพธ์</td><td>เปิดเอกสารที่เลือก</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd></td><td>เปิดโฟลเดอร์ของแฟ้มที่เลือก</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd></td><td>คัดลอกเส้นทางเต็มของแฟ้มที่เลือก</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></td><td>กางหรือพับแผงตัวกรองขั้นสูง</td></tr>
+        <tr><td><kbd>F5</kbd></td><td>ปรับปรุงดัชนี</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s7">
+  <h2><span class="n">7</span> ขั้นตอนการใช้งานทีละขั้น</h2>
+
+  <figure class="plain">
+    <img src="images/fig_workflow.svg" alt="แผนภาพขั้นตอนการใช้งานสี่ขั้นตอนหลัก">
+    <figcaption>ภาพที่ 26 — ขั้นตอนการใช้งานโดยสรุปสี่ขั้นตอน</figcaption>
+  </figure>
+
+  <h3>7.1 การใช้งานครั้งแรกตั้งแต่ต้นจนจบ</h3>
+  <ol class="steps">
+    <li><b>เปิดโปรแกรม</b>
+      ดับเบิลคลิกที่แฟ้ม <code>AdvanceFileSearch.exe</code> ในโฟลเดอร์โปรแกรม
+      หน้าจอต้อนรับจะปรากฏขึ้นพร้อมคำแนะนำสามขั้นตอน</li>
+
+    <li><b>เลือกโฟลเดอร์ที่ต้องการค้นหา</b>
+      เลือกปุ่ม <b>เลือกโฟลเดอร์…</b> (หมายเลข 2 ในภาพที่ 9)
+      แล้วเลือกโฟลเดอร์หรือไดรฟ์ภายในเครื่อง เช่น <code>D:\เอกสารราชการ</code>
+      <br>ควรเลือกโฟลเดอร์ที่ครอบคลุมเอกสารที่ต้องการค้นจริง
+      การเลือกทั้งไดรฟ์ทำให้การจัดทำดัชนีครั้งแรกใช้เวลานานโดยไม่จำเป็น</li>
+
+    <li><b>พิมพ์คำค้นแล้วกดปุ่มค้นหา</b>
+      พิมพ์คำที่ต้องการลงในช่องค้นหา (หมายเลข 1 ในภาพที่ 10)
+      แล้วกดปุ่ม <b>ค้นหา</b> หรือกดแป้น <kbd>Enter</kbd>
+      <br>ในการใช้งานครั้งแรก โปรแกรมจะจัดทำดัชนีให้ก่อนโดยอัตโนมัติ
+      โดยแสดงกล่องความคืบหน้าตามภาพที่ 14 ระหว่างนี้สามารถกดยกเลิกได้ตลอดเวลา</li>
+
+    <li><b>ตรวจดูผลลัพธ์</b>
+      เมื่อจัดทำดัชนีเสร็จ โปรแกรมจะค้นหาต่อให้เองและแสดงผลในตาราง
+      เลือกแถวใดแถวหนึ่งเพื่อดูข้อความที่ตรงกันทางด้านขวา
+      หรือกดลูกศรหน้าแถวเพื่อดูทุกตำแหน่งที่พบภายในแฟ้มนั้น</li>
+
+    <li><b>เปิดเอกสารหรือเปิดโฟลเดอร์</b>
+      เมื่อพบเอกสารที่ต้องการ เลือกปุ่ม <b>เปิดไฟล์</b> เพื่อเปิดเอกสาร
+      หรือเลือกปุ่มสัญลักษณ์โฟลเดอร์ในคอลัมน์สุดท้ายเพื่อเปิดตำแหน่งที่จัดเก็บ</li>
+
+    <li><b>ค้นหาครั้งต่อไป</b>
+      พิมพ์คำค้นใหม่แล้วกดค้นหาได้ทันที ไม่ต้องจัดทำดัชนีซ้ำ
+      โปรแกรมจะตรวจหาแฟ้มที่เปลี่ยนแปลงให้เองในเบื้องหลัง</li>
+  </ol>
+
+  <h3>7.2 การใช้งานตัวกรองขั้นสูงทีละขั้น</h3>
+  <figure class="shot">
+    <img src="images/07_filters.png" alt="หน้าจอขณะกางแผงตัวกรองขั้นสูง">
+    <figcaption>ภาพที่ 27 — หน้าจอขณะกางแผงตัวกรองขั้นสูง</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>กางแผงตัวกรอง</b>
+      เลือก <b>ตัวกรองขั้นสูง</b> (หมายเลข 4 ในภาพที่ 10) หรือกด
+      <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></li>
+    <li><b>กำหนดเงื่อนไขที่ต้องการ</b>
+      เช่น เลือกเฉพาะชนิด PDF กำหนดช่วงวันที่แก้ไขเป็นปีปัจจุบัน
+      และระบุโฟลเดอร์ย่อยเป็น <code>งบประมาณ</code></li>
+    <li><b>กดค้นหาอีกครั้ง</b>
+      ผลลัพธ์จะถูกจำกัดตามเงื่อนไขทั้งหมดที่เปิดใช้งานพร้อมกัน</li>
+    <li><b>ล้างเงื่อนไขเมื่อไม่ต้องการแล้ว</b>
+      ตัวกรองที่ยังเปิดค้างไว้จะมีผลกับการค้นหาครั้งถัดไปด้วย
+      หากผลลัพธ์น้อยผิดปกติ ให้ตรวจสอบว่ามีตัวกรองค้างอยู่หรือไม่</li>
+  </ol>
+
+  <h3>7.3 การปรับปรุงดัชนีเมื่อเอกสารเปลี่ยนแปลง</h3>
+  <ol class="steps">
+    <li><b>ตรวจสอบแถบสถานะดัชนี</b>
+      ดูจำนวนแฟ้มและเวลาที่ปรับปรุงล่าสุด (หมายเลข 3 ในภาพที่ 9)</li>
+    <li><b>เลือกคำสั่งอัปเดตดัชนี</b>
+      จากเมนู <b>สถานะดัชนี → อัปเดตดัชนี</b> หรือกดแป้น <kbd>F5</kbd>
+      โปรแกรมจะปรับปรุงเฉพาะแฟ้มที่เพิ่มขึ้น เปลี่ยนแปลง หรือถูกลบ</li>
+    <li><b>ใช้คำสั่งสร้างดัชนีใหม่ทั้งหมดเมื่อจำเป็น</b>
+      ในกรณีที่ผลการค้นหาไม่สอดคล้องกับเอกสารจริง
+      หรือหลังจากเปลี่ยนค่าตั้งที่มีผลต่อสิ่งที่ถูกอ่านเข้าดัชนี</li>
+  </ol>
+
+  <h3>7.4 การเปลี่ยนภาษาของหน้าจอ</h3>
+  <ol class="steps">
+    <li><b>เปิดกล่องตั้งค่า</b> เลือกปุ่ม <b>ตั้งค่า</b> (หมายเลข 5 ในภาพที่ 9)</li>
+    <li><b>ไปที่แท็บความเป็นส่วนตัวและบันทึก</b> แล้วเลือกภาษาที่ต้องการจากรายการ</li>
+    <li><b>เลือกปุ่มบันทึก</b> ข้อความบนหน้าจอจะเปลี่ยนเป็นภาษาที่เลือกทันที
+      โดยไม่ต้องเปิดโปรแกรมใหม่ และไม่กระทบต่อดัชนีที่จัดทำไว้แล้ว</li>
+  </ol>
+
+  <div class="tip">
+    <b>ข้อแนะนำสำหรับการใช้งานในหน่วยงาน</b>
+    ควรกำหนดโฟลเดอร์กลางของหน่วยงานให้ชัดเจน แล้วจัดทำดัชนีเฉพาะโฟลเดอร์นั้น
+    หากเอกสารมีจำนวนมาก ควรแยกเป็นหลายโฟลเดอร์ตามปีงบประมาณหรือตามกลุ่มงาน
+    แล้วสลับโฟลเดอร์ที่ช่องด้านบนเมื่อต้องการค้นคนละชุด
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s8">
+  <h2><span class="n">8</span> ขอบเขตของระบบ</h2>
+
+  <figure class="plain">
+    <img src="images/fig_scope.svg" alt="แผนภาพแสดงขอบเขตสิ่งที่ระบบทำได้และไม่ได้">
+    <figcaption>ภาพที่ 28 — ขอบเขตการทำงานของระบบโดยสรุป</figcaption>
+  </figure>
+
+  <h3>8.1 สิ่งที่ระบบทำได้</h3>
+  <ul>
+    <li>จัดทำดัชนีและค้นหาเอกสารประเภท PDF, DOCX, XLSX และ TXT
+      (เพิ่ม <code>.md</code>, <code>.csv</code> และ <code>.log</code> ได้จากหน้าตั้งค่า)</li>
+    <li>ค้นหาได้ทั้งภาษาไทยและภาษาอังกฤษ ทั้งในชื่อแฟ้ม ชื่อโฟลเดอร์ และเนื้อหาเอกสาร</li>
+    <li>รายงานตำแหน่งที่พบอย่างเจาะจงตามชนิดของเอกสาร</li>
+    <li>ปรับปรุงดัชนีเฉพาะส่วนที่เปลี่ยนแปลง รวมถึงตรวจพบแฟ้มที่ถูกเพิ่ม แก้ไข ลบ และเปลี่ยนชื่อ</li>
+    <li>กรองผลลัพธ์ตามชนิด ช่วงวันที่ ช่วงขนาด และโฟลเดอร์ย่อย</li>
+    <li>เปิดเอกสาร เปิดโฟลเดอร์ และคัดลอกเส้นทางของแฟ้ม</li>
+    <li>ทำงานได้ตามปกติขณะไม่ได้เชื่อมต่อเครือข่าย</li>
+    <li>แสดงผลได้สองภาษา คือ ภาษาไทยและภาษาอังกฤษ</li>
+  </ul>
+
+  <h3>8.2 สิ่งที่อยู่นอกขอบเขต</h3>
+  <ul>
+    <li>ไม่แปลงเอกสาร ไม่แก้ไขเอกสาร และไม่ย้ายหรือลบเอกสารของผู้ใช้</li>
+    <li>ไม่รองรับตำแหน่งจัดเก็บบนเครือข่าย ไดรฟ์ที่เชื่อมจากเครือข่าย และบริการคลาวด์</li>
+    <li>ไม่มีระบบผู้ใช้ ไม่มีการกำหนดรหัสผ่าน และไม่มีการแบ่งสิทธิ์การเข้าถึง
+      เนื่องจากโปรแกรมทำงานภายใต้บัญชีผู้ใช้ของ Windows
+      และเข้าถึงได้เฉพาะเอกสารที่บัญชีนั้นมีสิทธิ์อยู่แล้ว</li>
+    <li>ไม่มีการรับส่งข้อมูลกับระบบภายนอกทุกรูปแบบ</li>
+  </ul>
+
+  <figure class="plain">
+    <img src="images/fig_privacy.svg" alt="แผนภาพยืนยันว่าข้อมูลไม่ออกจากเครื่องของผู้ใช้">
+    <figcaption>ภาพที่ 29 — ข้อมูลทั้งหมดคงอยู่ภายในเครื่องของผู้ใช้</figcaption>
+  </figure>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s9">
+  <h2><span class="n">9</span> ข้อกำหนดและข้อจำกัด</h2>
+
+  <p>
+    ข้อจำกัดต่อไปนี้เป็นผลจากการออกแบบโดยเจตนา มิใช่ข้อบกพร่องของโปรแกรม
+    และปรากฏอยู่ในกล่อง <b>เกี่ยวกับโปรแกรม</b> ภายในตัวโปรแกรมด้วยเช่นกัน
+  </p>
+
+  <div class="grid two">
+    <div class="card amber">
+      <h4>ไม่มีการรู้จำอักขระจากภาพ (OCR)</h4>
+      <p>
+        เอกสาร PDF ที่ได้จากการสแกนเป็นภาพจะไม่มีข้อความให้ค้นหา
+        โปรแกรมจะรายงานว่า “ไม่พบข้อความที่ค้นหาได้” ซึ่งเป็นผลลัพธ์ตามปกติ
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>ไม่รองรับ .doc และ .xls รูปแบบเดิม</h4>
+      <p>
+        เอกสารรูปแบบก่อน Microsoft Office 2007 ต้องบันทึกใหม่เป็น
+        <code>.docx</code> หรือ <code>.xlsx</code> ก่อนจึงจะค้นเนื้อหาได้
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>เอกสาร Word ไม่มีเลขหน้า</h4>
+      <p>
+        เลขหน้าของเอกสาร Word เกิดขึ้นขณะจัดหน้าเพื่อแสดงผล มิได้บันทึกไว้ในแฟ้ม
+        โปรแกรมจึงรายงานเป็นลำดับย่อหน้าหรือตำแหน่งในตารางแทน
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>ไม่คำนวณสูตรของ Excel ใหม่</h4>
+      <p>
+        โปรแกรมอ่านค่าที่บันทึกไว้ในแฟ้ม หากสูตรใดไม่เคยถูกคำนวณและบันทึกผลไว้
+        ค่าดังกล่าวจะไม่ปรากฏในดัชนี
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>การค้นเป็นแบบข้อความย่อย</h4>
+      <p>
+        ผลจากวิธี trigram ทำให้คำว่า <code>budget</code> ตรงกับ
+        <code>prebudgeting</code> ด้วย หากไม่ประสงค์เช่นนั้น ให้ใช้ตัวเลือก
+        <b>ทั้งคำ</b> ในแผงตัวกรองขั้นสูง
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>ไม่รองรับเอกสารที่กำหนดรหัสผ่าน</h4>
+      <p>
+        เอกสารที่ถูกเข้ารหัสจะถูกรายงานว่า “แฟ้มถูกกำหนดรหัสผ่าน”
+        และไม่ถูกจัดทำดัชนี โปรแกรมไม่พยายามเปิดรหัสไม่ว่ากรณีใด
+      </p>
+    </div>
+  </div>
+
+  <h3>9.1 ข้อกำหนดในการใช้งาน</h3>
+  <ul>
+    <li>ผู้ใช้ต้องมีสิทธิ์อ่านเอกสารในโฟลเดอร์ที่กำหนดให้จัดทำดัชนี</li>
+    <li>ต้องมีพื้นที่ว่างเพียงพอสำหรับจัดเก็บดัชนี โดยประมาณคิดเป็นร้อยละ 30–60
+      ของปริมาณข้อความที่สกัดได้จากเอกสาร</li>
+    <li>ขณะจัดทำดัชนีครั้งแรก ไม่ควรปิดโปรแกรมด้วยวิธีบังคับปิด
+      ควรใช้ปุ่มยกเลิกเพื่อให้ระบบปิดงานอย่างเรียบร้อย</li>
+    <li>เปิดโปรแกรมได้ครั้งละหนึ่งหน้าต่างต่อหนึ่งบัญชีผู้ใช้
+      เพื่อป้องกันการเขียนดัชนีพร้อมกันจากสองกระบวนการ</li>
+  </ul>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s10">
+  <h2><span class="n">10</span> ปัญหาและวิธีแก้ไขเบื้องต้น</h2>
+
+  <figure class="plain">
+    <img src="images/fig_troubleshoot.svg" alt="แผนภาพสรุปปัญหาที่พบบ่อยและแนวทางแก้ไข">
+    <figcaption>ภาพที่ 30 — ปัญหาที่พบบ่อยและแนวทางแก้ไขโดยสรุป</figcaption>
+  </figure>
+
+  <details open>
+    <summary>ค้นหาแล้วไม่พบเอกสารที่ทราบว่ามีอยู่จริง</summary>
+    <p>
+      ประการแรก ให้ตรวจสอบว่าเลือกโฟลเดอร์ถูกต้องหรือไม่ (หมายเลข 1 ในภาพที่ 9)
+      ประการที่สอง ให้เลือกเมนู <b>สถานะดัชนี → อัปเดตดัชนี</b> แล้วค้นหาอีกครั้ง
+      เนื่องจากเอกสารที่เพิ่งเพิ่มเข้ามาอาจยังไม่อยู่ในดัชนี
+      ประการที่สาม ให้ตรวจสอบว่ามีตัวกรองขั้นสูงค้างอยู่หรือไม่
+      และประการสุดท้าย หากเอกสารเป็น PDF จากการสแกน จะไม่มีข้อความให้ค้นหา
+    </p>
+  </details>
+
+  <details>
+    <summary>ค้นหาแล้วได้ผลลัพธ์มากเกินไป</summary>
+    <p>
+      ให้ใช้เครื่องหมายอัญประกาศเพื่อค้นทั้งวลี เช่น <code>"งบประมาณครุภัณฑ์"</code>
+      หรือเปิดตัวเลือก <b>ทั้งคำ</b> ในแผงตัวกรองขั้นสูง
+      และอาจจำกัดชนิดของแฟ้มหรือช่วงวันที่แก้ไขเพิ่มเติม
+    </p>
+  </details>
+
+  <details>
+    <summary>โปรแกรมแจ้งว่าไม่รองรับตำแหน่งที่เลือก</summary>
+    <p>
+      โปรแกรมรุ่นนี้รองรับเฉพาะโฟลเดอร์และไดรฟ์ภายในเครื่อง
+      ตำแหน่งแบบ <code>\\ชื่อเครื่อง\โฟลเดอร์</code> ไดรฟ์ที่เชื่อมมาจากเครือข่าย
+      และแฟ้มบนคลาวด์ที่ยังไม่ได้ดาวน์โหลดลงเครื่อง จะไม่สามารถเลือกได้
+      แนวทางแก้ไขคือคัดลอกเอกสารมาไว้ในเครื่องก่อน แล้วจึงจัดทำดัชนี
+    </p>
+  </details>
+
+  <details>
+    <summary>การจัดทำดัชนีใช้เวลานาน</summary>
+    <p>
+      ระยะเวลาขึ้นอยู่กับจำนวนและขนาดของเอกสาร โดยเฉพาะเอกสาร PDF ที่มีจำนวนหน้ามาก
+      แนวทางแก้ไขคือเลือกโฟลเดอร์ให้แคบลง หรือกำหนดค่า
+      <b>ข้ามไฟล์ที่ใหญ่กว่า</b> ในหน้าตั้งค่าให้เหมาะสม
+      ทั้งนี้ การจัดทำครั้งแรกเท่านั้นที่ใช้เวลานาน ครั้งต่อไปจะเร็วขึ้นมาก
+    </p>
+  </details>
+
+  <details>
+    <summary>ผลลัพธ์แสดงแฟ้มที่ถูกลบไปแล้ว</summary>
+    <p>
+      แฟ้มที่ไม่พบแล้วจะแสดงด้วยเส้นขีดฆ่า และปุ่มเปิดแฟ้มจะถูกปิดการใช้งาน
+      ให้เลือกเมนู <b>สถานะดัชนี → อัปเดตดัชนี</b> เพื่อให้โปรแกรมนำรายการดังกล่าวออกจากดัชนี
+    </p>
+  </details>
+
+  <details>
+    <summary>เปิดโปรแกรมแล้วไม่ปรากฏหน้าต่างใหม่</summary>
+    <p>
+      โปรแกรมอนุญาตให้เปิดได้ครั้งละหนึ่งหน้าต่างเท่านั้น
+      หากเปิดซ้ำ ระบบจะนำหน้าต่างเดิมขึ้นมาแสดงแทนการเปิดหน้าต่างใหม่
+      ให้ตรวจสอบที่แถบงานว่ามีหน้าต่างของโปรแกรมเปิดอยู่แล้วหรือไม่
+    </p>
+  </details>
+
+  <details>
+    <summary>กดปุ่มเปิดไฟล์แล้ว Windows ถามว่าจะเปิดด้วยโปรแกรมใด</summary>
+    <p>
+      เกิดขึ้นเมื่อเครื่องยังไม่มีโปรแกรมที่ตั้งไว้สำหรับแฟ้มชนิดนั้น
+      เช่น เปิดแฟ้ม <code>.docx</code> บนเครื่องที่ไม่ได้ติดตั้ง Microsoft Word
+      ให้เลือกโปรแกรมที่ต้องการจากรายการ และหากต้องการให้ใช้โปรแกรมนั้นทุกครั้ง
+      ให้ทำเครื่องหมายที่ตัวเลือก “ใช้แอปนี้เสมอ” ก่อนกดตกลง
+      กรณีที่ไม่มีโปรแกรมใดเลย ให้ติดตั้งโปรแกรมสำหรับเปิดแฟ้มชนิดนั้นก่อน
+    </p>
+  </details>
+
+  <details>
+    <summary>ต้องการเริ่มต้นใหม่ทั้งหมด</summary>
+    <p>
+      ให้เลือกเมนู <b>สถานะดัชนี → ลบดัชนี</b> แล้วค้นหาใหม่อีกครั้ง
+      โปรแกรมจะจัดทำดัชนีขึ้นใหม่ให้เอง การดำเนินการนี้ปลอดภัยเสมอ
+      เนื่องจากดัชนีสร้างขึ้นใหม่ได้จากเอกสารต้นฉบับ และไม่กระทบต่อเอกสารของผู้ใช้
+    </p>
+  </details>
+
+  <details>
+    <summary>ต้องการส่งข้อมูลให้ผู้ดูแลระบบตรวจสอบปัญหา</summary>
+    <p>
+      ให้เลือกเมนู <b>สถานะดัชนี → เปิดโฟลเดอร์ข้อมูลโปรแกรม</b>
+      แล้วส่งแฟ้มบันทึกการทำงานในโฟลเดอร์ <code>logs</code> ให้ผู้ดูแลระบบ
+      บันทึกดังกล่าวไม่มีเนื้อหาของเอกสารและไม่มีคำค้นของผู้ใช้
+      หากไม่ประสงค์ให้มีเส้นทางแฟ้มปรากฏอยู่ด้วย สามารถปิดตัวเลือกได้ที่หน้าตั้งค่า
+    </p>
+  </details>
+
+  <div class="danger">
+    <b>สิ่งที่ไม่ควรกระทำ</b>
+    ไม่ควรลบหรือแก้ไขโฟลเดอร์ <code>_internal</code> ภายในโฟลเดอร์โปรแกรม
+    และไม่ควรแก้ไขแฟ้มฐานข้อมูล <code>index.db</code> ด้วยโปรแกรมอื่น
+    หากต้องการล้างข้อมูล ให้ใช้คำสั่ง <b>ลบดัชนี</b> ภายในโปรแกรมแทน
+  </div>
+</section>
+
+<footer class="credit">
+  คู่มือการใช้งาน Advance File Search รุ่น 1.0.0<br>
+  เอกสารนี้เป็นแฟ้มภายในเครื่อง ไม่มีการเรียกข้อมูลจากอินเทอร์เน็ตแต่อย่างใด
+  <div class="sig">Create by TnCyber@CS · กันยายน 2569 (September 2026)</div>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

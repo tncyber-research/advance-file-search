@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+    <linearGradient id="solidBlue" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#5ec3d8"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="solidGreen" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#57c69a"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <linearGradient id="solidAmber" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#e0a500"/>
+    </linearGradient>
+    <linearGradient id="solidViolet" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#8f7ccc"/>
+      <stop offset="1" stop-color="#5f4b9b"/>
+    </linearGradient>
+    <linearGradient id="solidCoral" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f08a5d"/>
+      <stop offset="1" stop-color="#d9480f"/>
+    </linearGradient>
+    <radialGradient id="glossy" cx="0.32" cy="0.26" r="0.75">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lift" x="-40%" y="-40%" width="180%" height="190%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#1b2733"
+                    flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect x="0" y="0" width="1000" height="400" fill="none"/>
+<rect x="24" y="26" width="580" height="348" rx="16" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.6" filter="url(#lift)"/>
+<path d="M24 74 v-32 a16 16 0 0 1 16 -16 h548 a16 16 0 0 1 16 16 v32 z" fill="#eef2f6"/>
+<circle cx="48" cy="50" r="6" fill="#f2725c"/>
+<circle cx="68" cy="50" r="6" fill="#f3c14a"/>
+<circle cx="88" cy="50" r="6" fill="#5cc48a"/>
+<text x="126" y="55" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">dist  ›  Advance File Search</text>
+<rect x="40" y="76" width="548" height="46" rx="10" fill="#e3eef3" stroke="#1d6f8b" stroke-width="1.4"/>
+<g filter="url(#lift)"><circle cx="70" cy="98" r="16" fill="url(#solidBlue)"/><circle cx="70" cy="98" r="16" fill="url(#glossy)"/></g>
+<g>
+    <circle cx="66" cy="94" r="7" fill="#ffffff" opacity="0.9"/>
+    <circle cx="66" cy="94" r="7" fill="none" stroke="#ffffff"
+            stroke-width="3"/>
+    <circle cx="64" cy="92" r="3"
+            fill="#ffffff" opacity="0.8"/>
+    <line x1="71" y1="99"
+          x2="77" y2="105"
+          stroke="#ffffff" stroke-width="4"
+          stroke-linecap="round"/>
+  </g>
+<text x="112" y="101" font-size="14" fill="#1d6f8b" font-weight="700" text-anchor="start">AdvanceFileSearch.exe</text>
+<text x="330" y="101" font-size="12.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ไฟล์สำหรับเปิดโปรแกรม</text>
+<path d="M56 128 h20 l6 7 h22 a5 5 0 0 1 5 5 v18 a5 5 0 0 1 -5 5 h-48 a5 5 0 0 1 -5 -5 v-25 a5 5 0 0 1 5 -5 z" fill="#fff3cd" stroke="#f2b705" stroke-width="1.6"/>
+<text x="112" y="147" font-size="14" fill="#1b2733" font-weight="400" text-anchor="start">_internal</text>
+<text x="330" y="147" font-size="12.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ส่วนประกอบภายใน ห้ามลบ</text>
+<path d="M56 174 h20 l6 7 h22 a5 5 0 0 1 5 5 v18 a5 5 0 0 1 -5 5 h-48 a5 5 0 0 1 -5 -5 v-25 a5 5 0 0 1 5 -5 z" fill="#fff3cd" stroke="#f2b705" stroke-width="1.6"/>
+<text x="112" y="193" font-size="14" fill="#1b2733" font-weight="400" text-anchor="start">LICENSES</text>
+<text x="330" y="193" font-size="12.5" fill="#5a6b7b" font-weight="400" text-anchor="start">สัญญาอนุญาตของซอฟต์แวร์ที่ใช้</text>
+<path d="M56 220 h20 l6 7 h22 a5 5 0 0 1 5 5 v18 a5 5 0 0 1 -5 5 h-48 a5 5 0 0 1 -5 -5 v-25 a5 5 0 0 1 5 -5 z" fill="#fff3cd" stroke="#f2b705" stroke-width="1.6"/>
+<text x="112" y="239" font-size="14" fill="#1b2733" font-weight="400" text-anchor="start">Manual</text>
+<text x="330" y="239" font-size="12.5" fill="#5a6b7b" font-weight="400" text-anchor="start">คู่มือการใช้งานและรายงานโครงการ</text>
+<g transform="translate(58,264)">
+    <path d="M0 6 a6 6 0 0 1 6 -6 h7.199999999999999 l7.199999999999999 7.199999999999999
+             v13.2 a6 6 0 0 1 -6 6 h-8.399999999999999 a6 6 0 0 1 -6 -6 z"
+          fill="url(#paperGrad)" stroke="#5a6b7b" stroke-width="2"/>
+    <path d="M13.2 0 v7.199999999999999 h7.199999999999999" fill="none" stroke="#5a6b7b"
+          stroke-width="2" stroke-linejoin="round"/>
+    <g stroke="#5a6b7b" stroke-width="2" stroke-linecap="round" opacity="0.55">
+      <line x1="4.8" y1="13.2" x2="14.399999999999999" y2="13.2"/>
+      <line x1="4.8" y1="17.4" x2="14.399999999999999" y2="17.4"/>
+      <line x1="4.8" y1="21.599999999999998" x2="10.799999999999999" y2="21.599999999999998"/>
+    </g>
+  </g>
+<text x="112" y="285" font-size="14" fill="#1b2733" font-weight="400" text-anchor="start">README.txt</text>
+<text x="330" y="285" font-size="12.5" fill="#5a6b7b" font-weight="400" text-anchor="start">คำอธิบายโดยย่อ</text>
+<g transform="translate(58,310)">
+    <path d="M0 6 a6 6 0 0 1 6 -6 h7.199999999999999 l7.199999999999999 7.199999999999999
+             v13.2 a6 6 0 0 1 -6 6 h-8.399999999999999 a6 6 0 0 1 -6 -6 z"
+          fill="url(#paperGrad)" stroke="#5a6b7b" stroke-width="2"/>
+    <path d="M13.2 0 v7.199999999999999 h7.199999999999999" fill="none" stroke="#5a6b7b"
+          stroke-width="2" stroke-linejoin="round"/>
+    <g stroke="#5a6b7b" stroke-width="2" stroke-linecap="round" opacity="0.55">
+      <line x1="4.8" y1="13.2" x2="14.399999999999999" y2="13.2"/>
+      <line x1="4.8" y1="17.4" x2="14.399999999999999" y2="17.4"/>
+      <line x1="4.8" y1="21.599999999999998" x2="10.799999999999999" y2="21.599999999999998"/>
+    </g>
+  </g>
+<text x="112" y="331" font-size="14" fill="#1b2733" font-weight="400" text-anchor="start">PRIVACY.txt</text>
+<text x="330" y="331" font-size="12.5" fill="#5a6b7b" font-weight="400" text-anchor="start">คำแถลงความเป็นส่วนตัว</text>
+<g filter="url(#lift)"><rect x="635" y="47" width="344" height="96" rx="18" fill="#1d6f8b" opacity="0.25"/><rect x="632" y="40" width="344" height="96" rx="18" fill="url(#solidBlue)"/><rect x="632" y="40" width="344" height="96" rx="18" fill="url(#glossy)"/></g>
+<circle cx="678" cy="88" r="24" fill="#ffffff" opacity="0.22"/>
+<text x="678" y="96" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+<text x="716" y="82" font-size="15" fill="#ffffff" font-weight="700" text-anchor="start">คัดลอกทั้งโฟลเดอร์</text>
+<text x="716" y="108" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start">วางไว้ที่ใดก็ได้ในเครื่อง เช่น ไดรฟ์ D</text>
+<g filter="url(#lift)"><rect x="635" y="163" width="344" height="96" rx="18" fill="#5f4b9b" opacity="0.25"/><rect x="632" y="156" width="344" height="96" rx="18" fill="url(#solidViolet)"/><rect x="632" y="156" width="344" height="96" rx="18" fill="url(#glossy)"/></g>
+<circle cx="678" cy="204" r="24" fill="#ffffff" opacity="0.22"/>
+<text x="678" y="212" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+<text x="716" y="198" font-size="15" fill="#ffffff" font-weight="700" text-anchor="start">ดับเบิลคลิกที่ไฟล์ .exe</text>
+<text x="716" y="224" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start">ไม่ต้องติดตั้ง ไม่ต้องใช้สิทธิ์ผู้ดูแลระบบ</text>
+<g filter="url(#lift)"><rect x="635" y="279" width="344" height="96" rx="18" fill="#1f7a4d" opacity="0.25"/><rect x="632" y="272" width="344" height="96" rx="18" fill="url(#solidGreen)"/><rect x="632" y="272" width="344" height="96" rx="18" fill="url(#glossy)"/></g>
+<circle cx="678" cy="320" r="24" fill="#ffffff" opacity="0.22"/>
+<text x="678" y="328" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+<text x="716" y="314" font-size="15" fill="#ffffff" font-weight="700" text-anchor="start">เริ่มใช้งานได้ทันที</text>
+<text x="716" y="340" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="start">ไม่ต้องเชื่อมต่ออินเทอร์เน็ต</text>
+</svg>

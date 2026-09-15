@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 470"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="470" fill="none"/>
+<line x1="60" y1="96" x2="980" y2="96" stroke="#d9dfe5" stroke-width="4"/>
+<circle cx="98" cy="96" r="26" fill="#1d6f8b" stroke="#ffffff" stroke-width="4"/>
+<text x="98" y="103" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">1</text>
+<rect x="20" y="142" width="156" height="150" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="20" y="142" width="7" height="150" rx="3.5" fill="#1d6f8b"/>
+<text x="40" y="168" font-size="13" fill="#1d6f8b" font-weight="700" text-anchor="start">วางแผนและตัดสินใจ</text>
+<text x="36" y="196" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">อ่านข้อกำหนดทั้งหมด</text>
+<text x="36" y="220" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ทดลองเรื่องภาษาไทยก่อน</text>
+<text x="36" y="244" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">บันทึกเป็นเอกสาร ADR</text>
+<circle cx="266" cy="96" r="26" fill="#5f4b9b" stroke="#ffffff" stroke-width="4"/>
+<text x="266" y="103" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">2</text>
+<rect x="188" y="142" width="156" height="150" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="188" y="142" width="7" height="150" rx="3.5" fill="#5f4b9b"/>
+<text x="208" y="168" font-size="13" fill="#5f4b9b" font-weight="700" text-anchor="start">แกนกลางและข้อมูล</text>
+<text x="204" y="196" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">สคีมาและชั้นข้อมูล</text>
+<text x="204" y="220" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">กฎความปลอดภัยของพาธ</text>
+<text x="204" y="244" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">บันทึกที่ไม่เก็บเนื้อหา</text>
+<circle cx="434" cy="96" r="26" fill="#1f7a4d" stroke="#ffffff" stroke-width="4"/>
+<text x="434" y="103" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">3</text>
+<rect x="356" y="142" width="156" height="150" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="356" y="142" width="7" height="150" rx="3.5" fill="#1f7a4d"/>
+<text x="376" y="168" font-size="13" fill="#1f7a4d" font-weight="700" text-anchor="start">ตัวอ่านเอกสาร</text>
+<text x="372" y="196" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">PDF · DOCX · XLSX · TXT</text>
+<text x="372" y="220" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">สัญญาผลลัพธ์ร่วมกัน</text>
+<text x="372" y="244" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">รับมือไฟล์เสียและล็อก</text>
+<circle cx="602" cy="96" r="26" fill="#f2b705" stroke="#ffffff" stroke-width="4"/>
+<text x="602" y="103" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">4</text>
+<rect x="524" y="142" width="156" height="150" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="524" y="142" width="7" height="150" rx="3.5" fill="#f2b705"/>
+<text x="544" y="168" font-size="13" fill="#f2b705" font-weight="700" text-anchor="start">การค้นหา</text>
+<text x="540" y="196" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">แปลคำค้น · wildcard</text>
+<text x="540" y="220" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">จัดอันดับ · ตัดข้อความ</text>
+<text x="540" y="244" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ทางเลือกสำหรับคำสั้น</text>
+<circle cx="770" cy="96" r="26" fill="#d9480f" stroke="#ffffff" stroke-width="4"/>
+<text x="770" y="103" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">5</text>
+<rect x="692" y="142" width="156" height="150" rx="12" fill="#ffffff" stroke="#d9480f" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="692" y="142" width="7" height="150" rx="3.5" fill="#d9480f"/>
+<text x="712" y="168" font-size="13" fill="#d9480f" font-weight="700" text-anchor="start">หน้าจอ</text>
+<text x="708" y="196" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">หน้าต่างและกล่องโต้ตอบ</text>
+<text x="708" y="220" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">งานเบื้องหลังกันจอค้าง</text>
+<text x="708" y="244" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">สองภาษาเต็มรูปแบบ</text>
+<circle cx="938" cy="96" r="26" fill="#41566b" stroke="#ffffff" stroke-width="4"/>
+<text x="938" y="103" font-size="19" fill="#ffffff" font-weight="700" text-anchor="middle">6</text>
+<rect x="860" y="142" width="156" height="150" rx="12" fill="#ffffff" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="860" y="142" width="7" height="150" rx="3.5" fill="#41566b"/>
+<text x="880" y="168" font-size="13" fill="#41566b" font-weight="700" text-anchor="start">ทดสอบและแพ็กเกจ</text>
+<text x="876" y="196" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ชุดทดสอบอัตโนมัติ</text>
+<text x="876" y="220" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ตรวจความปลอดภัย</text>
+<text x="876" y="244" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="start">สร้าง .exe แล้วตรวจซ้ำ</text>
+<rect x="24" y="320" width="992" height="126" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="24" y="320" width="7" height="126" rx="3.5" fill="#1d6f8b"/>
+<text x="44" y="346" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">หลักที่ยึดตลอดทั้งโครงการ</text>
+<text x="44" y="370" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตัดสินใจเรื่องยากก่อน: เรื่องภาษาไทยถูกพิสูจน์ด้วยการทดลองจริงก่อนเขียนโปรแกรมจริง</text>
+<text x="44" y="390" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เขียนการทดสอบไปพร้อมกับโค้ด ไม่ใช่ทิ้งไว้ท้ายสุด</text>
+<text x="44" y="410" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ทุกการตัดสินใจที่มีข้อแลกเปลี่ยน ถูกบันทึกไว้เป็นเอกสาร ADR พร้อมเหตุผล</text>
+<text x="44" y="430" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ความเป็นส่วนตัวเป็นข้อกำหนดที่ทดสอบได้ ไม่ใช่คำสัญญาในเอกสาร</text>
+</svg>

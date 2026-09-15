@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+    <linearGradient id="solidBlue" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#5ec3d8"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="solidGreen" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#57c69a"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <linearGradient id="solidAmber" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#e0a500"/>
+    </linearGradient>
+    <linearGradient id="solidViolet" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#8f7ccc"/>
+      <stop offset="1" stop-color="#5f4b9b"/>
+    </linearGradient>
+    <linearGradient id="solidCoral" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f08a5d"/>
+      <stop offset="1" stop-color="#d9480f"/>
+    </linearGradient>
+    <radialGradient id="glossy" cx="0.32" cy="0.26" r="0.75">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lift" x="-40%" y="-40%" width="180%" height="190%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#1b2733"
+                    flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect x="0" y="0" width="1000" height="330" fill="none"/>
+<g filter="url(#lift)"><rect x="28" y="49" width="220" height="226" rx="18" fill="#1d6f8b" opacity="0.25"/><rect x="24" y="40" width="220" height="226" rx="18" fill="url(#solidBlue)"/><rect x="24" y="40" width="220" height="226" rx="18" fill="url(#glossy)"/></g>
+<circle cx="134" cy="100" r="34" fill="#ffffff" opacity="0.18"/>
+<g>
+    <circle cx="128" cy="94" r="13" fill="#ffffff" opacity="0.9"/>
+    <circle cx="128" cy="94" r="13" fill="none" stroke="#ffffff"
+            stroke-width="3"/>
+    <circle cx="124" cy="90" r="3"
+            fill="#ffffff" opacity="0.8"/>
+    <line x1="137" y1="103"
+          x2="148" y2="114"
+          stroke="#ffffff" stroke-width="4"
+          stroke-linecap="round"/>
+  </g>
+<text x="134" y="168" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="middle">ค้นเนื้อหา ไม่ใช่แค่ชื่อไฟล์</text>
+<text x="134" y="198" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="middle">อ่านข้อความข้างในเอกสาร</text>
+<text x="134" y="220" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="middle">แล้วค้นได้ทั้งฉบับ</text>
+<g filter="url(#lift)"><rect x="266" y="49" width="220" height="226" rx="18" fill="#5f4b9b" opacity="0.25"/><rect x="262" y="40" width="220" height="226" rx="18" fill="url(#solidViolet)"/><rect x="262" y="40" width="220" height="226" rx="18" fill="url(#glossy)"/></g>
+<circle cx="372" cy="100" r="34" fill="#ffffff" opacity="0.18"/>
+<circle cx="372" cy="100" r="17.0" fill="#ffffff"/><text x="372" y="107.14" font-size="21.25" font-weight="700" fill="#5f4b9b" text-anchor="middle">ก</text>
+<text x="372" y="168" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="middle">รองรับภาษาไทยเต็มรูปแบบ</text>
+<text x="372" y="198" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="middle">ค้นคำที่อยู่กลางข้อความ</text>
+<text x="372" y="220" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="middle">ที่ไม่เว้นวรรคได้</text>
+<g filter="url(#lift)"><rect x="504" y="49" width="220" height="226" rx="18" fill="#f2b705" opacity="0.25"/><rect x="500" y="40" width="220" height="226" rx="18" fill="url(#solidAmber)"/><rect x="500" y="40" width="220" height="226" rx="18" fill="url(#glossy)"/></g>
+<circle cx="610" cy="100" r="34" fill="#ffffff" opacity="0.18"/>
+<g fill="#ffffff">
+    <path d="M610 80.9 a17.099999999999998 17.099999999999998 0 0 1 17.099999999999998 17.099999999999998 c0 15.389999999999999 -17.099999999999998 29.069999999999997 -17.099999999999998 29.069999999999997
+             s-17.099999999999998 -13.68 -17.099999999999998 -29.069999999999997 a17.099999999999998 17.099999999999998 0 0 1 17.099999999999998 -17.099999999999998 z"/>
+    <circle cx="610" cy="98" r="5.814" fill="#2f5d70"/>
+  </g>
+<text x="610" y="168" font-size="14.5" fill="#1b2733" font-weight="700" text-anchor="middle">บอกตำแหน่งที่พบ</text>
+<text x="610" y="198" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="middle">หน้า · ย่อหน้า · เซลล์</text>
+<text x="610" y="220" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="middle">· บรรทัด</text>
+<g filter="url(#lift)"><rect x="742" y="49" width="220" height="226" rx="18" fill="#1f7a4d" opacity="0.25"/><rect x="738" y="40" width="220" height="226" rx="18" fill="url(#solidGreen)"/><rect x="738" y="40" width="220" height="226" rx="18" fill="url(#glossy)"/></g>
+<circle cx="848" cy="100" r="34" fill="#ffffff" opacity="0.18"/>
+<g>
+    <path d="M848 81.0 l16.34 6.460000000000001 v13.299999999999999
+             c0 14.25 -9.5 20.900000000000002 -16.34 23.75
+             c-6.84 -2.85 -16.34 -9.5 -16.34 -23.75
+             v-13.299999999999999 z" fill="#ffffff"/>
+    <path d="M841.54 100.95 l4.94 5.7 l10.450000000000001 -11.78"
+          fill="none" stroke="#2f7a5a" stroke-width="2.8499999999999996"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+<text x="848" y="168" font-size="14.5" fill="#ffffff" font-weight="700" text-anchor="middle">ข้อมูลไม่ออกจากเครื่อง</text>
+<text x="848" y="198" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="middle">ไม่มีการเชื่อมต่อ</text>
+<text x="848" y="220" font-size="12.5" fill="#ffffff" font-weight="400" text-anchor="middle">ออกสู่ภายนอก</text>
+<text x="500" y="306" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="middle">วัตถุประสงค์: ให้ผู้ใช้ค้นเอกสารที่ต้องการพบได้เร็ว โดยที่เอกสารยังอยู่ในเครื่องเช่นเดิม</text>
+</svg>

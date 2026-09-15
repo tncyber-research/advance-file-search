@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+
+  <rect x="0" y="0" width="960" height="330" fill="none"/>
+  <text x="480" y="34" font-size="19" fill="#1b2733" font-weight="700" text-anchor="middle">ทำไมการค้นหาภาษาไทยจึงต้องใช้วิธีพิเศษ</text>
+
+  <!-- the problem -->
+  <rect x="30" y="60" width="430" height="230" rx="14" fill="#fdece3" stroke="#d9480f" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="56" y="94" font-size="16" fill="#d9480f" font-weight="700" text-anchor="start">วิธีทั่วไป (ตัดคำด้วยช่องว่าง)</text>
+  <rect x="56" y="112" width="378" height="46" rx="8" fill="#ffffff" stroke="#d9dfe5"/>
+  <text x="70" y="142" font-size="19" fill="#1b2733" font-weight="400" text-anchor="start">งบประมาณครุภัณฑ์ประจำปี</text>
+  <text x="56" y="186" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="start">ภาษาไทยไม่มีช่องว่างระหว่างคำ</text>
+  <text x="56" y="208" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="start">ระบบจึงมองทั้งประโยคเป็น “คำเดียว”</text>
+  <rect x="56" y="224" width="378" height="46" rx="8" fill="#ffffff" stroke="#d9480f"/>
+  <text x="70" y="243" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="start">ค้นหา “งบประมาณ”</text>
+  <text x="70" y="263" font-size="14" fill="#d9480f" font-weight="700" text-anchor="start">→ ไม่พบผลลัพธ์ประมาณครึ่งหนึ่ง</text>
+
+  <!-- the solution -->
+  <rect x="500" y="60" width="430" height="230" rx="14" fill="#e4f3ec" stroke="#1f7a4d" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="526" y="94" font-size="16" fill="#1f7a4d" font-weight="700" text-anchor="start">วิธีที่โปรแกรมนี้ใช้ (Trigram)</text>
+  <rect x="526" y="112" width="378" height="46" rx="8" fill="#ffffff" stroke="#d9dfe5"/>
+  <rect x="536" y="120" width="104" height="30" rx="6" fill="#fff3cd" stroke="#f2b705"/>
+  <text x="540" y="142" font-size="19" fill="#1b2733" font-weight="400" text-anchor="start">งบประมาณ</text>
+  <text x="648" y="142" font-size="19" fill="#1b2733" font-weight="400" text-anchor="start">ครุภัณฑ์ประจำปี</text>
+  <text x="526" y="186" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="start">ทำดัชนีทีละ 3 ตัวอักษรที่ซ้อนกัน</text>
+  <text x="526" y="208" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="start">จึงค้นเจอคำที่อยู่กลางประโยคได้</text>
+  <rect x="526" y="224" width="378" height="46" rx="8" fill="#ffffff" stroke="#1f7a4d"/>
+  <text x="540" y="243" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="start">ค้นหา “งบประมาณ”</text>
+  <text x="540" y="263" font-size="14" fill="#1f7a4d" font-weight="700" text-anchor="start">→ พบครบทุกตำแหน่ง</text>
+
+  <text x="480" y="316" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">ผลการทดสอบจริง: วิธีทั่วไปพบ 154 รายการ · Trigram พบ 1,882 รายการ</text>
+
+</svg>

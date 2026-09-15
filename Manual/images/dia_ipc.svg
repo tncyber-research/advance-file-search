@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 660"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="660" fill="none"/>
+<rect x="24" y="16" width="440" height="300" rx="18" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-dasharray="9 7"/><text x="42" y="42" font-size="16" fill="#1d6f8b" font-weight="700" text-anchor="start">เธรดหน้าจอ (ฝั่งผู้ใช้)</text>
+<rect x="46" y="60" width="396" height="96" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="46" y="60" width="7" height="96" rx="3.5" fill="#1d6f8b"/>
+<text x="66" y="86" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">MainWindow</text>
+<text x="66" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">รับคำสั่งจากผู้ใช้ · แสดงผลลัพธ์</text>
+<text x="66" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ห้ามทำงานหนักในเธรดนี้ มิฉะนั้นหน้าจอค้าง</text>
+<rect x="46" y="172" width="396" height="124" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="46" y="172" width="7" height="124" rx="3.5" fill="#1d6f8b"/>
+<text x="66" y="198" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">ตัวรับสัญญาณ (slots)</text>
+<text x="66" y="222" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">on_progress — อัปเดตแถบความคืบหน้า</text>
+<text x="66" y="242" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">on_finished — เติมผลลัพธ์ลงตาราง</text>
+<text x="66" y="262" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">on_failed — แสดงข้อความที่อ่านเข้าใจได้</text>
+<text x="66" y="282" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตรวจหมายเลขงานก่อนเสมอ ผลเก่าถูกทิ้ง</text>
+<rect x="576" y="16" width="440" height="300" rx="18" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-dasharray="9 7"/><text x="594" y="42" font-size="16" fill="#5f4b9b" font-weight="700" text-anchor="start">เธรดเบื้องหลัง (ฝั่งประมวลผล)</text>
+<rect x="598" y="60" width="396" height="96" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="598" y="60" width="7" height="96" rx="3.5" fill="#f2b705"/>
+<text x="618" y="86" font-size="15" fill="#f2b705" font-weight="700" text-anchor="start">SearchWorker</text>
+<text x="618" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เรียก SearchService แล้วส่งผลกลับ</text>
+<text x="618" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตรวจธงยกเลิกเป็นระยะ</text>
+<rect x="598" y="172" width="396" height="124" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="598" y="172" width="7" height="124" rx="3.5" fill="#5f4b9b"/>
+<text x="618" y="198" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">IndexWorker</text>
+<text x="618" y="222" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เรียก IndexCoordinator ทีละไฟล์</text>
+<text x="618" y="242" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ส่งความคืบหน้าเป็นระยะ ไม่ส่งชื่อเนื้อหา</text>
+<text x="618" y="262" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">หยุดที่ขอบเขตไฟล์เมื่อถูกยกเลิก</text>
+<path d="M444 100 L596 100" fill="none" stroke="#1d6f8b" stroke-width="2.8" marker-end="url(#ar_accent)"/>
+<text x="520" y="90" font-size="12.5" fill="#1d6f8b" font-weight="600" text-anchor="middle">เริ่มงาน</text>
+<path d="M596 140 L444 140" fill="none" stroke="#f2b705" stroke-width="2.8" marker-end="url(#ar_amber)"/>
+<text x="520" y="130" font-size="12.5" fill="#f2b705" font-weight="600" text-anchor="middle">Qt signal</text>
+<path d="M444 236 L596 236" fill="none" stroke="#d9480f" stroke-width="2.8" marker-end="url(#ar_coral)"/>
+<text x="520" y="226" font-size="12.5" fill="#d9480f" font-weight="600" text-anchor="middle">ยกเลิก</text>
+<rect x="24" y="340" width="992" height="200" rx="18" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-dasharray="9 7"/><text x="42" y="366" font-size="16" fill="#1f7a4d" font-weight="700" text-anchor="start">ชั้นฐานข้อมูล — หนึ่งการเชื่อมต่อต่อหนึ่งเธรด</text>
+<rect x="46" y="384" width="300" height="132" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="46" y="384" width="7" height="132" rx="3.5" fill="#1d6f8b"/>
+<text x="66" y="410" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">การเชื่อมต่อของเธรดหน้าจอ</text>
+<text x="66" y="434" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ใช้สำหรับอ่านข้อมูลเล็ก ๆ</text>
+<text x="66" y="454" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เช่น สถานะดัชนี จำนวนไฟล์</text>
+<rect x="370" y="384" width="300" height="132" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="370" y="384" width="7" height="132" rx="3.5" fill="#f2b705"/>
+<text x="390" y="410" font-size="15" fill="#f2b705" font-weight="700" text-anchor="start">การเชื่อมต่อของเธรดค้นหา</text>
+<text x="390" y="434" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">อ่านอย่างเดียว</text>
+<text x="390" y="454" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">โหมด WAL ทำให้อ่านได้ขณะมีการเขียน</text>
+<rect x="694" y="384" width="300" height="132" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="694" y="384" width="7" height="132" rx="3.5" fill="#5f4b9b"/>
+<text x="714" y="410" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">การเชื่อมต่อของเธรดจัดดัชนี</text>
+<text x="714" y="434" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เขียนทีละไฟล์</text>
+<text x="714" y="454" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ถ้าชนกัน ฝั่งอ่านจะลองใหม่หนึ่งครั้ง</text>
+<path d="M196 518 L466 556" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<path d="M520 518 L520 556" fill="none" stroke="#f2b705" stroke-width="2.4" marker-end="url(#ar_amber)"/>
+<path d="M844 518 L574 556" fill="none" stroke="#5f4b9b" stroke-width="2.4" marker-end="url(#ar_violet)"/>
+<g>
+    <path d="M440 570 a80 10 0 0 1 160 0 v46
+             a80 10 0 0 1 -160 0 z" fill="url(#accentGrad)" opacity="0.92"/>
+    <ellipse cx="520" cy="570" rx="80" ry="10" fill="#39b3c9"/>
+    <text x="520" y="603" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">index.db (WAL)</text>
+  </g>
+<rect x="24" y="566" width="380" height="76" rx="12" fill="#eef2f6" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="24" y="566" width="7" height="76" rx="3.5" fill="#41566b"/>
+<text x="44" y="592" font-size="15" fill="#41566b" font-weight="700" text-anchor="start">ผู้ใช้เปิดโปรแกรมซ้ำ</text>
+<text x="44" y="616" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตัวล็อกระดับระบบยอมให้มีหน้าต่างเดียว</text>
+<text x="44" y="636" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตัวที่สองจะดึงหน้าต่างเดิมขึ้นมาแทน</text>
+<rect x="636" y="566" width="380" height="76" rx="12" fill="#eef2f6" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="636" y="566" width="7" height="76" rx="3.5" fill="#41566b"/>
+<text x="656" y="592" font-size="15" fill="#41566b" font-weight="700" text-anchor="start">การเปิดไฟล์และโฟลเดอร์</text>
+<text x="656" y="616" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ส่งพาธให้ Windows Shell เป็นตัวเปิด</text>
+<text x="656" y="636" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">โปรแกรมไม่สั่งรันไฟล์เอง</text>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 430"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="430" fill="none"/>
+<rect x="13" y="40" width="190" height="312" rx="16" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M13 88 v-32 a16 16 0 0 1 16 -16 h158 a16 16 0 0 1 16 16 v32 z" fill="#1d6f8b"/>
+<text x="29" y="74" font-size="14" fill="#ffffff" font-weight="700" text-anchor="start">รอบที่ 1</text>
+<text x="29" y="110" font-size="11" fill="#1d6f8b" font-weight="600" text-anchor="start">ระบบพื้นฐานครบตามข้อกำหนด</text>
+<circle cx="39" cy="137" r="7.5" fill="#1d6f8b" opacity="0.16"/>
+<path d="M35 137 l3 4 l6 -8" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="51" y="142" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นไทย/อังกฤษด้วย FTS5</text>
+<circle cx="39" cy="165" r="7.5" fill="#1d6f8b" opacity="0.16"/>
+<path d="M35 165 l3 4 l6 -8" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="51" y="170" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">จัดดัชนีแบบเพิ่มทีละส่วน</text>
+<circle cx="39" cy="193" r="7.5" fill="#1d6f8b" opacity="0.16"/>
+<path d="M35 193 l3 4 l6 -8" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="51" y="198" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ตัวกรอง · การจัดอันดับ · ตำแหน่งที่พบ</text>
+<circle cx="39" cy="221" r="7.5" fill="#1d6f8b" opacity="0.16"/>
+<path d="M35 221 l3 4 l6 -8" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="51" y="226" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">แพ็กเป็น .exe และตรวจครบ</text>
+<circle cx="39" cy="249" r="7.5" fill="#1d6f8b" opacity="0.16"/>
+<path d="M35 249 l3 4 l6 -8" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="51" y="254" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ชุดทดสอบ 493 รายการ</text>
+<rect x="216" y="40" width="190" height="312" rx="16" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M216 88 v-32 a16 16 0 0 1 16 -16 h158 a16 16 0 0 1 16 16 v32 z" fill="#5f4b9b"/>
+<text x="232" y="74" font-size="14" fill="#ffffff" font-weight="700" text-anchor="start">รอบที่ 2</text>
+<text x="232" y="110" font-size="11" fill="#5f4b9b" font-weight="600" text-anchor="start">ปรับหน้าจอตามที่ผู้ใช้ขอ</text>
+<circle cx="242" cy="137" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 137 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="142" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ไอคอนโปรแกรมหลายความละเอียด</text>
+<circle cx="242" cy="165" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 165 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="170" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ย้ายตำแหน่งที่พบไปอยู่กับข้อความ</text>
+<circle cx="242" cy="193" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 193 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="198" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">กล่องพรีวิวข้อความพร้อมไฮไลต์</text>
+<circle cx="242" cy="221" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 221 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="226" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">เพิ่มคอลัมน์ปุ่มเปิดโฟลเดอร์</text>
+<circle cx="242" cy="249" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 249 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="254" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ตัวอักษรใหญ่ขึ้น</text>
+<circle cx="242" cy="277" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 277 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="282" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นหาแล้วสร้าง/อัปเดตดัชนีให้เอง</text>
+<circle cx="242" cy="305" r="7.5" fill="#5f4b9b" opacity="0.16"/>
+<path d="M238 305 l3 4 l6 -8" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254" y="310" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ชุดทดสอบ 525 รายการ</text>
+<rect x="419" y="40" width="190" height="312" rx="16" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M419 88 v-32 a16 16 0 0 1 16 -16 h158 a16 16 0 0 1 16 16 v32 z" fill="#1f7a4d"/>
+<text x="435" y="74" font-size="14" fill="#ffffff" font-weight="700" text-anchor="start">รอบที่ 3</text>
+<text x="435" y="110" font-size="11" fill="#1f7a4d" font-weight="600" text-anchor="start">ขัดรายละเอียดและเพิ่มเอกสาร</text>
+<circle cx="445" cy="137" r="7.5" fill="#1f7a4d" opacity="0.16"/>
+<path d="M441 137 l3 4 l6 -8" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="457" y="142" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ย่อปุ่มเปิดโฟลเดอร์ให้เป็นไอคอนเล็ก</text>
+<circle cx="445" cy="165" r="7.5" fill="#1f7a4d" opacity="0.16"/>
+<path d="M441 165 l3 4 l6 -8" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="457" y="170" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">เปลี่ยนเมนูเป็นคู่มือการใช้งาน</text>
+<circle cx="445" cy="193" r="7.5" fill="#1f7a4d" opacity="0.16"/>
+<path d="M441 193 l3 4 l6 -8" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="457" y="198" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">คู่มือ HTML พร้อมภาพประกอบ</text>
+<circle cx="445" cy="221" r="7.5" fill="#1f7a4d" opacity="0.16"/>
+<path d="M441 221 l3 4 l6 -8" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="457" y="226" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">แก้บั๊กค้นหาชนกับการจัดดัชนี</text>
+<circle cx="445" cy="249" r="7.5" fill="#1f7a4d" opacity="0.16"/>
+<path d="M441 249 l3 4 l6 -8" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="457" y="254" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">รายงานสรุปโครงการฉบับนี้</text>
+<rect x="622" y="40" width="190" height="312" rx="16" fill="#ffffff" stroke="#f2b705" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M622 88 v-32 a16 16 0 0 1 16 -16 h158 a16 16 0 0 1 16 16 v32 z" fill="#f2b705"/>
+<text x="638" y="74" font-size="14" fill="#ffffff" font-weight="700" text-anchor="start">รอบที่ 4</text>
+<text x="638" y="110" font-size="11" fill="#f2b705" font-weight="600" text-anchor="start">ปรับคู่มือตามข้อกำหนดใหม่</text>
+<circle cx="648" cy="137" r="7.5" fill="#f2b705" opacity="0.16"/>
+<path d="M644 137 l3 4 l6 -8" fill="none" stroke="#f2b705" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="660" y="142" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">คู่มือรองรับจอทุกขนาด</text>
+<circle cx="648" cy="165" r="7.5" fill="#f2b705" opacity="0.16"/>
+<path d="M644 165 l3 4 l6 -8" fill="none" stroke="#f2b705" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="660" y="170" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ตัวอักษรขนาด 16 จุด</text>
+<circle cx="648" cy="193" r="7.5" fill="#f2b705" opacity="0.16"/>
+<path d="M644 193 l3 4 l6 -8" fill="none" stroke="#f2b705" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="660" y="198" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">แยกอธิบายหน้าจอเป็นส่วน ๆ</text>
+<circle cx="648" cy="221" r="7.5" fill="#f2b705" opacity="0.16"/>
+<path d="M644 221 l3 4 l6 -8" fill="none" stroke="#f2b705" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="660" y="226" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ภาพประกอบแบบสามมิติ</text>
+<circle cx="648" cy="249" r="7.5" fill="#f2b705" opacity="0.16"/>
+<path d="M644 249 l3 4 l6 -8" fill="none" stroke="#f2b705" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="660" y="254" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">แปลปุ่มปิดในกล่องเกี่ยวกับ</text>
+<circle cx="648" cy="277" r="7.5" fill="#f2b705" opacity="0.16"/>
+<path d="M644 277 l3 4 l6 -8" fill="none" stroke="#f2b705" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="660" y="282" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">แก้ป้ายกำกับที่สื่อความไม่ตรง</text>
+<rect x="825" y="40" width="190" height="312" rx="16" fill="#ffffff" stroke="#d9480f" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M825 88 v-32 a16 16 0 0 1 16 -16 h158 a16 16 0 0 1 16 16 v32 z" fill="#d9480f"/>
+<text x="841" y="74" font-size="14" fill="#ffffff" font-weight="700" text-anchor="start">รอบที่ 5</text>
+<text x="841" y="110" font-size="11" fill="#d9480f" font-weight="600" text-anchor="start">แก้ตามผลการใช้งานจริง</text>
+<circle cx="851" cy="137" r="7.5" fill="#d9480f" opacity="0.16"/>
+<path d="M847 137 l3 4 l6 -8" fill="none" stroke="#d9480f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="863" y="142" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">แก้เปิดโฟลเดอร์ที่ชื่อมีเว้นวรรค</text>
+<circle cx="851" cy="165" r="7.5" fill="#d9480f" opacity="0.16"/>
+<path d="M847 165 l3 4 l6 -8" fill="none" stroke="#d9480f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="863" y="170" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ใช้ Shell API แทนบรรทัดคำสั่ง</text>
+<circle cx="851" cy="193" r="7.5" fill="#d9480f" opacity="0.16"/>
+<path d="M847 193 l3 4 l6 -8" fill="none" stroke="#d9480f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="863" y="198" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">พรีวิวดึงบรรทัดข้างเคียงมาด้วย</text>
+<circle cx="851" cy="221" r="7.5" fill="#d9480f" opacity="0.16"/>
+<path d="M847 221 l3 4 l6 -8" fill="none" stroke="#d9480f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="863" y="226" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">เพิ่มปุ่มเปิดไฟล์ประจำแถว</text>
+<circle cx="851" cy="249" r="7.5" fill="#d9480f" opacity="0.16"/>
+<path d="M847 249 l3 4 l6 -8" fill="none" stroke="#d9480f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="863" y="254" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ไม่มีโปรแกรม → เปิดด้วย (Open with)</text>
+<circle cx="851" cy="277" r="7.5" fill="#d9480f" opacity="0.16"/>
+<path d="M847 277 l3 4 l6 -8" fill="none" stroke="#d9480f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="863" y="282" font-size="10.5" fill="#1b2733" font-weight="400" text-anchor="start">ชุดทดสอบ 620 รายการ</text>
+<text x="520" y="398" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="middle">เลขเวอร์ชันภายในโปรแกรมยังเป็น 1.0.0 — ทั้งห้ารอบคือการพัฒนาต่อเนื่องก่อนส่งมอบ ไม่ใช่การออกรุ่นใหม่ให้ผู้ใช้ติดตั้งทับ</text>
+</svg>

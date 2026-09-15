@@ -1,0 +1,7 @@
+Package: PyMuPDF
+Version: 1.26.5
+License: Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License
+Home-page: Documentation, https://pymupdf.readthedocs.io/
+
+--- COPYING ---
+Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License

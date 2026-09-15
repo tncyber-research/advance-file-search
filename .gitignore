@@ -1,0 +1,59 @@
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/lib/
+sdist/
+wheels/
+
+# --- Virtual environments ----------------------------------------------------
+.venv/
+venv/
+env/
+
+# --- Build output ------------------------------------------------------------
+# PyInstaller writes the packaged application into dist/ and its intermediate
+# analysis into build/<name>/.  Both are generated from source by
+# scripts documented in docs/BUILD.md; neither belongs in the repository.
+dist/
+build/AdvanceFileSearch/
+build/work/
+*.manifest
+
+# --- Test artefacts ----------------------------------------------------------
+# Fixture documents are generated at run time by tests/make_fixtures.py, so no
+# real or confidential document is ever stored here.
+tests/fixtures/generated/
+
+# --- Application data --------------------------------------------------------
+# The application keeps its index, settings and logs under %LOCALAPPDATA%, but
+# a scratch data directory can be pointed at the working tree during testing.
+*.db
+*.db-wal
+*.db-shm
+*.log
+logs/
+
+# --- Editors and operating systems -------------------------------------------
+.vscode/
+.idea/
+*.swp
+*~
+desktop.ini
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# --- Local working files -----------------------------------------------------
+# The brief used to drive this round of work; not part of the product.
+Prompt Push Github.txt

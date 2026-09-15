@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 664"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="664" fill="none"/>
+<rect x="24" y="16" width="992" height="62" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="24" y="16" width="7" height="62" rx="3.5" fill="#1d6f8b"/>
+<text x="44" y="42" font-size="16" fill="#1d6f8b" font-weight="700" text-anchor="start">advance_file_search — ทั้งโปรแกรมเป็นแพ็กเกจ Python เดียว</text>
+<text x="44" y="66" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">app.py คือจุดเริ่มต้น · logging_setup.py ตั้งค่าการบันทึกการทำงาน</text>
+<rect x="24" y="106" width="312" height="258" rx="14" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M24 152 v-32 a14 14 0 0 1 14 -14 h284 a14 14 0 0 1 14 14 v32 z" fill="#1d6f8b"/>
+<text x="42" y="137" font-size="17" fill="#ffffff" font-weight="700" text-anchor="start">core</text>
+<text x="42" y="176" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แกนกลางที่ทุกส่วนใช้ร่วมกัน</text>
+<circle cx="48" cy="198" r="3.5" fill="#1d6f8b"/>
+<text x="60" y="202" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">constants.py</text>
+<circle cx="48" cy="218" r="3.5" fill="#1d6f8b"/>
+<text x="60" y="222" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">models.py</text>
+<circle cx="48" cy="238" r="3.5" fill="#1d6f8b"/>
+<text x="60" y="242" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">settings.py</text>
+<circle cx="48" cy="258" r="3.5" fill="#1d6f8b"/>
+<text x="60" y="262" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">security.py</text>
+<circle cx="48" cy="278" r="3.5" fill="#1d6f8b"/>
+<text x="60" y="282" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">paths.py</text>
+<circle cx="48" cy="298" r="3.5" fill="#1d6f8b"/>
+<text x="60" y="302" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">i18n.py</text>
+<rect x="360" y="106" width="312" height="258" rx="14" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M360 152 v-32 a14 14 0 0 1 14 -14 h284 a14 14 0 0 1 14 14 v32 z" fill="#5f4b9b"/>
+<text x="378" y="137" font-size="17" fill="#ffffff" font-weight="700" text-anchor="start">indexing</text>
+<text x="378" y="176" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">อ่านไฟล์และสร้างดัชนี</text>
+<circle cx="384" cy="198" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="202" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">coordinator.py</text>
+<circle cx="384" cy="218" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="222" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">scanner.py</text>
+<circle cx="384" cy="238" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="242" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">fingerprint.py</text>
+<circle cx="384" cy="258" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="262" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">parsers/pdf_parser.py</text>
+<circle cx="384" cy="278" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="282" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">parsers/docx_parser.py</text>
+<circle cx="384" cy="298" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="302" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">parsers/xlsx_parser.py</text>
+<circle cx="384" cy="318" r="3.5" fill="#5f4b9b"/>
+<text x="396" y="322" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">parsers/txt_parser.py</text>
+<rect x="696" y="106" width="312" height="258" rx="14" fill="#ffffff" stroke="#f2b705" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M696 152 v-32 a14 14 0 0 1 14 -14 h284 a14 14 0 0 1 14 14 v32 z" fill="#f2b705"/>
+<text x="714" y="137" font-size="17" fill="#ffffff" font-weight="700" text-anchor="start">search</text>
+<text x="714" y="176" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แปลคำค้นและค้นหา</text>
+<circle cx="720" cy="198" r="3.5" fill="#f2b705"/>
+<text x="732" y="202" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">search_service.py</text>
+<circle cx="720" cy="218" r="3.5" fill="#f2b705"/>
+<text x="732" y="222" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">query_parser.py</text>
+<circle cx="720" cy="238" r="3.5" fill="#f2b705"/>
+<text x="732" y="242" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">wildcard.py</text>
+<circle cx="720" cy="258" r="3.5" fill="#f2b705"/>
+<text x="732" y="262" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ranking.py</text>
+<circle cx="720" cy="278" r="3.5" fill="#f2b705"/>
+<text x="732" y="282" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">snippets.py</text>
+<rect x="24" y="372" width="312" height="258" rx="14" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M24 418 v-32 a14 14 0 0 1 14 -14 h284 a14 14 0 0 1 14 14 v32 z" fill="#1f7a4d"/>
+<text x="42" y="403" font-size="17" fill="#ffffff" font-weight="700" text-anchor="start">storage</text>
+<text x="42" y="442" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ฐานข้อมูลและสคีมา</text>
+<circle cx="48" cy="464" r="3.5" fill="#1f7a4d"/>
+<text x="60" y="468" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">database.py</text>
+<circle cx="48" cy="484" r="3.5" fill="#1f7a4d"/>
+<text x="60" y="488" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">migrations.py</text>
+<circle cx="48" cy="504" r="3.5" fill="#1f7a4d"/>
+<text x="60" y="508" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">repositories.py</text>
+<circle cx="48" cy="524" r="3.5" fill="#1f7a4d"/>
+<text x="60" y="528" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">schema.sql</text>
+<rect x="360" y="372" width="312" height="258" rx="14" fill="#ffffff" stroke="#d9480f" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M360 418 v-32 a14 14 0 0 1 14 -14 h284 a14 14 0 0 1 14 14 v32 z" fill="#d9480f"/>
+<text x="378" y="403" font-size="17" fill="#ffffff" font-weight="700" text-anchor="start">ui</text>
+<text x="378" y="442" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">หน้าจอทั้งหมด</text>
+<circle cx="384" cy="464" r="3.5" fill="#d9480f"/>
+<text x="396" y="468" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">main_window.py</text>
+<circle cx="384" cy="484" r="3.5" fill="#d9480f"/>
+<text x="396" y="488" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">result_model.py</text>
+<circle cx="384" cy="504" r="3.5" fill="#d9480f"/>
+<text x="396" y="508" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">delegates.py</text>
+<circle cx="384" cy="524" r="3.5" fill="#d9480f"/>
+<text x="396" y="528" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">preview.py</text>
+<circle cx="384" cy="544" r="3.5" fill="#d9480f"/>
+<text x="396" y="548" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">index_dialog.py</text>
+<circle cx="384" cy="564" r="3.5" fill="#d9480f"/>
+<text x="396" y="568" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">settings_dialog.py</text>
+<circle cx="384" cy="584" r="3.5" fill="#d9480f"/>
+<text x="396" y="588" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">about_dialog.py</text>
+<circle cx="384" cy="604" r="3.5" fill="#d9480f"/>
+<text x="396" y="608" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">workers.py</text>
+<rect x="696" y="372" width="312" height="258" rx="14" fill="#ffffff" stroke="#41566b" stroke-width="1.8" filter="url(#soft)"/>
+<path d="M696 418 v-32 a14 14 0 0 1 14 -14 h284 a14 14 0 0 1 14 14 v32 z" fill="#41566b"/>
+<text x="714" y="403" font-size="17" fill="#ffffff" font-weight="700" text-anchor="start">winplat</text>
+<text x="714" y="442" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ส่วนที่เป็นของ Windows โดยเฉพาะ</text>
+<circle cx="720" cy="464" r="3.5" fill="#41566b"/>
+<text x="732" y="468" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">windows_paths.py</text>
+<circle cx="720" cy="484" r="3.5" fill="#41566b"/>
+<text x="732" y="488" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">windows_shell.py</text>
+<circle cx="720" cy="504" r="3.5" fill="#41566b"/>
+<text x="732" y="508" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">single_instance.py</text>
+</svg>

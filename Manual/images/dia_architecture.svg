@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 700"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="700" fill="none"/>
+<rect x="24" y="20" width="992" height="168" rx="18" fill="none" stroke="#1d6f8b" stroke-width="2" stroke-dasharray="9 7"/><text x="42" y="46" font-size="16" fill="#1d6f8b" font-weight="700" text-anchor="start">ฝั่งผู้ใช้ — ส่วนติดต่อผู้ใช้ (Presentation)</text>
+<rect x="46" y="60" width="222" height="110" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="46" y="60" width="7" height="110" rx="3.5" fill="#1d6f8b"/>
+<text x="66" y="86" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">หน้าต่างหลัก</text>
+<text x="66" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">MainWindow</text>
+<text x="66" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แถบค้นหา · ตารางผลลัพธ์</text>
+<text x="66" y="150" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แผงรายละเอียด</text>
+<rect x="288" y="60" width="222" height="110" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="288" y="60" width="7" height="110" rx="3.5" fill="#1d6f8b"/>
+<text x="308" y="86" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">กล่องโต้ตอบ</text>
+<text x="308" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ความคืบหน้าดัชนี</text>
+<text x="308" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตั้งค่า</text>
+<text x="308" y="150" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เกี่ยวกับโปรแกรม</text>
+<rect x="530" y="60" width="222" height="110" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="530" y="60" width="7" height="110" rx="3.5" fill="#1d6f8b"/>
+<text x="550" y="86" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">โมเดลผลลัพธ์</text>
+<text x="550" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ResultModel</text>
+<text x="550" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">Delegate วาดเอง</text>
+<text x="550" y="150" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไฮไลต์คำที่ตรงกัน</text>
+<rect x="772" y="60" width="222" height="110" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="772" y="60" width="7" height="110" rx="3.5" fill="#1d6f8b"/>
+<text x="792" y="86" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">ธีมและภาษา</text>
+<text x="792" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">theme.py</text>
+<text x="792" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">i18n ไทย/อังกฤษ</text>
+<text x="792" y="150" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ฟอนต์และขนาดตัวอักษร</text>
+<rect x="24" y="218" width="992" height="200" rx="18" fill="none" stroke="#5f4b9b" stroke-width="2" stroke-dasharray="9 7"/><text x="42" y="244" font-size="16" fill="#5f4b9b" font-weight="700" text-anchor="start">ฝั่งประมวลผล — ทำหน้าที่แทน “เซิร์ฟเวอร์” โดยอยู่ในโปรเซสเดียวกัน</text>
+<rect x="46" y="258" width="222" height="130" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="46" y="258" width="7" height="130" rx="3.5" fill="#5f4b9b"/>
+<text x="66" y="284" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">ตัวควบคุมการจัดดัชนี</text>
+<text x="66" y="308" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">IndexCoordinator</text>
+<text x="66" y="328" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เดินไฟล์ · ลายนิ้วมือไฟล์</text>
+<text x="66" y="348" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ธุรกรรมแยกต่อไฟล์</text>
+<rect x="288" y="258" width="222" height="130" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="288" y="258" width="7" height="130" rx="3.5" fill="#1f7a4d"/>
+<text x="308" y="284" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">ตัวอ่านเอกสาร</text>
+<text x="308" y="308" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">PDF / DOCX</text>
+<text x="308" y="328" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">XLSX / TXT</text>
+<text x="308" y="348" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แยกเป็นหน่วยข้อความ</text>
+<rect x="530" y="258" width="222" height="130" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="530" y="258" width="7" height="130" rx="3.5" fill="#f2b705"/>
+<text x="550" y="284" font-size="15" fill="#f2b705" font-weight="700" text-anchor="start">บริการค้นหา</text>
+<text x="550" y="308" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">SearchService</text>
+<text x="550" y="328" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เลือกกลยุทธ์การค้น</text>
+<text x="550" y="348" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ลองใหม่เมื่อชนกับการจัดดัชนี</text>
+<rect x="772" y="258" width="222" height="130" rx="12" fill="#ffffff" stroke="#d9480f" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="772" y="258" width="7" height="130" rx="3.5" fill="#d9480f"/>
+<text x="792" y="284" font-size="15" fill="#d9480f" font-weight="700" text-anchor="start">ประมวลผลคำค้น</text>
+<text x="792" y="308" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">QueryParser</text>
+<text x="792" y="328" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">Wildcard · การจัดอันดับ</text>
+<text x="792" y="348" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตัดข้อความรอบคำที่ตรง</text>
+<text x="994" y="410" font-size="12.5" fill="#5f4b9b" font-weight="600" text-anchor="end">ทำงานในเธรดเบื้องหลัง (QThread)</text>
+<rect x="24" y="448" width="992" height="196" rx="18" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-dasharray="9 7"/><text x="42" y="474" font-size="16" fill="#1f7a4d" font-weight="700" text-anchor="start">ชั้นจัดเก็บข้อมูล — อยู่ในเครื่องของผู้ใช้ทั้งหมด</text>
+<rect x="46" y="488" width="222" height="132" rx="12" fill="#eef2f6" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="46" y="488" width="7" height="132" rx="3.5" fill="#41566b"/>
+<text x="66" y="514" font-size="15" fill="#41566b" font-weight="700" text-anchor="start">เอกสารต้นฉบับ</text>
+<text x="66" y="538" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">โฟลเดอร์ที่ผู้ใช้เลือก</text>
+<text x="66" y="558" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เปิดอ่านอย่างเดียว</text>
+<text x="66" y="578" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไม่แก้ ไม่ย้าย ไม่ลบ</text>
+<g transform="translate(300,496)"><g transform="translate(0,0)">
+    <path d="M0 6 a6 6 0 0 1 6 -6 h12.7 l10.2 10.2
+             v21.2 a6 6 0 0 1 -6 6 h-16.9 a6 6 0 0 1 -6 -6 z"
+          fill="url(#paperGrad)" stroke="#1d6f8b" stroke-width="2"/>
+    <path d="M18.7 0 v10.2 h10.2" fill="none" stroke="#1d6f8b"
+          stroke-width="2" stroke-linejoin="round"/>
+    <g stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" opacity="0.55">
+      <line x1="6.8" y1="18.7" x2="20.4" y2="18.7"/>
+      <line x1="6.8" y1="24.65" x2="20.4" y2="24.65"/>
+      <line x1="6.8" y1="30.599999999999998" x2="15.299999999999999" y2="30.599999999999998"/>
+    </g>
+  </g><g transform="translate(46,0)">
+    <path d="M0 6 a6 6 0 0 1 6 -6 h12.7 l10.2 10.2
+             v21.2 a6 6 0 0 1 -6 6 h-16.9 a6 6 0 0 1 -6 -6 z"
+          fill="url(#paperGrad)" stroke="#39b3c9" stroke-width="2"/>
+    <path d="M18.7 0 v10.2 h10.2" fill="none" stroke="#39b3c9"
+          stroke-width="2" stroke-linejoin="round"/>
+    <g stroke="#39b3c9" stroke-width="2" stroke-linecap="round" opacity="0.55">
+      <line x1="6.8" y1="18.7" x2="20.4" y2="18.7"/>
+      <line x1="6.8" y1="24.65" x2="20.4" y2="24.65"/>
+      <line x1="6.8" y1="30.599999999999998" x2="15.299999999999999" y2="30.599999999999998"/>
+    </g>
+  </g><g transform="translate(92,0)">
+    <path d="M0 6 a6 6 0 0 1 6 -6 h12.7 l10.2 10.2
+             v21.2 a6 6 0 0 1 -6 6 h-16.9 a6 6 0 0 1 -6 -6 z"
+          fill="url(#paperGrad)" stroke="#1d6f8b" stroke-width="2"/>
+    <path d="M18.7 0 v10.2 h10.2" fill="none" stroke="#1d6f8b"
+          stroke-width="2" stroke-linejoin="round"/>
+    <g stroke="#1d6f8b" stroke-width="2" stroke-linecap="round" opacity="0.55">
+      <line x1="6.8" y1="18.7" x2="20.4" y2="18.7"/>
+      <line x1="6.8" y1="24.65" x2="20.4" y2="24.65"/>
+      <line x1="6.8" y1="30.599999999999998" x2="15.299999999999999" y2="30.599999999999998"/>
+    </g>
+  </g></g>
+<g>
+    <path d="M300 566 a75 10 0 0 1 150 0 v40
+             a75 10 0 0 1 -150 0 z" fill="url(#accentGrad)" opacity="0.92"/>
+    <ellipse cx="375" cy="566" rx="75" ry="10" fill="#39b3c9"/>
+    <text x="375" y="596" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">index.db</text>
+  </g>
+<text x="375" y="634" font-size="12" fill="#5a6b7b" font-weight="400" text-anchor="middle">SQLite + FTS5</text>
+<rect x="530" y="488" width="222" height="132" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="530" y="488" width="7" height="132" rx="3.5" fill="#1d6f8b"/>
+<text x="550" y="514" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">การตั้งค่า</text>
+<text x="550" y="538" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">settings.json</text>
+<text x="550" y="558" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตำแหน่งหน้าต่าง</text>
+<text x="550" y="578" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ความกว้างคอลัมน์</text>
+<rect x="772" y="488" width="222" height="132" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="772" y="488" width="7" height="132" rx="3.5" fill="#f2b705"/>
+<text x="792" y="514" font-size="15" fill="#f2b705" font-weight="700" text-anchor="start">บันทึกการทำงาน</text>
+<text x="792" y="538" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">app.log (หมุนไฟล์)</text>
+<text x="792" y="558" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เก็บเฉพาะสถิติ</text>
+<text x="792" y="578" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไม่มีเนื้อหาเอกสาร</text>
+<path d="M150 190 L150 214" fill="none" stroke="#1d6f8b" stroke-width="2.8" marker-end="url(#ar_accent)"/>
+<text x="166" y="208" font-size="12" fill="#1d6f8b" font-weight="400" text-anchor="start">คำสั่งจากผู้ใช้</text>
+<path d="M648 214 L648 192" fill="none" stroke="#f2b705" stroke-width="2.8" marker-end="url(#ar_amber)"/>
+<text x="664" y="208" font-size="12" fill="#f2b705" font-weight="400" text-anchor="start">ผลลัพธ์ผ่าน Qt signal</text>
+<path d="M150 420 L150 444" fill="none" stroke="#5f4b9b" stroke-width="2.8" marker-end="url(#ar_violet)"/>
+<text x="166" y="438" font-size="12" fill="#5f4b9b" font-weight="400" text-anchor="start">อ่านไฟล์</text>
+<path d="M399 420 L399 444" fill="none" stroke="#1f7a4d" stroke-width="2.8" marker-end="url(#ar_green)"/>
+<text x="415" y="438" font-size="12" fill="#1f7a4d" font-weight="400" text-anchor="start">เขียนดัชนี</text>
+<path d="M648 444 L648 422" fill="none" stroke="#f2b705" stroke-width="2.8" marker-end="url(#ar_amber)"/>
+<text x="664" y="438" font-size="12" fill="#f2b705" font-weight="400" text-anchor="start">อ่านค่าที่ตั้งไว้</text>
+<rect x="24" y="658" width="992" height="34" rx="17" fill="#fdece3" stroke="#d9480f" stroke-width="1.5"/>
+<text x="520" y="680" font-size="13" fill="#d9480f" font-weight="700" text-anchor="middle">ขอบเขตของระบบ: ไม่มีซ็อกเก็ต ไม่มีเซิร์ฟเวอร์ ไม่มีเว็บ ไม่มีคลาวด์ — ไม่มีข้อมูลใดออกจากเครื่องนี้</text>
+</svg>

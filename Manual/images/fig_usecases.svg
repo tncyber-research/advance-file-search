@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+    <linearGradient id="solidBlue" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#5ec3d8"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="solidGreen" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#57c69a"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <linearGradient id="solidAmber" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#e0a500"/>
+    </linearGradient>
+    <linearGradient id="solidViolet" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#8f7ccc"/>
+      <stop offset="1" stop-color="#5f4b9b"/>
+    </linearGradient>
+    <linearGradient id="solidCoral" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f08a5d"/>
+      <stop offset="1" stop-color="#d9480f"/>
+    </linearGradient>
+    <radialGradient id="glossy" cx="0.32" cy="0.26" r="0.75">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lift" x="-40%" y="-40%" width="180%" height="190%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#1b2733"
+                    flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect x="0" y="0" width="1000" height="330" fill="none"/>
+<rect x="24" y="30" width="304" height="270" rx="18" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="72" cy="68" r="23" fill="url(#solidBlue)"/><circle cx="72" cy="68" r="23" fill="url(#glossy)"/></g>
+<text x="72" y="76" font-size="21" fill="#ffffff" font-weight="700" text-anchor="middle">✓</text>
+<text x="106" y="75" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">งานสารบรรณและงานธุรการ</text>
+<rect x="44" y="108" width="264" height="44" rx="11" fill="#e3eef3"/>
+<circle cx="64" cy="130" r="7" fill="#1d6f8b"/>
+<text x="82" y="135" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นหนังสือราชการจากเลขที่หนังสือ</text>
+<rect x="44" y="162" width="264" height="44" rx="11" fill="#e3eef3"/>
+<circle cx="64" cy="184" r="7" fill="#1d6f8b"/>
+<text x="82" y="189" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นระเบียบและประกาศที่เคยออก</text>
+<rect x="44" y="216" width="264" height="44" rx="11" fill="#e3eef3"/>
+<circle cx="64" cy="238" r="7" fill="#1d6f8b"/>
+<text x="82" y="243" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ตรวจสอบว่าเคยมีเอกสารลักษณะนี้แล้วหรือยัง</text>
+<text x="176" y="284" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="middle">เอกสารทั้งหมดยังอยู่ในเครื่องของหน่วยงาน</text>
+<rect x="348" y="30" width="304" height="270" rx="18" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="396" cy="68" r="23" fill="url(#solidViolet)"/><circle cx="396" cy="68" r="23" fill="url(#glossy)"/></g>
+<text x="396" y="76" font-size="21" fill="#ffffff" font-weight="700" text-anchor="middle">✓</text>
+<text x="430" y="75" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">งานงบประมาณและพัสดุ</text>
+<rect x="368" y="108" width="264" height="44" rx="11" fill="#f5f7fa"/>
+<circle cx="388" cy="130" r="7" fill="#5f4b9b"/>
+<text x="406" y="135" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นรายการครุภัณฑ์จากชื่อหรือราคา</text>
+<rect x="368" y="162" width="264" height="44" rx="11" fill="#f5f7fa"/>
+<circle cx="388" cy="184" r="7" fill="#5f4b9b"/>
+<text x="406" y="189" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นตัวเลขในไฟล์ Excel ได้ถึงระดับเซลล์</text>
+<rect x="368" y="216" width="264" height="44" rx="11" fill="#f5f7fa"/>
+<circle cx="388" cy="238" r="7" fill="#5f4b9b"/>
+<text x="406" y="243" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ตรวจย้อนหลังว่าเคยจัดซื้อรายการใดไว้</text>
+<text x="500" y="284" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="middle">เอกสารทั้งหมดยังอยู่ในเครื่องของหน่วยงาน</text>
+<rect x="672" y="30" width="304" height="270" rx="18" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="720" cy="68" r="23" fill="url(#solidGreen)"/><circle cx="720" cy="68" r="23" fill="url(#glossy)"/></g>
+<text x="720" y="76" font-size="21" fill="#ffffff" font-weight="700" text-anchor="middle">✓</text>
+<text x="754" y="75" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">งานวิชาการและงานวิจัย</text>
+<rect x="692" y="108" width="264" height="44" rx="11" fill="#f5f7fa"/>
+<circle cx="712" cy="130" r="7" fill="#1f7a4d"/>
+<text x="730" y="135" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นคำสำคัญในเอกสารอ้างอิงจำนวนมาก</text>
+<rect x="692" y="162" width="264" height="44" rx="11" fill="#f5f7fa"/>
+<circle cx="712" cy="184" r="7" fill="#1f7a4d"/>
+<text x="730" y="189" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">ค้นข้อความในไฟล์ PDF ที่มีข้อความ</text>
+<rect x="692" y="216" width="264" height="44" rx="11" fill="#f5f7fa"/>
+<circle cx="712" cy="238" r="7" fill="#1f7a4d"/>
+<text x="730" y="243" font-size="12.5" fill="#1b2733" font-weight="400" text-anchor="start">รวบรวมเอกสารที่กล่าวถึงหัวข้อเดียวกัน</text>
+<text x="824" y="284" font-size="11.5" fill="#5a6b7b" font-weight="400" text-anchor="middle">เอกสารทั้งหมดยังอยู่ในเครื่องของหน่วยงาน</text>
+</svg>

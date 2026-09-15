@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>รายงานสรุปโครงการ — Advance File Search 1.0</title>
+<!--
+  This project report is a self-contained local document, exactly like the
+  user manual beside it.  It references no remote font, stylesheet, script,
+  image or analytics endpoint.  The font stack names families that may be
+  installed locally (Sarabun first) and falls back to fonts Windows already
+  ships; nothing is downloaded.  Every image lives in ./images/ next to this
+  file.  Opening it with the network disconnected works exactly the same.
+-->
+<style>
+  :root {
+    --ink: #1b2733;
+    --muted: #55677a;
+    --faint: #8797a5;
+    --accent: #1d6f8b;
+    --accent-light: #39b3c9;
+    --accent-soft: #e8f2f6;
+    --accent-line: #cfe2ea;
+    --surface: #ffffff;
+    --page: #f3f7f9;
+    --border: #dde5ea;
+    --amber: #a87400;
+    --amber-soft: #fff6e2;
+    --amber-line: #f0dba8;
+    --green: #1c7146;
+    --green-soft: #e7f5ee;
+    --green-line: #b9e0cb;
+    --coral: #b93d0b;
+    --coral-soft: #fdeee6;
+    --coral-line: #f5cdb8;
+    --violet: #5a4795;
+    --violet-soft: #f0ecfa;
+    --violet-line: #ddd4f2;
+    --radius: 16px;
+    --shadow: 0 1px 2px rgba(27, 39, 51, .04), 0 6px 18px rgba(27, 39, 51, .07);
+    --shadow-lg: 0 10px 30px rgba(27, 39, 51, .12);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1100px 500px at 12% -8%, #e7f1f6 0%, rgba(231, 241, 246, 0) 60%),
+      radial-gradient(900px 480px at 92% 4%, #eef0fa 0%, rgba(238, 240, 250, 0) 55%),
+      var(--page);
+    background-attachment: fixed;
+    color: var(--ink);
+    /* ใช้ Sarabun เมื่อเครื่องของผู้อ่านมีติดตั้งอยู่ หากไม่มี จะไล่ไปใช้
+       แบบอักษรภาษาไทยที่ Windows และ macOS มีมาให้ ไม่มีการดาวน์โหลดใด ๆ */
+    font-family: "Sarabun", "TH Sarabun New", "Leelawadee UI", "Noto Sans Thai",
+                 "Thonburi", "Segoe UI", Tahoma, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.9;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ---------- โครงหน้า ---------- */
+  .wrap {
+    display: flex; gap: 26px; max-width: 1460px; margin: 0 auto; padding: 22px;
+    align-items: flex-start;
+  }
+
+  nav {
+    position: sticky; top: 20px; align-self: flex-start;
+    width: 262px; flex: 0 0 262px; max-height: calc(100vh - 40px); overflow-y: auto;
+    background: rgba(255, 255, 255, .92); backdrop-filter: blur(6px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 8px 16px 16px;
+  }
+  nav h2 {
+    margin: 0 0 10px; font-size: 16px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--faint); font-weight: 700;
+  }
+  nav ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+  nav li { counter-increment: toc; }
+  nav a {
+    display: block; padding: 7px 8px 7px 34px; border-radius: 9px;
+    color: var(--muted); text-decoration: none; font-size: 16px; position: relative;
+    transition: background .15s ease, color .15s ease;
+  }
+  nav a::before {
+    content: counter(toc); position: absolute; left: 6px; top: 8px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 700; line-height: 22px; text-align: center;
+  }
+  nav a:hover { background: var(--accent-soft); color: var(--accent); }
+
+  main { flex: 1 1 auto; min-width: 0; }
+
+  /* ---------- หัวเรื่อง ---------- */
+  header.hero {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #17627d 0%, #2a8ba8 52%, #45bcd0 100%);
+    color: #fff; border-radius: 22px; padding: 34px 38px;
+    box-shadow: var(--shadow-lg); margin-bottom: 22px;
+  }
+  header.hero::after {
+    content: ""; position: absolute; right: -70px; top: -90px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,.38), rgba(255,255,255,0) 62%);
+  }
+  header.hero h1 { margin: 0 0 4px; font-size: 31px; font-weight: 700; letter-spacing: .01em; }
+  header.hero .sub { font-size: 17px; opacity: .96; margin-bottom: 16px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
+  .hero-badges span {
+    background: rgba(255, 255, 255, .18); border: 1px solid rgba(255, 255, 255, .36);
+    border-radius: 999px; padding: 5px 15px; font-size: 16px;
+  }
+
+  /* ---------- ส่วนเนื้อหา ---------- */
+  section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 24px 30px 28px; margin-bottom: 20px;
+  }
+  section > h2 {
+    margin: 0 0 18px; padding-bottom: 11px; border-bottom: 2px solid var(--accent-soft);
+    font-size: 23px; color: var(--accent); display: flex; align-items: center; gap: 12px;
+  }
+  section > h2 .n {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 11px;
+    background: linear-gradient(140deg, var(--accent-light), var(--accent));
+    color: #fff; font-size: 17px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(29, 111, 139, .3);
+  }
+  h3 { font-size: 19px; margin: 28px 0 9px; color: var(--ink); }
+  h3:first-of-type { margin-top: 6px; }
+  h4 { font-size: 16.5px; margin: 20px 0 7px; color: var(--accent); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 5px; }
+  code {
+    background: var(--accent-soft); color: var(--accent); padding: 1px 6px;
+    border-radius: 5px; font-family: Consolas, "Cascadia Mono", monospace;
+    font-size: 1em; word-break: break-word;
+  }
+  a { color: var(--accent); }
+  b, strong { font-weight: 700; }
+
+  /* ---------- ภาพประกอบ ---------- */
+  figure { margin: 18px 0; }
+  figure img {
+    display: block; width: 100%; height: auto; border-radius: 12px;
+    border: 1px solid var(--border); background: #fff;
+  }
+  figure.plain img { border: none; background: transparent; }
+  figure.shot img { border: 1px solid var(--accent-line); box-shadow: var(--shadow); }
+  figure.narrow { max-width: 560px; margin-left: auto; margin-right: auto; }
+  figcaption {
+    margin-top: 10px; font-size: 16px; color: var(--muted); text-align: center;
+  }
+  figcaption b { color: var(--accent); }
+
+  /* ---------- รายการหมายเลขที่ตรงกับภาพ ---------- */
+  .callouts { list-style: none; padding: 0; margin: 14px 0 0; counter-reset: c; }
+  .callouts > li {
+    position: relative; padding: 11px 15px 11px 54px; margin-bottom: 9px;
+    background: var(--page); border: 1px solid var(--border); border-radius: 11px;
+  }
+  .callouts > li::before {
+    counter-increment: c; content: counter(c);
+    position: absolute; left: 12px; top: 11px;
+    width: 29px; height: 29px; border-radius: 50%;
+    background: linear-gradient(140deg, #f08a5d, #d9480f); color: #fff;
+    font-size: 16px; font-weight: 700; line-height: 29px; text-align: center;
+    box-shadow: 0 3px 8px rgba(217, 72, 15, .32);
+  }
+  .callouts b { display: block; color: var(--ink); font-size: 16.5px; }
+  .callouts span { color: var(--muted); font-size: 16px; }
+
+  /* ---------- ขั้นตอน ---------- */
+  .steps { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: s; }
+  .steps > li {
+    position: relative; padding: 0 0 22px 54px; border-left: 2px dashed var(--accent-line);
+    margin-left: 18px;
+  }
+  .steps > li:last-child { border-left-color: transparent; padding-bottom: 2px; }
+  .steps > li::before {
+    counter-increment: s; content: counter(s);
+    position: absolute; left: -18px; top: -4px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(140deg, var(--accent-light), var(--accent));
+    color: #fff; box-shadow: 0 0 0 5px var(--accent-soft);
+    font-size: 17px; font-weight: 700; line-height: 36px; text-align: center;
+  }
+  .steps b { display: block; font-size: 17px; margin-bottom: 4px; }
+
+  /* ---------- กล่องข้อความพิเศษ ---------- */
+  .note, .warn, .tip, .danger {
+    border-radius: 12px; padding: 13px 17px 13px 48px; margin: 16px 0;
+    position: relative; font-size: 16px; border: 1px solid;
+  }
+  .note::before, .warn::before, .tip::before, .danger::before {
+    position: absolute; left: 15px; top: 13px; font-size: 18px; font-weight: 700;
+    width: 22px; text-align: center;
+  }
+  .note   { background: var(--accent-soft); border-color: var(--accent-line); }
+  .note::before   { content: "i"; color: var(--accent); font-style: italic; }
+  .tip    { background: var(--green-soft);  border-color: var(--green-line); }
+  .tip::before    { content: "\2713"; color: var(--green); }
+  .warn   { background: var(--amber-soft);  border-color: var(--amber-line); }
+  .warn::before   { content: "!"; color: var(--amber); }
+  .danger { background: var(--coral-soft);  border-color: var(--coral-line); }
+  .danger::before { content: "\00D7"; color: var(--coral); }
+  .note b, .tip b, .warn b, .danger b { display: block; margin-bottom: 2px; }
+
+  /* ---------- ตาราง ---------- */
+  .tablewrap { overflow-x: auto; margin: 16px 0; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 440px; }
+  th, td { text-align: left; padding: 10px 13px; border-bottom: 1px solid var(--border);
+           vertical-align: top; }
+  th { background: var(--accent-soft); color: var(--accent); font-weight: 700;
+       white-space: nowrap; }
+  tbody tr:nth-child(even) { background: #fafcfd; }
+
+  /* ---------- การ์ด ---------- */
+  .grid { display: grid; gap: 14px; margin: 16px 0; }
+  .grid.two { grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); }
+  .grid.three { grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); }
+  .card {
+    background: var(--page); border: 1px solid var(--border);
+    border-radius: 13px; padding: 15px 17px;
+  }
+  .card h4 { margin: 0 0 5px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card.accent { background: var(--accent-soft); border-color: var(--accent-line); }
+  .card.green  { background: var(--green-soft);  border-color: var(--green-line); }
+  .card.amber  { background: var(--amber-soft);  border-color: var(--amber-line); }
+  .card.violet { background: var(--violet-soft); border-color: var(--violet-line); }
+  .card.coral  { background: var(--coral-soft);  border-color: var(--coral-line); }
+
+  /* ---------- คำถามที่พบบ่อย ---------- */
+  details {
+    background: var(--page); border: 1px solid var(--border);
+    border-radius: 11px; margin-bottom: 9px; padding: 0 16px;
+  }
+  details[open] { background: #fff; border-color: var(--accent-line); }
+  summary {
+    cursor: pointer; padding: 13px 0; font-weight: 600; font-size: 16px;
+    list-style: none; display: flex; gap: 10px; align-items: flex-start;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "?"; flex: 0 0 auto; width: 23px; height: 23px; border-radius: 50%;
+    background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-line);
+    font-size: 15px; line-height: 21px; text-align: center; margin-top: 1px;
+  }
+  details p:last-child { margin-bottom: 12px; }
+
+  /* ---------- ปุ่มบนแป้นพิมพ์ ---------- */
+  kbd {
+    background: #fff; border: 1px solid var(--border); border-bottom-width: 2px;
+    border-radius: 5px; padding: 2px 7px; font-size: 1em;
+    font-family: Consolas, monospace; color: var(--ink);
+  }
+
+  /* ---------- ท้ายเอกสาร ---------- */
+  footer.credit {
+    text-align: center; padding: 26px 16px 42px; color: var(--muted); font-size: 16px;
+  }
+  footer.credit .sig {
+    display: inline-block; margin-top: 6px; padding: 8px 22px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    color: var(--accent); font-weight: 700; letter-spacing: .04em; box-shadow: var(--shadow);
+  }
+
+  /* ---------- การแสดงผลบนจอขนาดต่าง ๆ ---------- */
+  @media (max-width: 1100px) {
+    .wrap { flex-direction: column; padding: 14px; gap: 16px; align-items: stretch; }
+    nav, main { width: 100%; max-width: 100%; }
+    nav {
+      position: static; flex: none; max-height: none;
+      padding: 14px 14px 10px;
+    }
+    nav ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    body { line-height: 1.85; }
+    section { padding: 18px 15px 22px; border-radius: 13px; }
+    section > h2 { font-size: 20px; }
+    header.hero { padding: 22px 18px; border-radius: 16px; }
+    header.hero h1 { font-size: 23px; }
+    header.hero .sub { font-size: 16px; }
+    h3 { font-size: 17px; }
+    .callouts > li { padding-left: 50px; }
+    .steps > li { padding-left: 42px; }
+  }
+
+  @media print {
+    nav { display: none; }
+    body { background: #fff; font-size: 12pt; }
+    section { break-inside: avoid; box-shadow: none; border-color: #ccc; }
+    header.hero { background: #17627d !important; -webkit-print-color-adjust: exact; }
+  }
+
+  /* ---------- report-only components ---------- */
+  header.hero.report {
+    background: linear-gradient(135deg, #2f4b7c 0%, #3f6ea8 55%, #4aa3c9 100%);
+    box-shadow: 0 8px 26px rgba(47, 75, 124, .3);
+  }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+             gap: 14px; margin: 20px 0 6px; }
+  .metric {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 14px; text-align: center; box-shadow: var(--shadow);
+  }
+  .metric .v { display: block; font-size: 27px; font-weight: 700; color: var(--accent);
+               line-height: 1.25; }
+  .metric .k { font-size: 13.5px; color: var(--muted); }
+  .metric.green .v { color: var(--green); }
+  .metric.amber .v { color: var(--amber); }
+  .metric.violet .v { color: var(--violet); }
+
+  figure.wide img { background: #fdfefe; }
+  figure.shot img { border: 1px solid var(--accent-line); }
+
+  .fnbox {
+    border: 1px solid var(--border); border-radius: 12px; margin: 16px 0;
+    overflow: hidden; background: var(--surface);
+  }
+  .fnbox > h4 {
+    margin: 0; padding: 12px 18px; background: var(--accent-soft);
+    color: var(--accent); font-size: 16.5px; border-bottom: 1px solid var(--accent-line);
+  }
+  .fnbox > div { padding: 14px 18px 4px; }
+  .fnbox table { margin: 6px 0 14px; }
+
+  dl.kv { margin: 14px 0; }
+  dl.kv dt { font-weight: 700; color: var(--accent); margin-top: 12px; font-size: 15.5px; }
+  dl.kv dd { margin: 3px 0 0 0; color: var(--muted); }
+
+  .tag {
+    display: inline-block; background: var(--accent-soft); color: var(--accent);
+    border: 1px solid var(--accent-line); border-radius: 999px;
+    padding: 1px 11px; font-size: 13px; margin: 0 4px 4px 0;
+  }
+  .tag.green { background: var(--green-soft); color: var(--green); border-color: var(--green-line); }
+  .tag.amber { background: var(--amber-soft); color: var(--amber); border-color: var(--amber-line); }
+  .tag.coral { background: var(--coral-soft); color: var(--coral); border-color: var(--coral-line); }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <h2>สารบัญ</h2>
+  <ol>
+    <li><a href="#s1">ภาพรวมโครงการ</a></li>
+    <li><a href="#s2">แนวคิดและแผนการพัฒนา</a></li>
+    <li><a href="#s3">หลักการทำงานของแต่ละฟังก์ชัน</a></li>
+    <li><a href="#s4">เทคโนโลยีที่ใช้ (Tech stack)</a></li>
+    <li><a href="#s5">โครงสร้างการทำงานโดยรวม</a></li>
+    <li><a href="#s6">ผังการทำงานของแต่ละฟังก์ชัน</a></li>
+    <li><a href="#s7">ผังการเชื่อมต่อผู้ใช้กับเบื้องหลัง</a></li>
+    <li><a href="#s8">ผังการไหลของข้อมูล</a></li>
+    <li><a href="#s9">การออกแบบ UX/UI</a></li>
+    <li><a href="#s10">การออกแบบฐานข้อมูล</a></li>
+    <li><a href="#s11">อธิบายทุกเมนูและทุกฟังก์ชัน</a></li>
+    <li><a href="#s12">ขอบเขต ข้อจำกัด และสเปค</a></li>
+    <li><a href="#s13">รายงานผลการทดสอบระบบ</a></li>
+    <li><a href="#s14">การปรับปรุงหลังรายงานฉบับแรก</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero report">
+  <h1>รายงานสรุปโครงการ Advance File Search</h1>
+  <div class="sub">ระบบค้นหาไฟล์และเนื้อหาเอกสารภายในเครื่อง · เวอร์ชัน 1.0.0 · รายงาน ณ วันที่ 12 กันยายน 2569</div>
+  <div class="hero-badges">
+    <span>ทำงานออฟไลน์ 100%</span>
+    <span>Python 3.12 + PySide6 + SQLite FTS5</span>
+    <span>ทดสอบอัตโนมัติ 620 รายการ</span>
+    <span>Windows 10 / 11 (64-bit)</span>
+  </div>
+</header>
+
+<!-- ==================================================================== -->
+<section id="s1">
+  <h2><span class="n">1</span> ภาพรวมโครงการ</h2>
+
+  <p>
+    <b>Advance File Search</b> คือโปรแกรมเดสก์ท็อปสำหรับ Windows ที่อ่านข้อความ
+    ภายในเอกสาร PDF, Word, Excel และไฟล์ข้อความ แล้วสร้างดัชนีค้นหาเก็บไว้ในเครื่อง
+    ผู้ใช้จึงค้นหา “ข้อความที่อยู่ข้างในไฟล์” ได้ ไม่ใช่แค่ชื่อไฟล์
+    และระบบจะบอกด้วยว่าข้อความนั้นอยู่ที่หน้าไหน ย่อหน้าใด เซลล์ไหน หรือบรรทัดที่เท่าใด
+  </p>
+  <p>
+    ข้อกำหนดที่เป็นหัวใจของโครงการนี้คือ <b>ทุกอย่างต้องเกิดขึ้นในเครื่องของผู้ใช้เท่านั้น</b>
+    ไม่มีการเชื่อมต่อออกสู่ภายนอกในทุกกรณี ไม่ว่าจะเป็นบริการ AI คลาวด์ การเก็บสถิติการใช้งาน
+    การตรวจหาเวอร์ชันใหม่ หรือการดาวน์โหลดทรัพยากรใด ๆ
+    ข้อกำหนดนี้ไม่ได้เป็นเพียงคำสัญญาในเอกสาร แต่ถูกบังคับด้วยการทดสอบอัตโนมัติ
+    และพิสูจน์ได้จากตัวไฟล์ที่แจกจ่าย ซึ่งไม่มีไลบรารีเครือข่ายติดมาด้วยเลย
+  </p>
+
+  <div class="metrics">
+    <div class="metric"><span class="v">44</span><span class="k">ไฟล์โปรแกรม (โมดูล Python)</span></div>
+    <div class="metric green"><span class="v">619</span><span class="k">การทดสอบผ่าน (ล้มเหลว 0)</span></div>
+    <div class="metric"><span class="v">4</span><span class="k">รูปแบบเอกสารที่รองรับ</span></div>
+    <div class="metric violet"><span class="v">2</span><span class="k">ภาษาของหน้าจอ</span></div>
+    <div class="metric amber"><span class="v">0</span><span class="k">การเชื่อมต่อเครือข่าย</span></div>
+  </div>
+
+  <h3>1.1 สิ่งที่ระบบทำได้ โดยสรุป</h3>
+  <div class="grid two">
+    <div class="card accent">
+      <h4>ค้นหาข้อความในเอกสาร</h4>
+      <p>
+        ค้นได้ทั้งชื่อไฟล์และเนื้อหา รองรับภาษาไทยที่ไม่เว้นวรรคอย่างถูกต้อง
+        พร้อมตัวเลือกตรงตัวพิมพ์ ทั้งคำ วลีตรงทั้งหมด และสัญลักษณ์แทน <code>*</code> <code>?</code>
+      </p>
+    </div>
+    <div class="card green">
+      <h4>ดัชนีที่อัปเดตเองเมื่อค้นหา</h4>
+      <p>
+        ครั้งแรกระบบสร้างดัชนีให้อัตโนมัติ ครั้งถัดไปจะตรวจเฉพาะไฟล์ที่เพิ่ม แก้ไข
+        หรือถูกลบ การค้นหาซ้ำในโฟลเดอร์เดิมจึงเกือบจะทันที
+      </p>
+    </div>
+    <div class="card amber">
+      <h4>บอกตำแหน่งที่พบอย่างละเอียด</h4>
+      <p>
+        PDF บอกเลขหน้า · Word บอกย่อหน้าหรือตำแหน่งในตาราง · Excel บอกชื่อชีตและเซลล์ ·
+        ไฟล์ข้อความบอกเลขบรรทัด
+      </p>
+    </div>
+    <div class="card violet">
+      <h4>ไม่แตะต้องเอกสารของผู้ใช้</h4>
+      <p>
+        เปิดอ่านอย่างเดียว ไม่แก้ไข ไม่ย้าย ไม่ลบ ไม่รันมาโคร
+        และไม่เปิดไฟล์ให้ทำงานระหว่างจัดดัชนี
+      </p>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>เอกสารฉบับนี้คืออะไร</b>
+    รายงานสรุปโครงการสำหรับผู้ดูแลระบบ ผู้ตรวจรับ และผู้ที่ต้องดูแลโปรแกรมนี้ต่อ
+    อธิบายตั้งแต่แนวคิด สถาปัตยกรรม เทคโนโลยี ฐานข้อมูล ไปจนถึงผลการทดสอบ
+    หากต้องการเพียง “วิธีใช้งาน” ให้อ่าน <b>คู่มือการใช้งาน</b> (<code>Manual\index.html</code>) แทน
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s2">
+  <h2><span class="n">2</span> แนวคิดและแผนการพัฒนา</h2>
+
+  <h3>2.1 โจทย์ตั้งต้น</h3>
+  <p>
+    ปัญหาที่ต้องแก้คือ “จำได้ว่าข้อความอยู่ในเอกสารสักไฟล์ แต่จำไม่ได้ว่าไฟล์ไหน”
+    การค้นหาด้วยชื่อไฟล์ของ Windows ตอบโจทย์นี้ไม่ได้ ส่วนบริการค้นหาบนคลาวด์ตอบได้
+    แต่ต้องอัปโหลดเอกสารออกไป ซึ่งใช้ไม่ได้กับเอกสารราชการหรือเอกสารภายในองค์กร
+    ระบบนี้จึงถูกวางให้ตอบโจทย์แรกโดยไม่ละเมิดเงื่อนไขที่สอง
+  </p>
+
+  <h3>2.2 หลักคิด 5 ข้อที่ใช้ตัดสินใจตลอดโครงการ</h3>
+  <dl class="kv">
+    <dt>1. ความเป็นส่วนตัวคือข้อกำหนด ไม่ใช่คุณสมบัติเสริม</dt>
+    <dd>
+      เมื่อใดที่ต้องเลือกระหว่าง “สะดวกขึ้น” กับ “ข้อมูลไม่ออกจากเครื่อง” จะเลือกอย่างหลังเสมอ
+      ผลที่ตามมาคือไม่มี OCR ออนไลน์ ไม่มีฟอนต์จากอินเทอร์เน็ต ไม่มีการตรวจอัปเดต
+      และบันทึกการทำงานไม่เก็บข้อความจากเอกสารหรือคำค้นของผู้ใช้
+    </dd>
+    <dt>2. พิสูจน์เรื่องที่เสี่ยงที่สุดก่อน</dt>
+    <dd>
+      ความเสี่ยงสูงสุดของโครงการคือการค้นภาษาไทย เพราะภาษาไทยไม่เว้นวรรคระหว่างคำ
+      จึงทดลองเปรียบเทียบตัวแยกคำก่อนเขียนโปรแกรมจริง (ดูหัวข้อ 3.2)
+      ผลการทดลองเป็นตัวกำหนดการออกแบบฐานข้อมูลทั้งหมดในเวลาต่อมา
+    </dd>
+    <dt>3. ล้มเหลวทีละไฟล์ ไม่ล้มทั้งงาน</dt>
+    <dd>
+      เอกสารจริงมีทั้งไฟล์เสีย ไฟล์ที่ถูกล็อกอยู่ และไฟล์ที่ใส่รหัสผ่าน
+      ระบบจึงบันทึกผลของแต่ละไฟล์แยกกันในธุรกรรมของตัวเอง ไฟล์ที่มีปัญหาถูกบันทึกเป็น
+      “สาเหตุ” ที่อ่านเข้าใจได้ แล้วงานเดินต่อ
+    </dd>
+    <dt>4. หน้าจอต้องไม่ค้าง</dt>
+    <dd>
+      งานอ่านไฟล์และงานค้นหาอยู่ในเธรดเบื้องหลังเสมอ หน้าจอทำหน้าที่เพียงสั่งงาน
+      รับสัญญาณความคืบหน้า และวาดผลลัพธ์ ผู้ใช้จึงกดยกเลิกได้ทุกเมื่อ
+    </dd>
+    <dt>5. ทุกการตัดสินใจที่มีข้อแลกเปลี่ยน ต้องเขียนเหตุผลไว้</dt>
+    <dd>
+      โครงการมีเอกสาร ADR (Architecture Decision Record) 10 ฉบับ บันทึกว่าเลือกอะไร
+      เพราะอะไร และทางเลือกอื่นถูกตัดออกด้วยเหตุผลใด เพื่อให้ผู้ดูแลคนถัดไปไม่ต้องเดา
+    </dd>
+  </dl>
+
+  <h3>2.3 ลำดับการทำงาน</h3>
+  <figure class="plain wide">
+    <img src="images/dia_timeline.svg" alt="แผนภาพลำดับขั้นการพัฒนา 6 ระยะ">
+    <figcaption>ภาพที่ 1 — ลำดับการพัฒนา 6 ระยะ และหลักที่ยึดตลอดโครงการ</figcaption>
+  </figure>
+  <p>
+    ลำดับนี้ไม่ใช่การทำทีละระยะให้จบแล้วค่อยขยับ แต่เป็นลำดับของ “ความเสี่ยง”
+    ระยะที่ 1 จบเมื่อรู้แน่ว่าจะค้นภาษาไทยด้วยวิธีใด ระยะที่ 2–4 สร้างแกนของระบบพร้อมชุดทดสอบ
+    ของตัวเองไปพร้อมกัน ระยะที่ 5 จึงประกอบหน้าจอบนแกนที่ทดสอบแล้ว
+    และระยะที่ 6 คือการยืนยันทั้งระบบอีกครั้งหลังแพ็กเป็นไฟล์ติดตั้ง
+  </p>
+
+  <h3>2.4 ขอบเขตที่ตั้งใจ “ไม่ทำ”</h3>
+  <p>
+    การกำหนดสิ่งที่จะไม่ทำมีน้ำหนักเท่ากับสิ่งที่จะทำ รายการต่อไปนี้ถูกตัดออกตั้งแต่ต้น
+    อย่างตั้งใจ ไม่ใช่เพราะทำไม่ทัน
+  </p>
+  <p>
+    <span class="tag coral">ไม่มี OCR</span>
+    <span class="tag coral">ไม่รองรับ .doc / .xls รุ่นเก่า</span>
+    <span class="tag coral">ไม่รองรับไดรฟ์เครือข่าย NAS และคลาวด์</span>
+    <span class="tag coral">ไม่มีเว็บเซิร์ฟเวอร์ในเครื่อง</span>
+    <span class="tag coral">ไม่มี WebView</span>
+    <span class="tag coral">ไม่มีการติดตามการใช้งาน</span>
+    <span class="tag coral">ไม่เปิดไฟล์ให้ทำงานเอง</span>
+    <span class="tag coral">ไม่ตามลิงก์หรือทางลัด</span>
+  </p>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s3">
+  <h2><span class="n">3</span> หลักการทำงานของแต่ละฟังก์ชัน</h2>
+  <p>
+    หัวข้อนี้อธิบาย “วิธีคิด” ของแต่ละฟังก์ชันว่าเลือกใช้หลักการใดและเพราะอะไร
+    ส่วนผังขั้นตอนแบบภาพอยู่ในหัวข้อที่ 6
+  </p>
+
+  <div class="fnbox">
+    <h4>3.1 การเดินสำรวจไฟล์ และการรู้ว่าไฟล์ใด “เปลี่ยนแล้ว”</h4>
+    <div>
+      <p>
+        การจัดดัชนีรอบที่สองไม่ควรอ่านไฟล์ทั้งหมดใหม่ คำถามคือจะรู้ได้อย่างไรว่าไฟล์เปลี่ยน
+        วิธีที่แม่นยำที่สุดคือคำนวณค่าแฮชจากเนื้อไฟล์ทั้งไฟล์ แต่นั่นแปลว่าต้องอ่านทุกไบต์
+        ของทุกไฟล์ทุกครั้ง ซึ่งช้าพอ ๆ กับการทำใหม่ทั้งหมด
+      </p>
+      <p>
+        ระบบจึงใช้ <b>ลายนิ้วมือ (fingerprint)</b> ที่ประกอบจาก ขนาดไฟล์ + เวลาที่แก้ไขล่าสุด +
+        เวอร์ชันของตัวอ่านเอกสาร ค่านี้ได้มาจากข้อมูลที่ระบบไฟล์บอกอยู่แล้ว จึงไม่ต้องเปิดไฟล์
+        และเมื่อใดที่ตัวอ่านเอกสารถูกปรับปรุง เวอร์ชันที่เปลี่ยนจะทำให้ทุกไฟล์ถูกอ่านใหม่โดยอัตโนมัติ
+      </p>
+      <p>
+        ข้อแลกเปลี่ยนที่ยอมรับไว้อย่างตั้งใจ: ถ้ามีใครแก้ไฟล์แล้วตั้งเวลาแก้ไขกลับให้เท่าเดิม
+        และขนาดไฟล์เท่าเดิมพอดี ระบบจะถือว่าไฟล์ไม่เปลี่ยน กรณีนี้แก้ได้ด้วยคำสั่ง
+        “สร้างดัชนีใหม่ทั้งหมด” <i>(ดู <a href="#s11">หัวข้อ 11</a> หมายเลข 2)</i>
+      </p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>3.2 การค้นภาษาไทย — หัวใจของทั้งระบบ</h4>
+    <div>
+      <p>
+        ดัชนีข้อความเต็มของ SQLite (FTS5) ต้องเลือก “ตัวแยกคำ” ตัวเลือกมาตรฐานคือ
+        <code>unicode61</code> ซึ่งแบ่งคำด้วยช่องว่างและเครื่องหมายวรรคตอน
+        วิธีนี้ใช้ได้ดีกับภาษาอังกฤษ แต่ภาษาไทยไม่เว้นวรรคระหว่างคำ
+        ข้อความไทยยาว ๆ หนึ่งท่อนจึงกลายเป็น “คำเดียว” ทั้งท่อน
+        และการค้นคำที่อยู่กลางท่อนนั้นจะไม่พบอะไรเลย
+      </p>
+      <p>เพื่อยืนยันสมมติฐานนี้ มีการทดลองจริงกับเอกสารต้นแบบ 300 ฉบับ ก่อนตัดสินใจ:</p>
+      <table>
+        <thead>
+          <tr><th>ตัวแยกคำ</th><th>ผลการค้น <code>งบประมาณ</code> ที่อยู่กลางข้อความไทย</th><th>จำนวนที่มีอยู่จริง</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>unicode61</code></td><td>154 ครั้ง (948 ครั้งเมื่อใช้การค้นแบบขึ้นต้น)</td><td>1,882 ครั้ง</td></tr>
+          <tr><td><b><code>trigram</code></b></td><td><b>1,882 ครั้ง</b></td><td>1,882 ครั้ง</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <code>unicode61</code> พลาดไปเกินครึ่ง ระบบจึงใช้ <b>ตัวแยกคำแบบ trigram</b>
+        ซึ่งตัดข้อความเป็นชุดอักขระ 3 ตัวที่เลื่อนทีละตำแหน่ง ทำให้ค้นข้อความย่อย
+        ได้ทุกภาษาโดยไม่ต้องรู้จักขอบเขตของคำ
+      </p>
+      <p>ผลข้างเคียงของ trigram ที่ต้องจัดการเพิ่มในชั้นค้นหา มี 3 อย่าง และจัดการครบแล้ว:</p>
+      <ul>
+        <li>คำค้นสั้นกว่า 3 ตัวอักษรใช้ดัชนีนี้ไม่ได้ → เปลี่ยนไปสแกนแบบมีเพดานจำนวนแถวแทน</li>
+        <li>ดัชนีไม่แยกตัวพิมพ์เล็กใหญ่ → ตัวเลือก “ตรงตัวพิมพ์” ถูกตรวจซ้ำในหน่วยความจำ</li>
+        <li>ดัชนีไม่รู้จักขอบเขตคำและสัญลักษณ์แทน → “ทั้งคำ” และ <code>*</code> <code>?</code> ถูกตรวจซ้ำเช่นกัน</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>3.3 สัญลักษณ์แทน (wildcard) ที่ไม่ใช้ Regular Expression</h4>
+    <div>
+      <p>
+        คำค้นของผู้ใช้เป็นข้อความที่ระบบควบคุมไม่ได้ ถ้านำไปแปลงเป็น regular expression
+        แล้วให้เอนจิน regex ทำงาน จะเปิดช่องให้เกิด <b>ReDoS</b> คือคำค้นบางรูปแบบทำให้
+        การเทียบใช้เวลาเพิ่มแบบทวีคูณจนโปรแกรมค้าง
+      </p>
+      <p>
+        ระบบจึงเขียนตัวเทียบ <code>*</code> และ <code>?</code> เองแบบเชิงเส้น
+        เทียบทีละอักขระโดยไม่มีการย้อนกลับที่ควบคุมไม่ได้ และจำกัดจำนวนสัญลักษณ์แทนต่อคำไว้ที่ 6 ตัว
+        เวลาที่ใช้จึงเป็นสัดส่วนตรงกับความยาวข้อความเสมอ
+      </p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>3.4 การแบ่งเอกสารเป็น “หน่วยข้อความ”</h4>
+    <div>
+      <p>
+        ระบบไม่เก็บเอกสารทั้งไฟล์เป็นก้อนเดียว แต่แบ่งเป็นหน่วยย่อยที่มีตำแหน่งกำกับ
+        เพราะผู้ใช้ไม่ได้ต้องการแค่รู้ว่า “อยู่ในไฟล์นี้” แต่ต้องการรู้ว่า “อยู่ตรงไหนของไฟล์”
+      </p>
+      <table>
+        <thead><tr><th>รูปแบบ</th><th>1 หน่วย = </th><th>ตำแหน่งที่รายงาน</th></tr></thead>
+        <tbody>
+          <tr><td>PDF</td><td>1 หน้า</td><td><code>หน้า 2</code></td></tr>
+          <tr><td>DOCX</td><td>1 ย่อหน้า / 1 ช่องตาราง / หัวและท้ายกระดาษ</td><td><code>ย่อหน้า 24</code> · <code>ตาราง 1 แถว 2 คอลัมน์ 3</code></td></tr>
+          <tr><td>XLSX</td><td>1 เซลล์</td><td><code>ชีต: งบประมาณ 2568, เซลล์: F12</code></td></tr>
+          <tr><td>TXT</td><td>1 บรรทัด</td><td><code>บรรทัด 135</code></td></tr>
+        </tbody>
+      </table>
+      <p>
+        การเลือกความละเอียดระดับนี้มีเหตุผลเชิงคุณภาพ: ถ้าเก็บ Excel เป็น “ทั้งชีต”
+        ผู้ใช้จะได้ผลลัพธ์ที่บอกแค่ชื่อชีต ซึ่งแทบไม่ช่วยอะไรในไฟล์ที่มีข้อมูลหลายพันแถว
+        และในทางกลับกัน ระบบจะแสดงเซลล์ข้างเคียงในแถวเดียวกันด้วย เพื่อให้ตัวเลขโดด ๆ มีความหมาย
+      </p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>3.5 การจัดอันดับผลลัพธ์</h4>
+    <div>
+      <p>
+        ผลลัพธ์ไม่ได้เรียงตามลำดับที่ฐานข้อมูลคืนมา แต่ให้คะแนนตามหลักที่ว่า
+        “สิ่งที่ผู้ใช้น่าจะหมายถึงมากที่สุดควรอยู่บนสุด” องค์ประกอบของคะแนนคือ
+      </p>
+      <ul>
+        <li><b>ตรงที่ชื่อไฟล์</b> มีน้ำหนักมากกว่าตรงที่เนื้อหา — คนที่พิมพ์ชื่อไฟล์มักต้องการไฟล์นั้นจริง ๆ</li>
+        <li><b>จำนวนครั้งที่พบ</b> ในไฟล์เดียวกัน แต่มีเพดาน เพื่อไม่ให้ไฟล์ยาวชนะไฟล์ที่ตรงกว่า</li>
+        <li><b>ความใหม่ของไฟล์</b> ใช้เป็นตัวตัดสินเมื่อคะแนนอื่นเท่ากัน</li>
+      </ul>
+      <p>ผู้ใช้ยังเปลี่ยนไปเรียงตามชื่อ ขนาด วันที่ หรือชนิดไฟล์ได้ตลอดเวลา</p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>3.6 ความปลอดภัยของพาธ และการไม่แตะสิ่งที่ไม่ควรแตะ</h4>
+    <div>
+      <p>
+        ทุกพาธที่เข้ามาในระบบถูกตรวจก่อนใช้งานเสมอ พาธที่เป็น UNC (<code>\\server\share</code>)
+        ไดรฟ์ที่แมปจากเครือข่าย และ URL จะถูกปฏิเสธพร้อมข้อความอธิบาย
+        เพราะเวอร์ชัน 1 รับเฉพาะพาธในเครื่อง
+      </p>
+      <p>
+        ระหว่างเดินสำรวจไฟล์ ระบบ <b>ไม่ตามทางลัด (.lnk) และ junction/symlink</b>
+        เพื่อไม่ให้เกิดวงวนไม่รู้จบและไม่ให้หลุดออกนอกโฟลเดอร์ที่ผู้ใช้อนุญาต
+        ไฟล์ชั่วคราวของ Office (ขึ้นต้นด้วย <code>~$</code>) ถูกข้าม
+        และไฟล์บนคลาวด์ที่ยังไม่ดาวน์โหลดจะถูกข้ามแทนที่จะถูกสั่งให้ดาวน์โหลด
+      </p>
+      <p>
+        คำสั่ง SQL ทุกคำสั่งใช้พารามิเตอร์ ไม่มีการต่อสตริงจากข้อมูลผู้ใช้
+        และไม่มีการเรียก <code>eval</code>, <code>exec</code> หรือการสร้างคำสั่งเชลล์จากข้อมูลผู้ใช้ที่ใดเลย
+      </p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>3.7 บันทึกการทำงานที่ไม่เป็นภาระต่อความเป็นส่วนตัว</h4>
+    <div>
+      <p>
+        ระบบมีไฟล์บันทึกไว้ช่วยแก้ปัญหา แต่บันทึกคือช่องรั่วของข้อมูลที่พบบ่อยที่สุด
+        กติกาจึงชัดเจน: บันทึกได้เฉพาะ “สถิติและเหตุการณ์” เช่น จำนวนไฟล์ เวลาที่ใช้ รหัสข้อผิดพลาด
+        <b>ห้าม</b>บันทึกเนื้อหาเอกสาร คำค้นของผู้ใช้ ข้อความรอบคำค้น หรือร่องรอยข้อผิดพลาด
+        ที่มีเนื้อหาเอกสารติดมา และมีการทดสอบอัตโนมัติคอยตรวจข้อนี้โดยเฉพาะ
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s4">
+  <h2><span class="n">4</span> เทคโนโลยีที่ใช้ (Tech stack)</h2>
+  <p>
+    ทุกอย่างในรายการนี้ติดตั้งตอน <b>สร้างโปรแกรม</b> เท่านั้น เมื่อแพ็กเป็นไฟล์ <code>.exe</code> แล้ว
+    ทุกอย่างถูกรวมไว้ในโฟลเดอร์เดียว เครื่องปลายทางไม่ต้องติดตั้ง Python
+    และไม่ต้องต่ออินเทอร์เน็ตเลยแม้แต่ครั้งเดียว
+  </p>
+
+  <figure class="plain wide">
+    <img src="images/dia_techstack.svg" alt="ตารางเทคโนโลยีที่ใช้และหน้าที่ของแต่ละอย่าง">
+    <figcaption>ภาพที่ 2 — เทคโนโลยีแต่ละตัวและหน้าที่ของมันในระบบ</figcaption>
+  </figure>
+
+  <h3>4.1 รายละเอียดของแต่ละเทคโนโลยี</h3>
+
+  <div class="fnbox">
+    <h4>Python 3.12.10 — ภาษาหลัก</h4>
+    <div>
+      <p>
+        เลือกเพราะไลบรารีอ่านเอกสารที่ดีที่สุดอยู่ในระบบนิเวศนี้ และเพราะโค้ดอ่านง่าย
+        ซึ่งสำคัญกับโครงการที่ต้องส่งมอบให้คนอื่นดูแลต่อ
+        ทั้งโปรแกรมเป็นแพ็กเกจ Python เดียว ไม่มีโค้ดภาษาอื่นปนอยู่เลย
+        รุ่น 3.12 ถูกตรึงไว้เพราะ PySide6 6.11 ผูกกับรุ่นของ Python ที่ใช้สร้าง
+      </p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>PySide6 6.11.2 (Qt 6) — ส่วนติดต่อผู้ใช้</h4>
+    <div>
+      <p>ใช้กับทุกสิ่งที่ผู้ใช้มองเห็นและสัมผัส และใช้กับงานเบื้องหลังด้วย:</p>
+      <table>
+        <thead><tr><th>ส่วนของ Qt</th><th>ใช้ทำอะไรในระบบนี้</th></tr></thead>
+        <tbody>
+          <tr><td><code>QMainWindow</code> และวิดเจ็ตทั่วไป</td><td>หน้าต่างหลัก แถบค้นหา กล่องโต้ตอบทั้งหมด</td></tr>
+          <tr><td><code>QAbstractItemModel</code> + <code>QTreeView</code></td><td>ตารางผลลัพธ์แบบมีแถวย่อย (ไฟล์ → ตำแหน่งที่พบ)</td></tr>
+          <tr><td><code>QStyledItemDelegate</code></td><td>วาดข้อความที่ตรงกันพร้อมแถบไฮไลต์ และวาดปุ่มเปิดโฟลเดอร์ด้วยมือ</td></tr>
+          <tr><td><code>QThread</code> + signal/slot</td><td>ย้ายงานหนักออกจากหน้าจอ และส่งความคืบหน้ากลับอย่างปลอดภัยข้ามเธรด</td></tr>
+          <tr><td><code>QTextCharFormat</code></td><td>ไฮไลต์คำค้นในกล่องพรีวิวด้วย “รูปแบบตัวอักษร” ไม่ใช่การแทรกแท็ก</td></tr>
+          <tr><td><code>QSettings</code> / ไฟล์ JSON</td><td>จำตำแหน่งหน้าต่าง ความกว้างคอลัมน์ และค่าที่ผู้ใช้ตั้งไว้</td></tr>
+        </tbody>
+      </table>
+      <div class="warn">
+        <b>สิ่งที่จงใจไม่ใช้จาก Qt</b>
+        <code>Qt WebEngine</code> (เบราว์เซอร์ฝังในโปรแกรม) และ <code>Qt Network</code> ถูกตัดออกจากไฟล์ที่แจกจ่าย
+        เพราะโปรแกรมนี้ต้องไม่มีความสามารถในการต่อเครือข่ายตั้งแต่ต้น
+        การไฮไลต์ข้อความจึงใช้การวาดเอง ไม่ใช่การเรนเดอร์ HTML ซึ่งปลอดภัยกว่าด้วย
+        เพราะข้อความจากเอกสารของผู้ใช้จะไม่มีวันถูกตีความเป็นโค้ด
+      </div>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>SQLite 3.49 + FTS5 (trigram) — ฐานข้อมูลและดัชนี</h4>
+    <div>
+      <p>
+        SQLite มากับ Python อยู่แล้ว ไม่ต้องติดตั้งเซิร์ฟเวอร์ฐานข้อมูล ไม่ต้องเปิดพอร์ต
+        และเก็บทุกอย่างเป็นไฟล์เดียวที่คัดลอกหรือลบได้ตรงไปตรงมา
+        ส่วนขยาย FTS5 ให้ดัชนีข้อความเต็มที่เร็วพอสำหรับงานนี้ และรองรับตัวแยกคำแบบ trigram
+        ซึ่งเป็นเหตุผลที่ทำให้ค้นภาษาไทยได้จริง
+      </p>
+      <p>ค่าที่ตั้งไว้สำหรับการใช้งานจริง:</p>
+      <ul>
+        <li><code>journal_mode=WAL</code> — ให้ฝั่งค้นหาอ่านได้ขณะที่ฝั่งจัดดัชนีกำลังเขียน</li>
+        <li><code>synchronous=NORMAL</code> — สมดุลระหว่างความเร็วกับความปลอดภัยของข้อมูล</li>
+        <li><code>secure_delete=ON</code> — ข้อความที่ถูกลบออกจากดัชนีจะถูกเขียนทับจริง ไม่ค้างอยู่ในไฟล์</li>
+        <li><code>foreign_keys=ON</code> — ลบไฟล์แล้วหน่วยข้อความของไฟล์นั้นถูกลบตามอัตโนมัติ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>ไลบรารีอ่านเอกสาร</h4>
+    <div>
+      <table>
+        <thead><tr><th>ไลบรารี</th><th>รูปแบบ</th><th>เหตุผลที่เลือก และสิ่งที่ต้องระวัง</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>PyMuPDF</b> 1.26.5</td><td>PDF</td>
+            <td>เร็วและดึงข้อความไทยได้ถูกต้องกว่าตัวเลือกอื่นที่ทดลอง · <b>สัญญาอนุญาตเป็น AGPL-3.0
+            หรือแบบเชิงพาณิชย์</b> ซึ่งต้องตัดสินใจก่อนแจกจ่ายออกนอกองค์กร (ดูหัวข้อ 12.4)</td>
+          </tr>
+          <tr>
+            <td><b>python-docx</b> 1.2.0</td><td>DOCX</td>
+            <td>เข้าถึงย่อหน้า ตาราง หัวและท้ายกระดาษได้ตามลำดับจริงในเอกสาร · ไม่รองรับ <code>.doc</code> รุ่นเก่า</td>
+          </tr>
+          <tr>
+            <td><b>openpyxl</b> 3.1.5</td><td>XLSX</td>
+            <td>อ่านแบบ read-only ทีละแถวจึงไม่กินหน่วยความจำ · อ่านค่าที่บันทึกไว้ ไม่คำนวณสูตรใหม่ ·
+            ข้ามชีตที่ซ่อนไว้ตามที่ผู้ใช้ตั้งใจซ่อน</td>
+          </tr>
+          <tr>
+            <td><b>lxml</b> 6.0.2</td><td>—</td>
+            <td>ตัวอ่าน XML ที่ python-docx และ openpyxl เรียกใช้เบื้องหลัง · ถูกตั้งค่าไม่ให้ประมวลผล
+            entity ภายนอก จึงไม่เปิดช่องโจมตีแบบ XXE</td>
+          </tr>
+          <tr>
+            <td>ไม่มีไลบรารีเพิ่ม</td><td>TXT</td>
+            <td>ตรวจรหัสอักขระเอง รองรับ UTF-8 (มีและไม่มี BOM), UTF-16 และ CP874/TIS-620 ซึ่งพบบ่อยในเอกสารไทยเก่า</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>PyInstaller — การแพ็กเป็นไฟล์ .exe</h4>
+    <div>
+      <p>
+        ใช้โหมด <b>onedir</b> (โฟลเดอร์เดียวที่มีทุกอย่าง) ไม่ใช่ onefile
+        เพราะ onefile ต้องแตกไฟล์ลงโฟลเดอร์ชั่วคราวทุกครั้งที่เปิด ซึ่งช้ากว่า
+        และมักถูกโปรแกรมป้องกันไวรัสสงสัย
+      </p>
+      <p>
+        หลังแพ็กเสร็จมีขั้นตอน <b>ตัดไฟล์ที่ไม่ควรติดไปด้วย</b> โดยเฉพาะ
+        <code>_socket.pyd</code>, <code>_ssl.pyd</code>, <code>libssl</code>, <code>libcrypto</code>
+        และ <code>Qt6Network.dll</code> แล้วมีสคริปต์ตรวจซ้ำว่าไฟล์เหล่านี้ไม่มีอยู่จริง
+        นี่คือเหตุผลที่พูดได้ว่าโปรแกรมนี้ “ต่อเน็ตไม่ได้” ไม่ใช่แค่ “ไม่ต่อ”
+      </p>
+    </div>
+  </div>
+
+  <div class="fnbox">
+    <h4>pytest — ชุดทดสอบ</h4>
+    <div>
+      <p>
+        การทดสอบ 620 รายการครอบคลุมตั้งแต่การแปลคำค้นไปจนถึงหน้าจอจริงและไฟล์ที่แพ็กแล้ว
+        เอกสารทดสอบทั้งหมดถูกสร้างขึ้นใหม่ตอนรัน จึงไม่มีเอกสารจริงหรือเอกสารลับ
+        อยู่ในโครงการนี้เลย รายละเอียดอยู่ในหัวข้อที่ 13
+      </p>
+    </div>
+  </div>
+
+  <h3>4.2 โครงสร้างของซอร์สโค้ด</h3>
+  <figure class="plain wide">
+    <img src="images/dia_modules.svg" alt="แผนผังแพ็กเกจและไฟล์ของซอร์สโค้ด">
+    <figcaption>ภาพที่ 3 — ซอร์สโค้ดแบ่งเป็น 6 แพ็กเกจตามหน้าที่</figcaption>
+  </figure>
+  <p>
+    การแบ่งนี้ไม่ได้แบ่งเพื่อความสวยงาม แต่บังคับทิศทางการพึ่งพา:
+    <code>ui</code> เรียก <code>search</code> และ <code>indexing</code> ได้
+    <code>search</code> และ <code>indexing</code> เรียก <code>storage</code> และ <code>core</code> ได้
+    แต่ไม่มีชั้นล่างใดเรียกกลับขึ้นไปหา <code>ui</code> เลย
+    ผลคือตรรกะทั้งหมดทดสอบได้โดยไม่ต้องเปิดหน้าต่าง และเปลี่ยนหน้าจอได้โดยไม่กระทบแกนของระบบ
+  </p>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s5">
+  <h2><span class="n">5</span> โครงสร้างการทำงานโดยรวม</h2>
+
+  <div class="note">
+    <b>เรื่องที่ต้องเข้าใจก่อน: ระบบนี้ไม่มีเซิร์ฟเวอร์</b>
+    Advance File Search เป็นโปรแกรมเดสก์ท็อปที่ทำงานจบในเครื่องเดียว ไม่มีเครื่องแม่ข่าย
+    ไม่มีการติดตั้งบริการเบื้องหลัง และไม่มีการเปิดพอร์ตใด ๆ
+    สิ่งที่ทำหน้าที่ “แทนฝั่งเซิร์ฟเวอร์” คือชั้นประมวลผลและชั้นจัดเก็บข้อมูลที่อยู่ในโปรเซสเดียวกัน
+    แต่ถูกแยกออกจากหน้าจออย่างชัดเจนด้วยเธรดและขอบเขตของโมดูล
+    หัวข้อนี้และหัวข้อที่ 7 จึงอธิบายการเชื่อมต่อระหว่าง “ฝั่งผู้ใช้” กับ “ฝั่งประมวลผล” ในความหมายนี้
+  </div>
+
+  <figure class="plain wide">
+    <img src="images/dia_architecture.svg" alt="แผนภาพโครงสร้างระบบทั้งหมด สามชั้น">
+    <figcaption>ภาพที่ 4 — โครงสร้างทั้งระบบ: ฝั่งผู้ใช้ ฝั่งประมวลผล และชั้นจัดเก็บข้อมูล</figcaption>
+  </figure>
+
+  <h3>5.1 ฝั่งผู้ใช้ (Presentation)</h3>
+  <p>
+    ชั้นนี้มีหน้าที่เดียวคือรับคำสั่งและแสดงผล ห้ามอ่านไฟล์เอกสารเอง ห้ามค้นฐานข้อมูลก้อนใหญ่เอง
+    งานที่ทำในชั้นนี้ต้องจบภายในเสี้ยววินาที มิฉะนั้นหน้าต่างจะค้าง
+    การอ่านข้อมูลเล็ก ๆ เช่น “ดัชนีมีไฟล์กี่ไฟล์” ยังทำได้ในเธรดนี้ เพราะเป็นการอ่านที่จบทันที
+  </p>
+
+  <h3>5.2 ฝั่งประมวลผล (ทำหน้าที่แทนเซิร์ฟเวอร์)</h3>
+  <p>
+    ชั้นนี้คือ “เครื่องยนต์” ของระบบ ประกอบด้วยตัวควบคุมการจัดดัชนี ตัวอ่านเอกสาร
+    บริการค้นหา และตัวประมวลผลคำค้น ทั้งหมดทำงานในเธรดเบื้องหลัง
+    และสื่อสารกับหน้าจอผ่านสัญญาณของ Qt เท่านั้น
+    ข้อดีที่ได้จากการแยกแบบนี้คือ ชั้นนี้ถูกทดสอบได้โดยไม่ต้องมีหน้าจอเลย
+    ซึ่งเป็นเหตุผลที่การทดสอบส่วนใหญ่ของโครงการรันได้เร็วมาก
+  </p>
+
+  <h3>5.3 ชั้นจัดเก็บข้อมูล</h3>
+  <table>
+    <thead><tr><th>สิ่งที่เก็บ</th><th>เก็บที่ไหน</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td>ดัชนีค้นหา</td><td><code>%LOCALAPPDATA%\Advance File Search\index\index.db</code></td><td>SQLite + WAL · ลบได้ปลอดภัย ระบบจะสร้างใหม่</td></tr>
+      <tr><td>ค่าที่ตั้งไว้</td><td><code>%LOCALAPPDATA%\Advance File Search\settings.json</code></td><td>ข้อความล้วน เปิดอ่านได้</td></tr>
+      <tr><td>บันทึกการทำงาน</td><td><code>%LOCALAPPDATA%\Advance File Search\logs\app.log</code></td><td>หมุนไฟล์เมื่อครบ 5 MB · ไม่มีเนื้อหาเอกสาร</td></tr>
+      <tr><td>เอกสารต้นฉบับ</td><td>ที่เดิมของผู้ใช้</td><td>เปิดอ่านอย่างเดียว ไม่ถูกคัดลอกไปไว้ที่อื่น</td></tr>
+    </tbody>
+  </table>
+  <p>
+    ข้อมูลทั้งหมดอยู่ในโปรไฟล์ของผู้ใช้ปัจจุบัน ไม่ใช่ในโฟลเดอร์โปรแกรม
+    ผลคือลบโฟลเดอร์โปรแกรมทิ้งแล้วดัชนียังอยู่ และผู้ใช้คนละคนบนเครื่องเดียวกัน
+    จะไม่เห็นดัชนีของกันและกัน
+  </p>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s6">
+  <h2><span class="n">6</span> ผังการทำงานของแต่ละฟังก์ชัน</h2>
+
+  <h3>6.1 ผังการจัดทำดัชนี</h3>
+  <figure class="plain wide">
+    <img src="images/dia_index_flow.svg" alt="ผังขั้นตอนการจัดทำดัชนีตั้งแต่ต้นจนจบ">
+    <figcaption>ภาพที่ 5 — ผังการทำงานของการจัดทำดัชนีหนึ่งรอบ</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>เดินสำรวจไฟล์</b>
+      ไล่ดูไฟล์ในโฟลเดอร์ที่เลือกและโฟลเดอร์ย่อยทั้งหมด ไฟล์ที่ไม่ควรแตะถูกกรองออกตั้งแต่ชั้นนี้
+      ทั้งทางลัด junction ไฟล์ชั่วคราวของ Office ไฟล์ใหญ่เกินค่าที่ตั้งไว้ และนามสกุลที่ไม่รองรับ</li>
+    <li><b>คำนวณลายนิ้วมือ</b>
+      จาก ขนาด + เวลาแก้ไข + เวอร์ชันตัวอ่าน แล้วเทียบกับค่าที่เก็บไว้ครั้งก่อน</li>
+    <li><b>ตัดสินใจ</b>
+      ถ้าตรงกัน ข้ามไปเลย (นับเป็น <code>unchanged</code>) ถ้าไม่ตรง จึงเปิดอ่านไฟล์นั้น</li>
+    <li><b>เลือกตัวอ่านและแยกข้อความ</b>
+      ตามนามสกุลไฟล์ แล้วแยกเป็นหน่วยข้อความพร้อมตำแหน่งของแต่ละหน่วย</li>
+    <li><b>บันทึกแบบทีละไฟล์</b>
+      แต่ละไฟล์เขียนใน <code>SAVEPOINT</code> ของตัวเอง ไฟล์ที่พังจะถูกย้อนคืนเฉพาะของมัน
+      ทริกเกอร์ของฐานข้อมูลอัปเดตดัชนี FTS ให้เองโดยที่โปรแกรมไม่ต้องสั่ง</li>
+    <li><b>ปิดงาน</b>
+      ไฟล์ที่ไม่ถูกพบในรอบนี้ถือว่าถูกลบไปแล้ว จึงเอาออกจากดัชนี แล้วบันทึกสถิติของรอบนี้ไว้</li>
+  </ol>
+  <div class="tip">
+    <b>ยกเลิกได้โดยไม่ทำให้ดัชนีเสีย</b>
+    การยกเลิกจะมีผลที่ “ขอบเขตของไฟล์ถัดไป” เสมอ ไฟล์ที่บันทึกไปแล้วสมบูรณ์อยู่
+    ไฟล์ที่กำลังทำค้างอยู่จะถูกย้อนคืน ดัชนีจึงไม่มีสภาพครึ่ง ๆ กลาง ๆ
+  </div>
+
+  <h3>6.2 ผังการค้นหา</h3>
+  <figure class="plain wide">
+    <img src="images/dia_search_flow.svg" alt="ผังขั้นตอนการค้นหาตั้งแต่รับคำค้นจนส่งผลลัพธ์">
+    <figcaption>ภาพที่ 6 — ผังการทำงานของการค้นหาหนึ่งครั้ง</figcaption>
+  </figure>
+  <ol class="steps">
+    <li><b>ตรวจคำค้นก่อน</b>
+      จำกัดความยาวไม่เกิน 500 ตัวอักษร ไม่เกิน 24 คำ และจำกัดสัญลักษณ์แทนต่อคำไว้ 6 ตัว
+      เพื่อไม่ให้คำค้นที่ผิดปกติทำให้ระบบทำงานนานเกินควร</li>
+    <li><b>แปลคำค้น</b>
+      แยกวลีในเครื่องหมายคำพูดออกจากคำเดี่ยว และแปลง <code>*</code> <code>?</code> เป็นเงื่อนไขการเทียบ</li>
+    <li><b>เลือกเส้นทาง</b>
+      คำที่สั้นกว่า 3 ตัวอักษรใช้ดัชนี trigram ไม่ได้ จึงเปลี่ยนไปสแกนแบบมีเพดานจำนวนแถวแทน
+      ส่วนคำปกติจะค้นจากดัชนี FTS5</li>
+    <li><b>ตรวจเงื่อนไขละเอียดอีกชั้น</b>
+      ตรงตัวพิมพ์ ทั้งคำ และรูปแบบสัญลักษณ์แทน ถูกตรวจในหน่วยความจำ
+      เพราะดัชนีไม่แยกความต่างเหล่านี้</li>
+    <li><b>กรองและจัดอันดับ</b>
+      ตามนามสกุล วันที่ ขนาด และโฟลเดอร์ย่อย แล้วเรียงตามเกณฑ์ในหัวข้อ 3.5</li>
+    <li><b>เตรียมผลลัพธ์</b>
+      ตัดข้อความรอบคำที่ตรง พร้อมตำแหน่งไฮไลต์และป้ายบอกตำแหน่งในเอกสาร แล้วส่งกลับหน้าจอ</li>
+  </ol>
+
+  <h3>6.3 ผังการค้นหาเมื่อยังไม่มีดัชนี หรือดัชนีเก่า</h3>
+  <p>
+    ตั้งแต่รอบปรับปรุงที่ 2 ปุ่ม “อัปเดตดัชนี” ถูกเอาออกจากหน้าจอหลัก เพราะผู้ใช้ไม่ควรต้องจำ
+    ว่าต้องกดอะไรก่อน พฤติกรรมใหม่คือ
+  </p>
+  <table>
+    <thead><tr><th>สถานการณ์</th><th>สิ่งที่เกิดขึ้นเมื่อกดค้นหา</th></tr></thead>
+    <tbody>
+      <tr><td>ยังไม่เคยจัดดัชนีโฟลเดอร์นี้</td><td>สร้างดัชนีให้ทันทีพร้อมกล่องแสดงความคืบหน้า แล้วค้นหาต่อให้เอง</td></tr>
+      <tr><td>มีดัชนีอยู่แล้ว</td><td>แสดงผลจากดัชนีทันที แล้วตรวจหาไฟล์ที่เปลี่ยนในเบื้องหลังโดยไม่บล็อกหน้าจอ</td></tr>
+      <tr><td>เพิ่งค้นไปเมื่อครู่</td><td>ไม่ตรวจซ้ำ (มีการหน่วงเวลาไว้) เพื่อไม่ให้เดินไฟล์ซ้ำโดยไม่จำเป็น</td></tr>
+      <tr><td>ผู้ใช้แค่พิมพ์ ยังไม่กดค้นหา</td><td>ไม่มีการจัดดัชนีใด ๆ เกิดขึ้น</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s7">
+  <h2><span class="n">7</span> ผังการเชื่อมต่อระหว่างฝั่งผู้ใช้กับฝั่งประมวลผล</h2>
+  <p>
+    เนื่องจากไม่มีเซิร์ฟเวอร์จริง การ “เชื่อมต่อ” ที่ต้องออกแบบให้ดีจึงเป็นการเชื่อมต่อ
+    ระหว่างเธรดหน้าจอกับเธรดเบื้องหลัง และการเชื่อมต่อของแต่ละเธรดกับฐานข้อมูล
+    ซึ่งเป็นจุดที่เกิดข้อบกพร่องได้ง่ายที่สุดถ้าออกแบบผิด
+  </p>
+
+  <figure class="plain wide">
+    <img src="images/dia_ipc.svg" alt="ผังการเชื่อมต่อระหว่างเธรดหน้าจอ เธรดเบื้องหลัง และฐานข้อมูล">
+    <figcaption>ภาพที่ 7 — เส้นทางการสื่อสารระหว่างฝั่งผู้ใช้ ฝั่งประมวลผล และฐานข้อมูล</figcaption>
+  </figure>
+
+  <h3>7.1 กติกา 4 ข้อของการสื่อสารข้ามเธรด</h3>
+  <dl class="kv">
+    <dt>1. ส่งข้อมูลผ่านสัญญาณเท่านั้น</dt>
+    <dd>เธรดเบื้องหลังไม่แตะวิดเจ็ตใด ๆ โดยตรง แต่ส่งสัญญาณกลับมาให้เธรดหน้าจอเป็นผู้วาด</dd>
+    <dt>2. ทุกผลลัพธ์มีหมายเลขงานกำกับ</dt>
+    <dd>
+      ผู้ใช้พิมพ์คำใหม่ระหว่างที่คำเก่ายังค้นไม่เสร็จได้เสมอ เมื่อผลของงานเก่ากลับมา
+      หน้าจอจะเทียบหมายเลขงานก่อน ถ้าไม่ใช่งานล่าสุดก็ทิ้งไป ผู้ใช้จึงไม่มีทางเห็นผลลัพธ์ของคำค้นเก่า
+    </dd>
+    <dt>3. หนึ่งเธรด หนึ่งการเชื่อมต่อฐานข้อมูล</dt>
+    <dd>
+      การเชื่อมต่อ SQLite ไม่ถูกส่งข้ามเธรด แต่ละเธรดเปิดของตัวเองและปิดเมื่อจบงาน
+      โหมด WAL ทำให้ฝั่งอ่านทำงานได้ขณะที่ฝั่งเขียนกำลังทำงาน
+    </dd>
+    <dt>4. การยกเลิกคือธงที่ถูกตรวจเป็นระยะ ไม่ใช่การฆ่าเธรด</dt>
+    <dd>
+      งานเบื้องหลังตรวจธงยกเลิกที่จุดที่ปลอดภัยเท่านั้น จึงไม่มีทางหยุดกลางการเขียนฐานข้อมูล
+    </dd>
+  </dl>
+
+  <div class="danger">
+    <b>ข้อบกพร่องจริงที่พบตรงจุดนี้ และวิธีแก้</b>
+    หลังจากเปลี่ยนให้การค้นหาอัปเดตดัชนีในเบื้องหลัง การค้นหาและการจัดดัชนีก็ทำงานพร้อมกันจริงเป็นครั้งแรก
+    ผลคือการค้นหาที่บังเอิญเกิดขึ้นขณะที่ฝั่งจัดดัชนีกำลังจัดระเบียบดัชนี FTS จะล้มด้วยข้อผิดพลาด
+    <code>vtable constructor failed: content_fts</code> แล้วคืนผลลัพธ์ว่าง ซึ่งผู้ใช้จะเข้าใจผิดว่า “ไม่พบ”
+    วิธีแก้คือจำแนกข้อผิดพลาดของ SQLite ออกเป็น “ชั่วคราว” กับ “ถาวร”
+    เมื่อเจอชนิดชั่วคราว ระบบจะปิดการเชื่อมต่อของเธรดนั้น รอ 120 มิลลิวินาที แล้วลองใหม่หนึ่งครั้ง
+    มีการทดสอบ 4 รายการคุมพฤติกรรมนี้ รวมถึงการทดสอบที่รันตัวอ่านจริงชนกับตัวเขียนจริง
+  </div>
+
+  <h3>7.2 การเชื่อมต่อกับระบบปฏิบัติการ</h3>
+  <table>
+    <thead><tr><th>เรื่อง</th><th>วิธีที่ใช้</th><th>เหตุผล</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>เปิดโปรแกรมซ้ำ</td><td>ตัวล็อกระดับระบบ (named mutex)</td>
+        <td>ให้มีหน้าต่างเดียว ป้องกันสองโปรเซสเขียนดัชนีพร้อมกัน</td>
+      </tr>
+      <tr>
+        <td>เปิดไฟล์ / เปิดโฟลเดอร์</td><td>ส่งพาธให้ Windows Shell</td>
+        <td>โปรแกรมไม่สั่งรันไฟล์เอง และไม่ประกอบคำสั่งเชลล์จากข้อมูลผู้ใช้</td>
+      </tr>
+      <tr>
+        <td>พาธยาวเกิน 260 ตัวอักษร</td><td>ใช้รูปแบบพาธยาวของ Windows ภายใน</td>
+        <td>เอกสารราชการไทยมักมีชื่อโฟลเดอร์ยาว จึงชนเพดานนี้ได้ง่าย</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s8">
+  <h2><span class="n">8</span> ผังการไหลของข้อมูล</h2>
+  <p>
+    แผนภาพนี้ตอบคำถามสำคัญที่สุดของโครงการ: ข้อมูลแต่ละชิ้นมาจากไหน ไปไหนต่อ และหยุดอยู่ที่ใด
+  </p>
+
+  <figure class="plain wide">
+    <img src="images/dia_dataflow.svg" alt="ผังการไหลของข้อมูลพร้อมขอบเขตความเชื่อถือ">
+    <figcaption>ภาพที่ 8 — การไหลของข้อมูลทั้งหมด และขอบเขตที่ข้อมูลไม่ข้ามออกไป</figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>เส้นทาง</th><th>ข้อมูลที่ไหล</th><th>ปลายทาง</th></tr></thead>
+    <tbody>
+      <tr><td>ผู้ใช้ → 1.0 จัดดัชนี</td><td>พาธโฟลเดอร์ที่เลือก</td><td>อยู่ในหน่วยความจำและในตาราง <code>roots</code></td></tr>
+      <tr><td>เอกสาร → 1.0</td><td>ข้อความที่ดึงจากไฟล์</td><td>ตาราง <code>content_units</code> ในเครื่อง</td></tr>
+      <tr><td>1.0 → D1</td><td>ข้อมูลไฟล์ + หน่วยข้อความ</td><td><code>index.db</code></td></tr>
+      <tr><td>ผู้ใช้ → 2.0 ค้นหา</td><td>คำค้นและตัวกรอง</td><td>ใช้แล้วทิ้ง ไม่ถูกบันทึกลงไฟล์ใด</td></tr>
+      <tr><td>D1 → 2.0 → 3.0</td><td>รายการที่ตรงกันและข้อความรอบคำค้น</td><td>แสดงบนหน้าจอ</td></tr>
+      <tr><td>1.0 → D2</td><td>สถิติ เช่น จำนวนไฟล์ เวลาที่ใช้ รหัสข้อผิดพลาด</td><td><code>app.log</code> — ไม่มีข้อความจากเอกสารและไม่มีคำค้น</td></tr>
+      <tr><td><b>ออกนอกเครื่อง</b></td><td><b>ไม่มี</b></td><td><b>ไม่มีเส้นทางนี้อยู่ในระบบ</b></td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip">
+    <b>ข้อความที่ผู้ใช้ค้นหาไม่ถูกเก็บไว้ที่ใดเลย</b>
+    คำค้นอยู่ในหน่วยความจำระหว่างการค้นหาเท่านั้น ไม่มีประวัติคำค้นในไฟล์ตั้งค่า
+    ไม่มีในบันทึกการทำงาน และไม่มีในฐานข้อมูล ปิดโปรแกรมแล้วคำค้นหายไปพร้อมกัน
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s9">
+  <h2><span class="n">9</span> การออกแบบ UX/UI</h2>
+
+  <figure class="plain wide">
+    <img src="images/dia_ux.svg" alt="ผังการวางองค์ประกอบบนหน้าจอ พร้อมหมายเลขกำกับ">
+    <figcaption>ภาพที่ 9 — การวางองค์ประกอบบนหน้าจอ และเหตุผลของแต่ละตำแหน่ง</figcaption>
+  </figure>
+
+  <h3>9.1 หลักที่ใช้ตัดสินใจ</h3>
+  <dl class="kv">
+    <dt>ลำดับสายตาไล่จากคำถามไปหาคำตอบ</dt>
+    <dd>
+      บนสุดคือสิ่งที่ผู้ใช้ต้องตอบก่อน (ค้นที่ไหน) ถัดมาคือคำถาม (ค้นอะไร)
+      แล้วจึงเป็นคำตอบ (เจออะไร) ผู้ใช้จึงไม่ต้องกวาดสายตาไปมา
+    </dd>
+    <dt>งานที่ทำครั้งเดียวถูกดันขึ้นบน งานที่ทำบ่อยอยู่กลางจอ</dt>
+    <dd>
+      การเลือกโฟลเดอร์และการตั้งค่าเป็นงานที่ทำนาน ๆ ครั้ง จึงอยู่แถวบนในรูปแบบที่เล็กลง
+      ส่วนช่องค้นหาซึ่งใช้ทุกครั้งถูกทำให้เด่นที่สุดบนหน้าจอ
+    </dd>
+    <dt>ไม่แสดงข้อมูลซ้ำ</dt>
+    <dd>
+      สิ่งที่ตารางบอกแล้ว (ชนิดไฟล์ ขนาด วันที่) แผงรายละเอียดจะไม่พูดซ้ำ
+      พื้นที่ที่ประหยัดได้ถูกยกให้กล่องข้อความที่ตรงกัน ซึ่งเป็นข้อมูลที่ผู้ใช้ต้องการจริง
+    </dd>
+    <dt>สีสื่อความหมาย ไม่ใช่เพื่อความสวย</dt>
+    <dd>
+      สีน้ำเงินเขียวคือสีของระบบ สีเหลืองอำพันคือ “ข้อความที่ตรงกับคำค้น” และสิ่งที่ต้องระวัง
+      สีเขียวคือสำเร็จ สีส้มแดงคือข้อผิดพลาดหรือคำเตือน และไม่ใช้สีเป็นตัวสื่อความหมายเพียงอย่างเดียว
+      เสมอ — มีข้อความกำกับด้วยทุกครั้ง
+    </dd>
+    <dt>ทุกอย่างต้องอธิบายตัวเองได้</dt>
+    <dd>
+      ปุ่มที่เป็นไอคอนล้วนต้องมีคำอธิบายเมื่อชี้ค้าง ทุกตัวควบคุมหลักมีชื่อสำหรับโปรแกรมอ่านหน้าจอ
+      และข้อความแสดงข้อผิดพลาดต้องบอกว่าจะทำอะไรต่อได้ ไม่ใช่บอกแค่ว่าล้มเหลว
+    </dd>
+    <dt>สองภาษาเต็มรูปแบบตั้งแต่ต้น</dt>
+    <dd>
+      ข้อความทุกชิ้นบนหน้าจออยู่ในตารางคำแปลไทย–อังกฤษ ไม่มีข้อความฝังในโค้ด
+      และมีการทดสอบตรวจว่าคีย์ของทั้งสองภาษาตรงกันเสมอ ไม่มีคำแปลตกหล่น
+    </dd>
+  </dl>
+
+  <h3>9.2 การอ่านง่าย</h3>
+  <p>
+    ขนาดตัวอักษรพื้นฐานถูกเพิ่มขึ้นตามที่ผู้ใช้ร้องขอ โดยมีขั้นต่ำ 11 pt และแถวในตารางสูงขึ้นตาม
+    เพราะภาษาไทยมีสระบนและวรรณยุกต์ที่ต้องการพื้นที่แนวตั้งมากกว่าภาษาอังกฤษ
+    ข้อความที่ตรงกับคำค้นถูกไฮไลต์ด้วยพื้นหลังสีอำพัน ไม่ใช่ด้วยการทำตัวหนา
+    เพราะตัวหนาในฟอนต์ไทยอ่านยากกว่าเมื่ออยู่กลางประโยค
+  </p>
+  <div class="note">
+    <b>รายละเอียดที่แก้ไขหลังตรวจภาพหน้าจอจริง</b>
+    พาธเต็มในแผงรายละเอียดเคยถูกตัดหายทั้งชื่อโฟลเดอร์ เพราะป้ายข้อความของ Qt
+    คำนวณความกว้างขั้นต่ำจากข้อความเต็ม แก้ด้วยป้ายที่ตัดข้อความเองที่ขอบโฟลเดอร์
+    และคอลัมน์ “ข้อความที่ตรงกัน” เคยถูกบีบจนเหลือไม่กี่ตัวอักษรเมื่อฟอนต์ใหญ่ขึ้น
+    แก้ด้วยการลดความกว้างคอลัมน์อื่นและกำหนดความกว้างขั้นต่ำให้คอลัมน์นี้
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s10">
+  <h2><span class="n">10</span> การออกแบบและโครงสร้างฐานข้อมูล</h2>
+
+  <figure class="plain wide">
+    <img src="images/dia_erd.svg" alt="แผนภาพโครงสร้างตารางในฐานข้อมูลและความสัมพันธ์">
+    <figcaption>ภาพที่ 10 — ตารางทั้งหมดในดัชนี และความสัมพันธ์ระหว่างกัน</figcaption>
+  </figure>
+
+  <h3>10.1 ตารางและหน้าที่</h3>
+  <table>
+    <thead><tr><th>ตาราง</th><th>เก็บอะไร</th><th>จุดสำคัญ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>roots</code></td><td>โฟลเดอร์ที่ถูกจัดดัชนี</td>
+        <td>เก็บทั้งพาธที่แสดงให้ผู้ใช้เห็นและพาธที่ทำให้เป็นมาตรฐานแล้ว (ใช้เทียบความซ้ำ)</td>
+      </tr>
+      <tr>
+        <td><code>files</code></td><td>หนึ่งแถวต่อหนึ่งไฟล์</td>
+        <td>มีลายนิ้วมือไว้ตรวจการเปลี่ยนแปลง สถานะของเนื้อหา และรหัสข้อผิดพลาดถ้าอ่านไม่ได้</td>
+      </tr>
+      <tr>
+        <td><code>content_units</code></td><td>หน่วยข้อความพร้อมตำแหน่ง</td>
+        <td><b>ข้อความของเอกสารถูกเก็บที่นี่ที่เดียว</b> ทั้งระบบ</td>
+      </tr>
+      <tr>
+        <td><code>content_fts</code></td><td>ดัชนีข้อความเต็ม</td>
+        <td>ตารางเสมือน FTS5 แบบ external content — ชี้กลับไปที่ <code>content_units</code></td>
+      </tr>
+      <tr>
+        <td><code>name_fts</code></td><td>ดัชนีชื่อไฟล์และพาธสัมพันธ์</td>
+        <td>ทำให้การค้น “เฉพาะชื่อไฟล์” ไม่ต้องแตะข้อมูลเนื้อหาเลย</td>
+      </tr>
+      <tr>
+        <td><code>index_runs</code></td><td>ประวัติการจัดดัชนีแต่ละรอบ</td>
+        <td>จำนวนไฟล์แต่ละประเภทผล เวลาที่ใช้ และเวอร์ชันของโปรแกรมที่ทำรอบนั้น</td>
+      </tr>
+      <tr>
+        <td><code>app_meta</code></td><td>ข้อมูลของฐานข้อมูลเอง</td>
+        <td>เก็บเลขเวอร์ชันสคีมา ใช้ตัดสินใจเรื่องการย้ายรุ่นในอนาคต</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>10.2 การตัดสินใจสำคัญ 4 ข้อ</h3>
+  <dl class="kv">
+    <dt>1. ใช้ FTS5 แบบ external content — ไม่เก็บข้อความซ้ำสองที่</dt>
+    <dd>
+      ถ้าใช้ FTS5 แบบปกติ ข้อความทั้งหมดจะถูกเก็บซ้ำอีกชุดในตารางดัชนี ทำให้ไฟล์ใหญ่ขึ้นเกือบเท่าตัว
+      แบบ external content ให้ดัชนีชี้กลับมาที่ <code>content_units</code> แทน
+      ต้นทุนที่ต้องจ่ายคือ ดัชนีกับข้อมูลต้องถูกซิงก์ให้ตรงกันเสมอ ซึ่งจัดการด้วยข้อถัดไป
+    </dd>
+    <dt>2. ให้ทริกเกอร์ของฐานข้อมูลเป็นผู้ซิงก์ดัชนี</dt>
+    <dd>
+      มีทริกเกอร์ 6 ตัว (เพิ่ม/ลบ/แก้ไข ของทั้ง <code>files</code> และ <code>content_units</code>)
+      ที่อัปเดตดัชนี FTS ให้เอง เหตุผลคือความถูกต้องไม่ควรขึ้นกับการที่โปรแกรมเมอร์
+      “จำได้ว่าต้องอัปเดตดัชนีด้วย” ทุกจุดที่เขียนข้อมูล — ให้ฐานข้อมูลบังคับเองปลอดภัยกว่า
+    </dd>
+    <dt>3. แยกดัชนีชื่อไฟล์ออกจากดัชนีเนื้อหา</dt>
+    <dd>
+      ผู้ใช้จำนวนมากค้นแค่ชื่อไฟล์ ถ้ามีดัชนีเดียวรวมกัน ทุกการค้นชื่อไฟล์จะต้องกวาดผ่านข้อมูล
+      เนื้อหาทั้งหมด การแยก <code>name_fts</code> ออกมาทำให้โหมด “ชื่อไฟล์เท่านั้น” เร็วขึ้นมาก
+      โดยไม่ต้องเพิ่มความซับซ้อนของคำสั่งค้นหา
+    </dd>
+    <dt>4. ทำให้ทุกอย่างสร้างใหม่ได้เสมอ</dt>
+    <dd>
+      ดัชนีไม่ใช่ข้อมูลต้นฉบับ มันเป็นผลลัพธ์ที่คำนวณจากเอกสารของผู้ใช้
+      ดังนั้นการลบไฟล์ <code>index.db</code> ทิ้งจึงปลอดภัยเสมอ — เสียแค่เวลาในการจัดดัชนีใหม่
+      หลักนี้ทำให้การแก้ปัญหาภาคสนามง่ายมาก และทำให้ไม่ต้องเขียนระบบสำรองข้อมูล
+    </dd>
+  </dl>
+
+  <h3>10.3 ตัวเลขจากการวัดจริง</h3>
+  <table>
+    <thead><tr><th>รายการ</th><th>ค่าที่วัดได้ (เอกสารข้อความสังเคราะห์ 1,000 ไฟล์)</th></tr></thead>
+    <tbody>
+      <tr><td>สร้างดัชนีครั้งแรก</td><td>2.95 วินาที</td></tr>
+      <tr><td>อัปเดตเมื่อไม่มีอะไรเปลี่ยน</td><td>0.21 วินาที</td></tr>
+      <tr><td>ขนาดไฟล์ดัชนี</td><td>1.8 MB</td></tr>
+      <tr><td>ค้นคำไทย / คำอังกฤษ</td><td>น้อยกว่า 10 มิลลิวินาที</td></tr>
+    </tbody>
+  </table>
+  <p>
+    ขนาดดัชนีโดยประมาณอยู่ที่ราว 30–60% ของขนาดข้อความที่ดึงได้จากเอกสาร
+    (ไม่ใช่ขนาดของไฟล์เอกสาร — ไฟล์ PDF ที่มีภาพเยอะจะให้ดัชนีเล็กมาก)
+  </p>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s11">
+  <h2><span class="n">11</span> อธิบายทุกเมนูและทุกฟังก์ชันโดยละเอียด</h2>
+  <p>
+    หัวข้อนี้อธิบายทุกสิ่งที่อยู่บนหน้าจอ โดยอ้างอิงหมายเลขที่กำกับไว้ในภาพแต่ละภาพ
+  </p>
+
+  <h3>11.1 หน้าจอเมื่อเปิดโปรแกรมครั้งแรก</h3>
+  <figure class="shot">
+    <img src="images/01_first_run_callouts.png" alt="หน้าจอแรกพร้อมหมายเลขกำกับ 5 จุด">
+    <figcaption>ภาพที่ 11 — หน้าจอเมื่อยังไม่ได้เลือกโฟลเดอร์</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ช่องแสดงโฟลเดอร์ที่ค้น</b><span>
+      ตอนนี้ยังว่าง เมื่อเคยใช้งานแล้วจะกลายเป็นรายการโฟลเดอร์ล่าสุดให้เลือกซ้ำได้ทันที</span></li>
+    <li><b>เมนูสถานะดัชนี</b><span>
+      รวมคำสั่งที่เกี่ยวกับดัชนีทั้งหมดไว้ที่เดียว (อธิบายละเอียดในหัวข้อ 11.7)</span></li>
+    <li><b>ปุ่มคู่มือการใช้งาน</b><span>
+      เปิดคู่มือฉบับ HTML ที่ติดมากับโปรแกรมด้วยเบราว์เซอร์ที่เครื่องมีอยู่ เป็นไฟล์ในเครื่องล้วน</span></li>
+    <li><b>ช่องค้นหา</b><span>
+      ถูกปิดไว้จนกว่าจะเลือกโฟลเดอร์ เพราะการค้นหาโดยไม่มีขอบเขตไม่มีความหมาย
+      การปิดไว้ชัดเจนกว่าการปล่อยให้กดแล้วขึ้นข้อความผิดพลาด</span></li>
+    <li><b>ปุ่มเลือกโฟลเดอร์</b><span>
+      ทางเข้าหลักของหน้าจอนี้ พร้อมคำอธิบาย 3 ขั้นตอนสำหรับผู้ใช้ครั้งแรก</span></li>
+  </ul>
+  <div class="warn">
+    <b>โฟลเดอร์ที่ระบบจะปฏิเสธ</b>
+    พาธแบบ <code>\\server\share</code> ไดรฟ์ที่แมปมาจากเครือข่าย และที่เก็บบนคลาวด์ที่ยังไม่ดาวน์โหลด
+    จะถูกปฏิเสธพร้อมบอกเหตุผล เวอร์ชัน 1 รองรับเฉพาะพาธในเครื่องเท่านั้น
+  </div>
+
+  <h3>11.2 หน้าจอหลัก</h3>
+  <figure class="shot">
+    <img src="images/04_main_screen_callouts.png" alt="หน้าจอหลักพร้อมหมายเลขกำกับ 14 จุด">
+    <figcaption>ภาพที่ 12 — หน้าจอหลักขณะแสดงผลการค้นหา พร้อมหมายเลขกำกับทุกส่วน</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>โฟลเดอร์ที่ค้น</b><span>
+      แสดงโฟลเดอร์ปัจจุบัน และเก็บโฟลเดอร์ที่เคยใช้ไว้ให้เลือกสลับได้ทันที
+      การเปลี่ยนโฟลเดอร์ที่นี่คือการเปลี่ยนขอบเขตการค้นทั้งหมด</span></li>
+    <li><b>เมนูสถานะดัชนี</b><span>
+      คำสั่งอัปเดตดัชนี สร้างใหม่ทั้งหมด ลบดัชนี เปิดโฟลเดอร์ข้อมูลโปรแกรม และเกี่ยวกับโปรแกรม</span></li>
+    <li><b>ปุ่มตั้งค่า</b><span>
+      เปิดกล่องตั้งค่า 3 แท็บ (หัวข้อ 11.8)</span></li>
+    <li><b>ปุ่มคู่มือการใช้งาน</b><span>
+      เปิดไฟล์คู่มือในเบราว์เซอร์ ถ้าไฟล์คู่มือหายไปจากชุดติดตั้ง ระบบจะบอกตรง ๆ ว่าหาไม่พบ</span></li>
+    <li><b>แถบสถานะดัชนี</b><span>
+      บอกว่าดัชนีพร้อมใช้หรือไม่ มีกี่ไฟล์ และอัปเดตล่าสุดเมื่อใด
+      ถ้าเห็นว่าจำนวนไฟล์ไม่ตรงกับความจริง แปลว่าถึงเวลาอัปเดตดัชนี</span></li>
+    <li><b>ช่องคำค้น</b><span>
+      พิมพ์คำหรือวลี ใช้เครื่องหมายคำพูดเพื่อค้นทั้งวลี ใช้ <code>*</code> แทนอักขระกี่ตัวก็ได้
+      และ <code>?</code> แทนอักขระหนึ่งตัว กดปุ่มกากบาทเพื่อล้างคำค้น</span></li>
+    <li><b>ปุ่มค้นหา</b><span>
+      ถ้ายังไม่มีดัชนี ปุ่มนี้จะสร้างดัชนีให้ก่อนแล้วค้นหาต่อให้เอง
+      ถ้ามีดัชนีแล้วจะแสดงผลทันทีและตรวจหาไฟล์ที่เปลี่ยนในเบื้องหลัง</span></li>
+    <li><b>ขอบเขตการค้น</b><span>
+      เลือกได้ว่าจะค้นเฉพาะชื่อไฟล์ เฉพาะเนื้อหา หรือทั้งสองอย่าง
+      การค้นเฉพาะชื่อไฟล์เร็วที่สุดเพราะใช้ดัชนีคนละตัว</span></li>
+    <li><b>ตัวกรองขั้นสูง</b><span>
+      พับเก็บไว้โดยปริยาย กดเพื่อกางตัวเลือกเพิ่มเติม (หัวข้อ 11.5)</span></li>
+    <li><b>จำนวนผลลัพธ์และเวลาที่ใช้</b><span>
+      บอกจำนวนไฟล์ที่พบและเวลาที่ใช้ค้นเป็นมิลลิวินาที ถ้าผลลัพธ์ถูกจำกัดจำนวนไว้ จะบอกตรงนี้ด้วย</span></li>
+    <li><b>เรียงตาม</b><span>
+      ความเกี่ยวข้อง (ค่าเริ่มต้น) ชื่อไฟล์ ขนาด วันที่แก้ไข วันที่สร้าง หรือชนิดไฟล์</span></li>
+    <li><b>ตารางผลลัพธ์</b><span>
+      หนึ่งแถวต่อหนึ่งไฟล์ กดลูกศรหน้าแถวเพื่อกางดูทุกตำแหน่งที่พบในไฟล์นั้น (หัวข้อ 11.3)</span></li>
+    <li><b>แผงรายละเอียดและกล่องข้อความที่ตรงกัน</b><span>
+      แสดงข้อความรอบคำค้นพร้อมไฮไลต์ และข้อมูลของไฟล์ที่เลือกอยู่ (หัวข้อ 11.4)</span></li>
+    <li><b>แถบปุ่มคำสั่ง</b><span>
+      เปิดไฟล์ · เปิดโฟลเดอร์ · คัดลอกพาธ ทั้งสามปุ่มทำงานกับไฟล์ที่เลือกอยู่
+      ถ้าไฟล์ถูกลบหรือย้ายไปแล้ว ปุ่มจะถูกปิดและมีคำเตือนแสดงขึ้น</span></li>
+  </ul>
+
+  <h3>11.3 ตารางผลลัพธ์</h3>
+  <figure class="shot">
+    <img src="images/05_result_table.png" alt="ตารางผลลัพธ์พร้อมหมายเลขกำกับ 6 คอลัมน์">
+    <figcaption>ภาพที่ 13 — คอลัมน์ทั้ง 6 ของตารางผลลัพธ์</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ชื่อไฟล์</b><span>ชื่อไฟล์พร้อมไฮไลต์ส่วนที่ตรงกับคำค้น ไฟล์ที่หาไม่พบแล้วจะถูกขีดฆ่า</span></li>
+    <li><b>ข้อความที่ตรงกัน</b><span>ข้อความจริงจากในเอกสารบริเวณที่พบคำค้น พร้อมไฮไลต์</span></li>
+    <li><b>ชนิด</b><span>นามสกุลไฟล์แบบย่อ เช่น PDF, DOCX, XLSX, TXT</span></li>
+    <li><b>ขนาด</b><span>ขนาดไฟล์ในหน่วยที่อ่านง่าย</span></li>
+    <li><b>วันที่แก้ไข</b><span>เวลาที่ไฟล์ถูกแก้ไขล่าสุดตามที่ระบบไฟล์บันทึกไว้</span></li>
+    <li><b>เปิด</b><span>ปุ่มไอคอนรูปโฟลเดอร์ กดแล้วเปิด File Explorer ไปที่โฟลเดอร์ของไฟล์นั้น</span></li>
+  </ul>
+  <p>
+    แถวย่อยของแต่ละไฟล์คือ “ทุกตำแหน่งที่พบคำค้นในไฟล์นั้น” กดลูกศรหน้าแถวเพื่อกางออก
+    แต่ละตำแหน่งบอกทั้งข้อความและที่อยู่ในเอกสาร เช่น <code>หน้า 3</code> หรือ
+    <code>ชีต: งบประมาณ 2568, เซลล์: F12</code> ดับเบิลคลิกที่ตำแหน่งใดก็ได้เพื่อเปิดไฟล์นั้น
+  </p>
+
+  <h3>11.4 แผงรายละเอียด</h3>
+  <figure class="shot">
+    <img src="images/06_details_panel.png" alt="แผงรายละเอียดพร้อมหมายเลขกำกับ 2 จุด">
+    <figcaption>ภาพที่ 14 — แผงรายละเอียดของไฟล์ที่เลือก</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>กล่องข้อความที่ตรงกัน</b><span>
+      พื้นที่พื้นหลังต่างจากส่วนอื่นอย่างชัดเจน แสดงข้อความจากเอกสาร 2–3 บรรทัดรอบคำค้น
+      พร้อมไฮไลต์ตำแหน่งที่ตรง และบอกตำแหน่งในเอกสารไว้ด้านบน
+      ข้อความนี้ถูกวาดเป็นข้อความล้วนเสมอ ถ้าเอกสารมีข้อความหน้าตาเหมือนโค้ด
+      ก็จะถูกแสดงตามตัวอักษร ไม่ถูกตีความ</span></li>
+    <li><b>ข้อมูลของไฟล์</b><span>
+      พาธเต็ม (ย่อที่ขอบโฟลเดอร์เมื่อไม่พอ และแสดงเต็มเมื่อชี้ค้าง) ขนาด วันที่สร้าง
+      วันที่แก้ไข และแหล่งที่ตรงกัน (ชื่อไฟล์ เนื้อหา หรือทั้งสอง)
+      ไม่แสดงพาธสัมพันธ์และชนิดไฟล์ซ้ำ เพราะตารางบอกไปแล้ว</span></li>
+  </ul>
+
+  <h3>11.5 ตัวกรองขั้นสูง</h3>
+  <figure class="shot">
+    <img src="images/07_filters_callouts.png" alt="แผงตัวกรองขั้นสูงพร้อมหมายเลขกำกับ 6 จุด">
+    <figcaption>ภาพที่ 15 — ตัวเลือกในแผงตัวกรองขั้นสูง</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ตรงตัวพิมพ์เล็ก–ใหญ่</b><span>
+      เมื่อเปิด <code>Budget</code> จะไม่ตรงกับ <code>budget</code> · มีผลกับภาษาอังกฤษเป็นหลัก</span></li>
+    <li><b>วลีตรงทั้งหมด</b><span>
+      ทุกคำต้องเรียงติดกันตามลำดับที่พิมพ์ ให้ผลเหมือนการใส่เครื่องหมายคำพูด</span></li>
+    <li><b>ทั้งคำ</b><span>
+      ค้น <code>budget</code> จะไม่ตรงกับ <code>prebudgeting</code> · มีประโยชน์มากเมื่อค้นคำอังกฤษสั้น ๆ
+      เพราะการค้นแบบ trigram เป็นการค้นข้อความย่อยโดยธรรมชาติ</span></li>
+    <li><b>ช่วงวันที่แก้ไข</b><span>
+      กรองเฉพาะไฟล์ที่แก้ไขในช่วงเวลาที่กำหนด ถ้าไม่ตั้งค่าจะเว้นว่างไว้ ไม่ใช่แสดงวันที่ปลอม</span></li>
+    <li><b>ช่วงขนาดไฟล์</b><span>กรองตามขนาดต่ำสุดและสูงสุดเป็นกิโลไบต์</span></li>
+    <li><b>โฟลเดอร์ย่อย</b><span>
+      จำกัดผลลัพธ์ให้อยู่ใต้โฟลเดอร์ย่อยที่ระบุเท่านั้น เช่น <code>งบประมาณ\2568</code></span></li>
+  </ul>
+  <p>
+    นอกจากนี้ยังมีตัวกรองนามสกุลไฟล์ให้เลือกว่าจะค้นเฉพาะ PDF, DOCX, XLSX หรือ TXT
+    ตัวกรองทั้งหมดทำงานร่วมกันแบบ “และ” คือผลลัพธ์ต้องผ่านทุกเงื่อนไขที่เปิดไว้
+  </p>
+
+  <h3>11.6 กล่องความคืบหน้าการจัดดัชนี</h3>
+  <figure class="shot">
+    <img src="images/03_indexing.png" alt="กล่องความคืบหน้าการจัดดัชนีพร้อมหมายเลขกำกับ 4 จุด">
+    <figcaption>ภาพที่ 16 — กล่องแสดงความคืบหน้าขณะจัดทำดัชนี</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ขั้นตอนปัจจุบัน</b><span>บอกว่ากำลังเดินสำรวจไฟล์ กำลังอ่านเอกสาร หรือกำลังปิดงาน</span></li>
+    <li><b>แถบความคืบหน้า</b><span>
+      เป็นแบบบอกสัดส่วนจริงเมื่อรู้จำนวนไฟล์ทั้งหมดแล้ว ก่อนหน้านั้นจะเป็นแบบไม่ระบุสัดส่วน</span></li>
+    <li><b>ไฟล์ที่กำลังทำและตัวนับ</b><span>
+      จำนวนไฟล์ที่จัดดัชนีแล้ว ไม่เปลี่ยนแปลง ข้ามไป และล้มเหลว</span></li>
+    <li><b>ปุ่มยกเลิก</b><span>
+      หยุดที่ขอบเขตของไฟล์ถัดไป สิ่งที่ทำไปแล้วยังใช้ได้ ดัชนีไม่เสียหาย</span></li>
+  </ul>
+  <p>
+    เมื่อจบงาน ถ้ามีไฟล์ที่มีปัญหา ระบบจะแสดงรายการพร้อมเหตุผลที่อ่านเข้าใจได้ เช่น
+    “ไฟล์ถูกใส่รหัสผ่าน” “ไม่พบข้อความที่ค้นหาได้ — อาจเป็น PDF จากการสแกน” หรือ “ไฟล์เสียหาย”
+    ซึ่งเป็นผลลัพธ์ปกติ ไม่ใช่ข้อผิดพลาดของโปรแกรม
+  </p>
+
+  <h3>11.7 เมนูสถานะดัชนี</h3>
+  <figure class="shot" style="max-width:320px">
+    <img src="images/11_index_menu_callouts.png" alt="เมนูดัชนีพร้อมหมายเลขกำกับ 5 รายการ">
+    <figcaption>ภาพที่ 17 — คำสั่งทั้ง 5 ในเมนูสถานะดัชนี</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>อัปเดตดัชนี</b><span>
+      ตรวจหาไฟล์ที่เพิ่ม แก้ไข หรือถูกลบ แล้วปรับเฉพาะส่วนนั้น เร็วที่สุดและใช้บ่อยที่สุด
+      ปกติไม่ต้องสั่งเอง เพราะการค้นหาทำให้อยู่แล้ว</span></li>
+    <li><b>สร้างดัชนีใหม่ทั้งหมด</b><span>
+      อ่านทุกไฟล์ใหม่ทั้งหมดโดยไม่สนลายนิ้วมือ ใช้เมื่อสงสัยว่าดัชนีไม่ตรงกับความจริง
+      หรือหลังอัปเดตโปรแกรมเป็นเวอร์ชันที่ตัวอ่านเอกสารเปลี่ยนไป</span></li>
+    <li><b>ลบดัชนี</b><span>
+      ลบเฉพาะดัชนีของโฟลเดอร์ที่เลือก <b>ไม่ลบเอกสารของผู้ใช้</b> และสร้างใหม่ได้เสมอ</span></li>
+    <li><b>เปิดโฟลเดอร์ข้อมูลโปรแกรม</b><span>
+      เปิด <code>%LOCALAPPDATA%\Advance File Search\</code> ซึ่งมีดัชนี ไฟล์ตั้งค่า และบันทึกการทำงาน
+      มีประโยชน์เวลาต้องส่งไฟล์บันทึกให้ผู้ดูแลระบบ</span></li>
+    <li><b>เกี่ยวกับโปรแกรม</b><span>
+      เวอร์ชัน คำแถลงความเป็นส่วนตัว ข้อจำกัดที่ควรทราบ และสัญญาอนุญาตของซอฟต์แวร์ที่นำมาใช้
+      (เดิมอยู่บนแถบเครื่องมือ ย้ายมาที่นี่เมื่อเพิ่มปุ่มคู่มือการใช้งาน)</span></li>
+  </ul>
+
+  <h3>11.8 กล่องตั้งค่า</h3>
+  <figure class="shot" style="max-width:620px">
+    <img src="images/10_settings_callouts.png" alt="กล่องตั้งค่าพร้อมหมายเลขกำกับ 5 จุด">
+    <figcaption>ภาพที่ 18 — แท็บ “การสร้างดัชนี” ของกล่องตั้งค่า</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>แท็บทั้งสาม</b><span>
+      การสร้างดัชนี · การค้นหา · ความเป็นส่วนตัวและบันทึก</span></li>
+    <li><b>ข้ามไฟล์ที่ใหญ่กว่า</b><span>
+      ค่าเริ่มต้น 500 MB ไฟล์ที่ใหญ่กว่านี้จะถูกข้ามเพื่อไม่ให้การจัดดัชนีค้างนาน</span></li>
+    <li><b>จัดดัชนีไฟล์ที่ซ่อนอยู่</b><span>
+      ปิดไว้โดยปริยาย ไฟล์ระบบจะถูกข้ามเสมอไม่ว่าตั้งค่าอย่างไร</span></li>
+    <li><b>จัดดัชนีไฟล์ .md .csv และ .log ด้วย</b><span>
+      เปิดรูปแบบข้อความเพิ่มเติมนอกเหนือจาก .txt</span></li>
+    <li><b>จัดดัชนีหัวกระดาษและท้ายกระดาษของ DOCX</b><span>
+      เปิดไว้โดยปริยาย เพราะเลขที่หนังสือและชื่อหน่วยงานในเอกสารราชการไทยมักอยู่ตรงนั้น</span></li>
+  </ul>
+  <p>
+    แท็บ <b>การค้นหา</b> ตั้งค่าจำนวนผลลัพธ์สูงสุด จำนวนข้อความตัวอย่างต่อไฟล์ และขอบเขตการค้นเริ่มต้น
+    แท็บ <b>ความเป็นส่วนตัวและบันทึก</b> ตั้งค่าภาษา ระดับของบันทึกการทำงาน
+    และเลือกได้ว่าจะให้บันทึกพาธไฟล์ลงไฟล์บันทึกหรือไม่ (ปิดไว้โดยปริยาย)
+  </p>
+  <div class="note">
+    <b>การตั้งค่าที่ต้องจัดดัชนีใหม่</b>
+    ค่าที่มีผลต่อ “สิ่งที่ถูกอ่านเข้าไปในดัชนี” เช่น รูปแบบไฟล์เพิ่มเติมหรือหัวท้ายกระดาษ
+    จะมีข้อความเตือนว่าต้องสร้างดัชนีใหม่จึงจะเห็นผล กล่องตั้งค่าทำงานกับสำเนาของค่าเสมอ
+    กด “ยกเลิก” แล้วไม่มีอะไรเปลี่ยน
+  </div>
+
+  <h3>11.9 ปุ่มประจำแถวในตาราง</h3>
+  <figure class="shot">
+    <img src="images/12_open_button.png" alt="แถวผลลัพธ์หนึ่งแถว พร้อมหมายเลขกำกับปุ่มสองปุ่ม">
+    <figcaption>ภาพที่ 19 — ปุ่มเปิดโฟลเดอร์และปุ่มเปิดไฟล์ในคอลัมน์สุดท้ายของทุกแถว</figcaption>
+  </figure>
+  <ul class="callouts">
+    <li><b>ปุ่มเปิดโฟลเดอร์</b><span>
+      ปุ่มไอคอนขนาด 30 × 24 จุด กดแล้วเปิด File Explorer พร้อมเลือกไฟล์นั้นไว้ให้
+      ตั้งแต่รอบที่ 5 เรียกผ่านฟังก์ชันของ Windows โดยตรง จึงรองรับเส้นทางที่มีช่องว่างได้ถูกต้อง</span></li>
+    <li><b>ปุ่มเปิดไฟล์</b><span>
+      เพิ่มในรอบที่ 5 กดแล้วเปิดเอกสารด้วยโปรแกรมที่ผูกไว้ทันที
+      หากเครื่องไม่มีโปรแกรมสำหรับชนิดนั้น ระบบจะเปิดหน้าต่าง “เปิดด้วย” ของ Windows แทน</span></li>
+  </ul>
+
+  <h3>11.10 การค้นภาษาไทยและตำแหน่งที่พบ</h3>
+  <div class="grid two">
+    <figure class="shot">
+      <img src="images/09_thai_search.png" alt="ผลการค้นคำภาษาไทย">
+      <figcaption>ภาพที่ 20 — ค้นคำไทยที่อยู่กลางข้อความซึ่งไม่เว้นวรรค</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="images/08_expanded_locations.png" alt="แถวผลลัพธ์ที่กางแสดงทุกตำแหน่งที่พบ">
+      <figcaption>ภาพที่ 21 — กางแถวเพื่อดูทุกตำแหน่งที่พบในไฟล์เดียวกัน</figcaption>
+    </figure>
+  </div>
+  <p>
+    ทั้งสองภาพนี้คือผลลัพธ์ของการตัดสินใจเรื่องตัวแยกคำในหัวข้อ 3.2 และการแบ่งหน่วยข้อความ
+    ในหัวข้อ 3.4 หากเลือกตัวแยกคำมาตรฐาน ภาพซ้ายจะไม่มีผลลัพธ์เลย
+    และหากเก็บเอกสารเป็นก้อนเดียว ภาพขวาจะบอกได้เพียงว่า “พบในไฟล์นี้”
+  </p>
+
+  <h3>11.11 ไอคอนของโปรแกรม</h3>
+  <figure class="shot" style="max-width:520px">
+    <img src="images/13_app_icon.png" alt="ไอคอนโปรแกรมที่ขนาด 16 24 32 48 และ 64 จุด">
+    <figcaption>ภาพที่ 22 — ไอคอนเดียวกันที่ 5 ขนาด ออกแบบให้อ่านออกแม้ที่ 16 จุด</figcaption>
+  </figure>
+  <p>
+    ไอคอนถูกวาดใหม่ในแต่ละความละเอียด (8 ขนาด ตั้งแต่ 16 ถึง 256 จุด) แทนการย่อจากภาพใหญ่ภาพเดียว
+    เพราะการย่อภาพ 256 จุดลงมาเป็น 16 จุดทำให้รายละเอียดเละ
+    ที่ขนาดเล็กกว่า 24 จุด เส้นข้อความในเอกสารถูกตัดออกและเส้นขอบเปลี่ยนเป็นสีเข้มขึ้น
+    เพื่อให้ยังมองเห็นได้บนแถบชื่อเรื่อง พื้นหลังโปร่งใสทั้งหมด
+  </p>
+
+  <h3>11.12 ปุ่มลัดบนแป้นพิมพ์</h3>
+  <table>
+    <thead><tr><th>ปุ่มลัด</th><th>ทำอะไร</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td>ย้ายเคอร์เซอร์ไปที่ช่องค้นหา</td></tr>
+      <tr><td><kbd>Enter</kbd> ในช่องค้นหา</td><td>เริ่มค้นหา</td></tr>
+      <tr><td><kbd>Enter</kbd> ในตารางผลลัพธ์</td><td>เปิดไฟล์ที่เลือก</td></tr>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></td><td>กาง/พับตัวกรองขั้นสูง</td></tr>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd></td><td>เปิดโฟลเดอร์ของไฟล์ที่เลือก</td></tr>
+      <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd></td><td>คัดลอกพาธเต็มของไฟล์ที่เลือก</td></tr>
+      <tr><td><kbd>F5</kbd></td><td>อัปเดตดัชนี</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s12">
+  <h2><span class="n">12</span> ขอบเขตการทำงาน ข้อจำกัด และสเปคเครื่อง</h2>
+
+  <h3>12.1 ขอบเขตที่ระบบทำได้</h3>
+  <table>
+    <thead><tr><th>เรื่อง</th><th>ทำได้แค่ไหน</th></tr></thead>
+    <tbody>
+      <tr><td>รูปแบบเอกสาร</td><td>PDF, DOCX, XLSX, TXT (และเพิ่ม .md, .csv, .log ได้ในหน้าตั้งค่า)</td></tr>
+      <tr><td>ภาษา</td><td>ไทยและอังกฤษ ทั้งในชื่อไฟล์ ชื่อโฟลเดอร์ และเนื้อหา · เลขไทย ๒๕๖๘ และเลขอารบิก 2568 ค้นแยกกันได้</td></tr>
+      <tr><td>ปริมาณที่ออกแบบไว้</td><td>2,000–3,000 ไฟล์ต่อโฟลเดอร์ที่จัดดัชนี · ทดสอบจริงที่ 1,000 ไฟล์ใช้เวลาสร้างดัชนี 2.95 วินาที</td></tr>
+      <tr><td>ความเร็วการค้น</td><td>น้อยกว่า 10 มิลลิวินาทีในการทดสอบ · เป้าหมายที่ตั้งไว้คือไม่เกินประมาณ 1 วินาที</td></tr>
+      <tr><td>ขนาดไฟล์ที่อ่าน</td><td>ไม่เกิน 500 MB ต่อไฟล์ (ปรับได้ถึง 4 GB)</td></tr>
+      <tr><td>จำนวนผลลัพธ์</td><td>200 ไฟล์ต่อการค้นหนึ่งครั้ง (ปรับได้ถึง 5,000)</td></tr>
+      <tr><td>ที่เก็บไฟล์</td><td>ไดรฟ์และโฟลเดอร์ในเครื่องเท่านั้น</td></tr>
+      <tr><td>ผู้ใช้พร้อมกัน</td><td>หนึ่งหน้าต่างต่อหนึ่งผู้ใช้ · ผู้ใช้หลายคนบนเครื่องเดียวกันมีดัชนีแยกกัน</td></tr>
+    </tbody>
+  </table>
+
+  <h3>12.2 ข้อจำกัดที่ต้องทราบ</h3>
+  <p>
+    ข้อจำกัดเหล่านี้เป็นการตัดสินใจโดยตั้งใจ ไม่ใช่ข้อบกพร่อง และทุกข้อถูกแสดงไว้ในกล่อง
+    “เกี่ยวกับโปรแกรม” ในตัวโปรแกรมด้วย
+  </p>
+  <div class="grid two">
+    <div class="card amber">
+      <h4>ไม่มี OCR</h4>
+      <p>PDF ที่ได้จากการสแกนเป็นภาพจะไม่มีข้อความให้ค้น ระบบรายงานว่า “ไม่พบข้อความที่ค้นหาได้”
+      ซึ่งเป็นผลลัพธ์ปกติ ไม่ใช่ความล้มเหลว</p>
+    </div>
+    <div class="card amber">
+      <h4>ไม่รองรับ .doc และ .xls รุ่นเก่า</h4>
+      <p>รูปแบบก่อน Office 2007 ต้องแปลงเป็น .docx หรือ .xlsx ก่อนจึงจะค้นเนื้อหาได้</p>
+    </div>
+    <div class="card amber">
+      <h4>Word ไม่มีเลขหน้า</h4>
+      <p>เลขหน้าของ Word เกิดตอนเรนเดอร์เอกสาร ไม่ได้ถูกเก็บในไฟล์ ระบบจึงรายงานเป็น
+      ย่อหน้าหรือตำแหน่งในตารางแทน</p>
+    </div>
+    <div class="card amber">
+      <h4>Excel ไม่คำนวณสูตรใหม่</h4>
+      <p>ระบบอ่านค่าที่ถูกบันทึกไว้ในไฟล์ ถ้าสูตรไม่เคยถูกคำนวณและบันทึก ค่านั้นจะไม่อยู่ในดัชนี</p>
+    </div>
+    <div class="card amber">
+      <h4>ค้นแบบข้อความย่อย</h4>
+      <p>ผลจากตัวแยกคำ trigram คือ <code>budget</code> จะตรงกับ <code>prebudgeting</code> ด้วย
+      ใช้ตัวเลือก “ทั้งคำ” เมื่อไม่ต้องการแบบนั้น</p>
+    </div>
+    <div class="card amber">
+      <h4>คำค้นสั้นกว่า 3 ตัวอักษร</h4>
+      <p>ใช้ดัชนีไม่ได้ ระบบจะสแกนแบบมีเพดานแทน จึงช้ากว่าปกติเมื่อเอกสารมีจำนวนมาก</p>
+    </div>
+  </div>
+
+  <h3>12.3 ความต้องการของระบบ</h3>
+  <figure class="plain wide">
+    <img src="images/fig_requirements.svg" alt="ตารางความต้องการของระบบขั้นต่ำและที่แนะนำ">
+    <figcaption>ภาพที่ 23 — ความต้องการของระบบ</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th>รายการ</th><th>ขั้นต่ำ</th><th>ที่แนะนำ</th></tr></thead>
+    <tbody>
+      <tr><td>ระบบปฏิบัติการ</td><td>Windows 10 64-bit (รุ่น 1809 ขึ้นไป)</td><td>Windows 11 64-bit</td></tr>
+      <tr><td>หน่วยประมวลผล</td><td>2 แกน 1.6 GHz</td><td>4 แกนขึ้นไป</td></tr>
+      <tr><td>หน่วยความจำ</td><td>4 GB</td><td>8 GB ขึ้นไป</td></tr>
+      <tr><td>พื้นที่ว่าง</td><td>500 MB สำหรับโปรแกรม + พื้นที่สำหรับดัชนี</td><td>1 GB ขึ้นไป และควรอยู่บน SSD</td></tr>
+      <tr><td>ความละเอียดจอ</td><td>1366 × 768</td><td>1920 × 1080 ขึ้นไป</td></tr>
+      <tr><td>สิทธิ์ผู้ใช้</td><td>ผู้ใช้ทั่วไป ไม่ต้องเป็นผู้ดูแลระบบ</td><td>เท่ากัน</td></tr>
+      <tr><td>อินเทอร์เน็ต</td><td><b>ไม่ต้องใช้เลย</b></td><td><b>ไม่ต้องใช้เลย</b></td></tr>
+      <tr><td>โปรแกรมอื่นที่ต้องติดตั้งก่อน</td><td><b>ไม่มี</b> — ไม่ต้องติดตั้ง Python หรือไลบรารีใด ๆ</td><td>เท่ากัน</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <b>เรื่องระบบปฏิบัติการอื่น</b>
+    เวอร์ชันนี้รองรับ Windows เท่านั้น เพราะมีส่วนที่ผูกกับ Windows โดยตรง ได้แก่
+    การจัดการพาธยาวและพาธแบบ UNC การตรวจ reparse point และไฟล์บนคลาวด์
+    การเปิด File Explorer และตัวล็อกกันเปิดโปรแกรมซ้ำ
+    ส่วนแกนของระบบ (การอ่านเอกสาร ฐานข้อมูล และการค้นหา) ไม่ผูกกับ Windows
+    การย้ายไป Linux หรือ macOS ในอนาคตจึงกระทบเฉพาะแพ็กเกจ <code>winplat</code>
+    แต่ยังไม่ได้ทำและยังไม่ได้ทดสอบ จึงถือว่า <b>อยู่นอกขอบเขตของเวอร์ชัน 1</b>
+  </div>
+
+  <h3>12.4 เรื่องที่ต้องตัดสินใจก่อนแจกจ่ายออกนอกองค์กร</h3>
+  <div class="warn">
+    <b>สัญญาอนุญาตของ PyMuPDF</b>
+    PyMuPDF ซึ่งใช้อ่าน PDF มีสัญญาอนุญาตแบบ AGPL-3.0 หรือแบบเชิงพาณิชย์
+    การแจกจ่ายโปรแกรมนี้ออกนอกองค์กรที่พัฒนา ต้องเลือกอย่างใดอย่างหนึ่ง คือ
+    เผยแพร่ทั้งโปรแกรมภายใต้ AGPL พร้อมซอร์สโค้ด หรือซื้อสัญญาอนุญาตเชิงพาณิชย์
+    <b>การใช้ภายในองค์กรไม่ได้รับผลกระทบ</b>
+    หากจำเป็น ตัวอ่าน PDF สามารถเปลี่ยนไปใช้ <code>pypdf</code> (BSD) หรือ
+    <code>pdfminer.six</code> (MIT) ได้ เพราะการทดสอบของตัวอ่านเขียนไว้กับ “ผลลัพธ์ที่ต้องได้”
+    ไม่ได้ผูกกับไลบรารี จึงใช้ตรวจตัวแทนได้ทันทีโดยไม่ต้องแก้การทดสอบ
+  </div>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s13">
+  <h2><span class="n">13</span> รายงานผลการทดสอบระบบ</h2>
+  <p>
+    ทดสอบบน Windows 11 Education 26200 64-bit · Python 3.12.10 · SQLite 3.49.1 (มี FTS5 และ trigram)
+    กับไฟล์ที่แพ็กแล้วจริงที่ <code>dist\Advance File Search\AdvanceFileSearch.exe</code>
+  </p>
+
+  <figure class="plain wide">
+    <img src="images/dia_test.svg" alt="สรุปผลการทดสอบและจำนวนการทดสอบแยกตามด้าน">
+    <figcaption>ภาพที่ 24 — สรุปผลการทดสอบทั้งหมด และจำนวนการทดสอบแยกตามด้านที่ตรวจ</figcaption>
+  </figure>
+
+  <div class="metrics">
+    <div class="metric green"><span class="v">619</span><span class="k">ผ่าน</span></div>
+    <div class="metric green"><span class="v">0</span><span class="k">ล้มเหลว</span></div>
+    <div class="metric amber"><span class="v">1</span><span class="k">ข้าม (ต้องใช้สิทธิ์สูง)</span></div>
+    <div class="metric"><span class="v">41</span><span class="k">ตรวจไฟล์ที่แพ็กแล้ว</span></div>
+    <div class="metric"><span class="v">95</span><span class="k">ตรวจหน้าจอจริง</span></div>
+  </div>
+  <p>
+    รายการที่ถูกข้ามคือการทดสอบที่ต้องสร้าง symlink ซึ่งต้องเปิด Developer Mode หรือใช้สิทธิ์ผู้ดูแลระบบ
+    พฤติกรรมเดียวกันถูกครอบคลุมด้วยการทดสอบ junction ซึ่งผ่าน
+    ชุดทดสอบทั้งหมดใช้เวลาประมาณ 100 วินาที
+  </p>
+
+  <h3>13.1 ผลการทดสอบด้านการทำงาน</h3>
+  <table>
+    <thead><tr><th>ด้านที่ทดสอบ</th><th>สิ่งที่ตรวจ</th><th>ผล</th></tr></thead>
+    <tbody>
+      <tr><td>รูปแบบเอกสาร</td><td>TXT ทุกรหัสอักขระ · PDF ไทย/อังกฤษ/ภาพล้วน/ใส่รหัส/ไฟล์เสีย · DOCX ย่อหน้า ตาราง หัวท้ายกระดาษ · XLSX ชีตซ่อน สูตร 400 แถว</td><td>ผ่านทั้งหมด</td></tr>
+      <tr><td>การค้นภาษาไทย</td><td>คำกลางข้อความที่ไม่เว้นวรรค · เลขไทย · ชื่อไฟล์ไทย · ชื่อโฟลเดอร์ไทย · ชื่อชีตไทย</td><td>ผ่านทั้งหมด</td></tr>
+      <tr><td>ตัวเลือกการค้น</td><td>ตรงตัวพิมพ์ · ทั้งคำ · วลีตรงทั้งหมด · <code>*</code> · <code>?</code> · ขอบเขตชื่อ/เนื้อหา · คำสั้น</td><td>ผ่านทั้งหมด</td></tr>
+      <tr><td>ตำแหน่งที่รายงาน</td><td>หน้า · ย่อหน้า · ตาราง แถว คอลัมน์ · ชีตและเซลล์ · บรรทัด</td><td>ผ่านทั้งหมด</td></tr>
+      <tr><td>การจัดดัชนีแบบเพิ่มทีละส่วน</td><td>เพิ่มไฟล์ · แก้ไขไฟล์ · ลบไฟล์ · เปลี่ยนชื่อไฟล์ · สร้างใหม่ทั้งหมด · ทำซ้ำ 3 รอบแล้วตรวจข้อมูลค้าง</td><td>ผ่านทั้งหมด · ไม่มีข้อมูลค้าง</td></tr>
+      <tr><td>ประสิทธิภาพ</td><td>1,000 ไฟล์: สร้างดัชนี 2.95 วิ · อัปเดตเปล่า 0.21 วิ · ค้นหา &lt; 10 มิลลิวินาที</td><td>ดีกว่าเป้าหมาย</td></tr>
+    </tbody>
+  </table>
+
+  <h3>13.2 ผลการทดสอบด้านความปลอดภัยและความเป็นส่วนตัว</h3>
+  <table>
+    <thead><tr><th>หัวข้อ</th><th>วิธีตรวจ</th><th>ผล</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>การทำงานแบบออฟไลน์</b></td>
+        <td>สแกนโค้ดทุกโมดูลว่าไม่มีการนำเข้าไลบรารีเครือข่าย · รันจัดดัชนีและค้นหาโดยบังคับให้ฟังก์ชันซ็อกเก็ตโยนข้อผิดพลาด · ตรวจว่าไฟล์ที่แพ็กแล้วไม่มี <code>_socket.pyd</code>, <code>_ssl.pyd</code>, <code>libssl</code>, <code>libcrypto</code>, <code>Qt6Network.dll</code></td>
+        <td><b>ผ่าน</b> — ไม่ใช่แค่ไม่ใช้ แต่ไม่มีความสามารถนั้นอยู่ในไฟล์ที่แจก</td>
+      </tr>
+      <tr>
+        <td>รับเฉพาะพาธในเครื่อง</td>
+        <td>ทดสอบปฏิเสธ UNC ไดรฟ์เครือข่าย URL และ reparse point</td>
+        <td>ผ่าน (38 การทดสอบ)</td>
+      </tr>
+      <tr>
+        <td>บันทึกการทำงานไม่รั่วข้อมูล</td>
+        <td>รันงานจริงแล้วค้นหาคำจากเอกสาร คำค้น และข้อความตัวอย่างในไฟล์บันทึก</td>
+        <td>ผ่าน — ไม่พบข้อความใดเลย</td>
+      </tr>
+      <tr>
+        <td>การป้องกัน SQL injection</td>
+        <td>คำค้นที่มีอักขระพิเศษของ SQL และของ FTS ถูกส่งผ่านพารามิเตอร์เสมอ</td>
+        <td>ผ่าน</td>
+      </tr>
+      <tr>
+        <td>การป้องกันการทำงานนานผิดปกติ</td>
+        <td>คำค้นที่ตั้งใจให้ช้า · ไฟล์ ZIP ที่ขยายตัวมหาศาล · บรรทัดข้อความยาว 250 KB</td>
+        <td>ผ่าน (พบและแก้ 1 จุดระหว่างทดสอบ)</td>
+      </tr>
+      <tr>
+        <td>ข้อมูลจากภายนอกไม่ถูกตีความ</td>
+        <td>เอกสารที่มีข้อความหน้าตาเหมือนโค้ดหรือแท็ก ถูกแสดงเป็นตัวอักษรล้วน</td>
+        <td>ผ่าน</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>13.3 การตรวจไฟล์ที่แพ็กแล้ว (41 รายการ)</h3>
+  <p>
+    รันด้วย Python ของระบบ ไม่ใช่ Python ของสภาพแวดล้อมที่ใช้สร้าง เพื่อพิสูจน์ว่าไฟล์ที่แจก
+    ไม่ต้องพึ่งเครื่องมือของผู้พัฒนา ผลคือผ่านทั้ง 41 รายการ ครอบคลุม
+  </p>
+  <ul>
+    <li>เปิดได้โดยไม่ต้องมี Python · สร้างดัชนีและค้นหาได้จริง · ค้นภาษาไทยได้</li>
+    <li>ไฟล์ <code>.exe</code> ปลอมที่ใส่ไว้ในโฟลเดอร์ทดสอบไม่ถูกจัดดัชนีและไม่ถูกเรียกทำงาน</li>
+    <li>สร้างโฟลเดอร์ข้อมูล บันทึกการทำงาน และฐานข้อมูลได้ถูกต้อง ไม่มีร่องรอยข้อผิดพลาด</li>
+    <li>เปิดซ้ำแล้วถูกปฏิเสธด้วยตัวล็อกกันเปิดซ้ำ</li>
+    <li>ไม่มีไลบรารีเครือข่ายในชุดไฟล์ · ไม่มีไฟล์ <code>.bat</code> หรือ <code>.cmd</code></li>
+    <li>เอกสารประกอบครบ: <code>README.txt</code>, <code>PRIVACY.txt</code>, <code>LICENSES\</code> 11 ไฟล์ และ <code>Manual\index.html</code></li>
+  </ul>
+
+  <h3>13.4 ข้อบกพร่องที่พบระหว่างทดสอบและแก้ไขแล้ว</h3>
+  <table>
+    <thead><tr><th>#</th><th>อาการ</th><th>ความรุนแรง</th><th>การแก้ไข</th></tr></thead>
+    <tbody>
+      <tr><td>1–8</td><td>ข้อบกพร่องของชั้นแกนกลางในรอบแรก เช่น BOM ของ UTF-16 หลุดเข้าไปในดัชนี คำค้นบางรูปแบบทำให้การเทียบช้าผิดปกติ และการนับสถิติของรอบจัดดัชนีคลาดเคลื่อน</td><td>ต่ำ–กลาง</td><td>แก้แล้วทั้งหมด พร้อมเพิ่มการทดสอบกันการเกิดซ้ำ</td></tr>
+      <tr><td>9</td><td>ข้อความสถานะเก่าค้างอยู่หลังการค้นครั้งใหม่</td><td>ต่ำ</td><td>ล้างสถานะเมื่อเริ่มค้นใหม่</td></tr>
+      <tr><td>10</td><td><code>logging.handlers</code> ดึง <code>socket</code> ติดเข้ามาในชุดไฟล์</td><td>ต่ำ แต่ขวางคำรับรองเรื่องออฟไลน์</td><td>เขียนตัวหมุนไฟล์บันทึกเอง</td></tr>
+      <tr><td>11</td><td>ไม่ได้เรียกตั้งไอคอนของโปรแกรม แถบชื่อเรื่องจึงเป็นไอคอนเปล่า</td><td>ต่ำ</td><td>โหลดไอคอนหลายความละเอียดตอนเริ่มโปรแกรม</td></tr>
+      <tr><td>12</td><td>พาธยาวในแผงรายละเอียดถูกตัดหายทั้งชื่อโฟลเดอร์</td><td>กลาง</td><td>ใช้ป้ายที่ตัดข้อความเองที่ขอบโฟลเดอร์</td></tr>
+      <tr><td>13</td><td>คอลัมน์ “ข้อความที่ตรงกัน” ถูกบีบจนอ่านไม่ได้เมื่อฟอนต์ใหญ่ขึ้น</td><td>กลาง</td><td>ลดความกว้างคอลัมน์อื่นและกำหนดความกว้างขั้นต่ำ</td></tr>
+      <tr>
+        <td>14</td>
+        <td>การค้นหาที่ชนกับการจัดระเบียบดัชนีในเบื้องหลัง ล้มด้วย <code>vtable constructor failed</code> แล้วคืนผลลัพธ์ว่าง ผู้ใช้เข้าใจว่า “ไม่พบ”</td>
+        <td><b>สูง</b></td>
+        <td>จำแนกข้อผิดพลาดชั่วคราวของ SQLite แล้วลองใหม่หนึ่งครั้ง · เพิ่มการทดสอบ 4 รายการรวมถึงการรันตัวอ่านชนตัวเขียนจริง</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>13.5 สิ่งที่ยังต้องให้คนตรวจด้วยตนเอง</h3>
+  <ol class="steps">
+    <li><b>เฝ้าดูการเชื่อมต่อเครือข่ายด้วยโปรแกรมมอนิเตอร์</b>
+      ส่วนที่ทดสอบอัตโนมัติได้ผ่านหมดแล้ว และไฟล์ที่แจกไม่มีไลบรารีเครือข่ายเลย
+      แต่การเฝ้าดูโปรเซสจริงตลอดการใช้งานหนึ่งรอบเป็นการยืนยันด้วยตาที่เครื่องมืออัตโนมัติแทนไม่ได้</li>
+    <li><b>ทดสอบบนเครื่องสะอาด</b>
+      เครื่อง Windows ที่ไม่เคยติดตั้ง Python และเครื่องมือสำหรับนักพัฒนา
+      เพื่อยืนยันว่าคัดลอกโฟลเดอร์ไปแล้วเปิดใช้ได้ทันที</li>
+    <li><b>ตัดสินใจเรื่องสัญญาอนุญาตของ PyMuPDF</b>
+      ตามที่อธิบายไว้ในหัวข้อ 12.4 — เป็นการตัดสินใจของเจ้าของโครงการ ไม่ใช่งานทางเทคนิค</li>
+  </ol>
+</section>
+
+<!-- ==================================================================== -->
+<section id="s14">
+  <h2><span class="n">14</span> การปรับปรุงหลังรายงานฉบับแรก</h2>
+  <p>
+    โครงการนี้ส่งมอบเป็นห้ารอบ รอบแรกคือระบบที่ครบตามข้อกำหนดตั้งต้น
+    อีกสองรอบถัดมาเกิดจากการที่ผู้ใช้ได้ลองใช้ของจริงแล้วขอปรับ
+    หัวข้อนี้บันทึกไว้ว่าแต่ละรอบเปลี่ยนอะไรและเพราะอะไร
+  </p>
+
+  <figure class="plain wide">
+    <img src="images/dia_versions.svg" alt="สรุปการเปลี่ยนแปลงของแต่ละรอบการปรับปรุง">
+    <figcaption>ภาพที่ 25 — สิ่งที่เพิ่มและเปลี่ยนในแต่ละรอบ</figcaption>
+  </figure>
+
+  <h3>14.1 รอบที่ 1 — ระบบพื้นฐาน (ชุดทดสอบ 493 รายการ)</h3>
+  <p>
+    ส่งมอบระบบครบตามข้อกำหนด: ค้นหาไทย/อังกฤษด้วย FTS5 trigram, จัดดัชนีแบบเพิ่มทีละส่วน,
+    ตัวกรองและการจัดอันดับ, รายงานตำแหน่งที่พบ, หน้าจอสองภาษา, แพ็กเป็น <code>.exe</code>
+    พร้อมเอกสารประกอบและชุดตรวจไฟล์ที่แพ็กแล้ว
+  </p>
+
+  <h3>14.2 รอบที่ 2 — ปรับหน้าจอตามการใช้งานจริง (ชุดทดสอบ 525 รายการ)</h3>
+  <table>
+    <thead><tr><th>สิ่งที่เปลี่ยน</th><th>เหตุผล</th></tr></thead>
+    <tbody>
+      <tr><td>เพิ่มไอคอนโปรแกรมหลายความละเอียด</td><td>แถบชื่อเรื่องและแถบงานเคยเป็นไอคอนเปล่า</td></tr>
+      <tr><td>เอาคอลัมน์ “ตำแหน่ง” ออกจากตาราง</td><td>ตำแหน่งควรอยู่คู่กับข้อความที่มันอธิบาย ไม่ใช่แยกเป็นคอลัมน์</td></tr>
+      <tr><td>เพิ่มกล่องพรีวิวข้อความพร้อมไฮไลต์</td><td>ผู้ใช้ต้องการเห็นข้อความจริงก่อนตัดสินใจเปิดไฟล์</td></tr>
+      <tr><td>ตัดพาธสัมพันธ์และชนิดไฟล์ออกจากแผงรายละเอียด</td><td>ซ้ำกับที่ตารางแสดงอยู่แล้ว</td></tr>
+      <tr><td>เพิ่มคอลัมน์ปุ่มเปิดโฟลเดอร์</td><td>ลดขั้นตอนจาก “เลือกแถวแล้วกดปุ่มด้านล่าง” เหลือคลิกเดียว</td></tr>
+      <tr><td>เพิ่มขนาดตัวอักษรทั้งระบบ</td><td>อ่านง่ายขึ้นเมื่อใช้งานต่อเนื่องนาน ๆ</td></tr>
+      <tr><td>เอาปุ่ม “อัปเดตดัชนี” ออกจากหน้าจอหลัก</td><td>เปลี่ยนเป็นกดค้นหาแล้วระบบจัดการดัชนีให้เอง ผู้ใช้ไม่ต้องจำลำดับ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>14.3 รอบที่ 3 — ขัดรายละเอียดและเพิ่มเอกสาร</h3>
+  <table>
+    <thead><tr><th>สิ่งที่เปลี่ยน</th><th>เหตุผล</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ย่อปุ่มเปิดโฟลเดอร์เป็นไอคอนขนาดคงที่ 30 × 24 จุด และลดความกว้างคอลัมน์จาก 104 เหลือ 58 จุด</td>
+        <td>ปุ่มเดิมขยายตามความกว้างคอลัมน์จนเด่นเกินผลการค้นหา ซึ่งผิดลำดับความสำคัญ</td>
+      </tr>
+      <tr>
+        <td>เปลี่ยนปุ่ม “เกี่ยวกับ” บนแถบเครื่องมือเป็น “คู่มือการใช้งาน” และย้าย “เกี่ยวกับโปรแกรม” ไปไว้ในเมนูดัชนี</td>
+        <td>ผู้ใช้ต้องการทางเข้าคู่มือที่เห็นได้ทันที ส่วนกล่องเกี่ยวกับต้องคงไว้เพราะเป็นที่อยู่ของคำแถลงความเป็นส่วนตัวและสัญญาอนุญาต</td>
+      </tr>
+      <tr>
+        <td>เพิ่มคู่มือการใช้งานฉบับ HTML พร้อมภาพประกอบและภาพหน้าจอจริง</td>
+        <td>ผู้ใช้ปลายทางต้องการเอกสารที่เปิดอ่านได้เองโดยไม่ต้องติดตั้งอะไรเพิ่ม</td>
+      </tr>
+      <tr>
+        <td><b>แก้ข้อบกพร่องการค้นหาที่ชนกับการจัดดัชนี</b></td>
+        <td>เป็นผลข้างเคียงของการเปลี่ยนในรอบที่ 2 ที่ทำให้การค้นและการจัดดัชนีทำงานพร้อมกันจริงเป็นครั้งแรก (รายละเอียดในหัวข้อ 7.1)</td>
+      </tr>
+      <tr>
+        <td>เพิ่มรายงานสรุปโครงการฉบับนี้</td>
+        <td>เอกสารสำหรับผู้ตรวจรับและผู้ดูแลระบบ แยกจากคู่มือผู้ใช้</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>14.4 รอบที่ 4 — ปรับคู่มือการใช้งานตามข้อกำหนดใหม่</h3>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>สิ่งที่เปลี่ยน</th><th>เหตุผล</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>เขียนคู่มือการใช้งานใหม่ทั้งฉบับ ให้รองรับการแสดงผลทุกขนาดจอ และใช้ตัวอักษรขนาด 16 จุดขึ้นไปทั้งฉบับ</td>
+        <td>ผู้ใช้เปิดคู่มือจากทั้งเครื่องคอมพิวเตอร์และอุปกรณ์พกพา คู่มือเดิมออกแบบไว้สำหรับจอกว้างเป็นหลัก · ขนาด 14 จุดที่กำหนดไว้ตอนแรกอ่านยากเกินไป จึงปรับขึ้นเป็น 16 จุดทั้งฉบับ</td>
+      </tr>
+      <tr>
+        <td>แยกคำอธิบายหน้าจอหลักเป็น 4 ส่วน แต่ละส่วนมีภาพและหมายเลขกำกับของตนเอง</td>
+        <td>ภาพเดียวที่มีหมายเลขกำกับ 14 จุด เกินกว่าที่ผู้อ่านจะติดตามได้ในคราวเดียว</td>
+      </tr>
+      <tr>
+        <td>เพิ่มภาพหน้าจอย่อยที่ยังไม่เคยมี ได้แก่ แท็บการค้นหา แท็บความเป็นส่วนตัว และกล่องเกี่ยวกับโปรแกรม</td>
+        <td>ข้อกำหนดระบุให้จับภาพและอธิบายหน้าจอย่อยทุกหน้า</td>
+      </tr>
+      <tr>
+        <td>เพิ่มภาพประกอบแบบสามมิติอีก 4 ภาพ (วัตถุประสงค์ · ลักษณะงานที่นำไปใช้ · โฟลเดอร์โปรแกรม · ปัญหาที่พบบ่อย)</td>
+        <td>ข้อกำหนดระบุให้ใช้ภาพประกอบที่ทันสมัยและเป็นทางการ</td>
+      </tr>
+      <tr>
+        <td><b>แปลปุ่ม “Close” ในกล่องเกี่ยวกับโปรแกรมเป็นภาษาไทย</b></td>
+        <td>พบระหว่างจับภาพหน้าจอ ปุ่มมาตรฐานของ Qt ใช้ข้อความภาษาอังกฤษของตนเอง ทั้งที่ส่วนอื่นของกล่องแปลครบแล้ว</td>
+      </tr>
+      <tr>
+        <td><b>แก้ป้ายกำกับตัวเลือกในหน้าตั้งค่าที่สื่อความไม่ตรง</b></td>
+        <td>ตัวเลือกสำหรับ “จดจำตัวกรองไว้ใช้ครั้งถัดไป” เคยใช้ป้ายว่า “ตัวกรองขั้นสูง” ซึ่งอ่านแล้วเข้าใจเป็นสวิตช์เปิดปิดตัวกรอง</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">
+    <b>ข้อสังเกตเรื่องแบบอักษร</b>
+    ข้อกำหนดระบุให้ใช้แบบอักษร Sarabun หากมี คู่มือจึงกำหนดลำดับแบบอักษรโดยให้
+    Sarabun เป็นลำดับแรก และถอยไปใช้แบบอักษรภาษาไทยที่ระบบปฏิบัติการมีมาให้เมื่อไม่พบ
+    ทั้งนี้ <b>ไม่ได้เรียกแบบอักษรจากอินเทอร์เน็ต</b> เนื่องจากคู่มือติดไปกับชุดโปรแกรม
+    ที่ให้คำมั่นว่าไม่มีการเชื่อมต่อออกภายนอก การเรียกแบบอักษรจากบริการภายนอก
+    จะทำให้เบราว์เซอร์ติดต่อเครือข่ายแทนผู้ใช้ทันทีที่เปิดคู่มือ
+  </div>
+
+  <h3>14.5 รอบที่ 5 — แก้ไขตามผลการทดลองใช้งานจริง (ชุดทดสอบ 620 รายการ)</h3>
+  <p>
+    ผู้ใช้ทดลองใช้โปรแกรมกับเอกสารจริงแล้วพบปัญหาสามข้อ ซึ่งแก้ไขในรอบนี้ทั้งหมด
+  </p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>อาการที่ผู้ใช้พบ</th><th>สาเหตุที่แท้จริง</th><th>การแก้ไข</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>กดปุ่มเปิดโฟลเดอร์แล้วไม่เปิดโฟลเดอร์ที่ถูกต้อง</b> ทั้งที่เส้นทางที่แสดงเมื่อชี้ค้างถูกต้อง
+        มักเกิดกับโฟลเดอร์ชื่อภาษาไทยที่มีการเว้นวรรค</td>
+        <td>มิได้เกิดจากภาษาไทย แต่เกิดจาก <b>ช่องว่าง</b> ในเส้นทาง
+        โปรแกรมเรียก <code>explorer.exe /select,&lt;เส้นทาง&gt;</code> โดยส่งเป็นอาร์กิวเมนต์เดียว
+        Windows จึงใส่เครื่องหมายอัญประกาศครอบทั้งอาร์กิวเมนต์เมื่อมีช่องว่าง
+        ทำให้ Explorer ไม่รู้จักสวิตช์ <code>/select</code> ของตนเอง แล้วเปิดโฟลเดอร์ปริยายแทน</td>
+        <td>เลิกใช้บรรทัดคำสั่ง เปลี่ยนไปเรียกฟังก์ชันของ Windows โดยตรง
+        (<code>SHOpenFolderAndSelectItems</code>) ซึ่งรับเส้นทางเป็นข้อความ จึงไม่มีการตีความอัญประกาศอีก
+        หากระบบเลือกแฟ้มไม่ได้ จะเปิดโฟลเดอร์ที่เก็บแฟ้มแทน</td>
+      </tr>
+      <tr>
+        <td>ข้อความที่ตรงกับคำค้นทางด้านขวาสั้นเกินไป อ่านแล้วยังไม่แน่ใจว่าใช่แฟ้มที่ต้องการหรือไม่</td>
+        <td>หนึ่งบรรทัดของแฟ้มข้อความ หรือหนึ่งย่อหน้าสั้น ๆ ถูกเก็บเป็นหนึ่งหน่วย
+        เมื่อหน่วยนั้นสั้น ข้อความที่แสดงจึงสั้นตามไปด้วย</td>
+        <td>เมื่อข้อความที่ได้สั้นกว่า 150 อักขระ ระบบจะดึงหน่วยข้อความที่อยู่ก่อนหน้าและถัดไป
+        อย่างละ 2 หน่วยมาต่อกัน แล้วสร้างข้อความตัวอย่างใหม่จากข้อความที่ต่อแล้ว
+        พร้อมขยายกรอบพรีวิวเป็น 4 บรรทัด</td>
+      </tr>
+      <tr>
+        <td>ต้องการเปิดแฟ้มจากแถวผลลัพธ์ได้ทันที และต้องการให้เปิดได้แม้เครื่องไม่มีโปรแกรมนั้น</td>
+        <td>เดิมมีเพียงปุ่มเปิดโฟลเดอร์ประจำแถว การเปิดแฟ้มต้องเลือกแถวแล้วกดปุ่มที่แถบล่าง
+        และเมื่อไม่มีโปรแกรมที่ผูกไว้ ระบบแจ้งเพียงว่าเปิดไม่ได้</td>
+        <td>เพิ่มปุ่มเปิดไฟล์ไว้ถัดจากปุ่มเปิดโฟลเดอร์ในทุกแถว
+        และเมื่อ Windows แจ้งว่าไม่มีโปรแกรมที่ผูกกับชนิดแฟ้มนั้น
+        ระบบจะเปิดหน้าต่าง “เปิดด้วย” (Open with) ให้ผู้ใช้เลือกโปรแกรมเองแทนการแจ้งความล้มเหลว</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">
+    <b>ข้อสังเกตจากรอบนี้</b>
+    ข้อบกพร่องข้อแรกเป็นตัวอย่างที่ดีของอาการที่ชี้ไปผิดทาง ผู้ใช้เห็นว่าเกิดกับชื่อโฟลเดอร์ภาษาไทย
+    จึงสันนิษฐานว่าเป็นปัญหาการเข้ารหัสอักขระ แต่การทดสอบด้วยเส้นทางภาษาอังกฤษที่มีช่องว่าง
+    ก็ให้อาการเดียวกัน สาเหตุจึงอยู่ที่การประกอบบรรทัดคำสั่ง มิใช่ที่ภาษา
+    การแก้ที่สาเหตุจริงทำให้เส้นทางทุกแบบทำงานได้ รวมทั้งเส้นทางที่มีอัญประกาศหรืออักขระพิเศษอื่น
+  </div>
+
+  <div class="note">
+    <b>เรื่องเลขเวอร์ชัน</b>
+    เลขเวอร์ชันในตัวโปรแกรมยังเป็น <code>1.0.0</code> ทั้งห้ารอบ เพราะทั้งหมดเกิดขึ้นก่อนส่งมอบ
+    จึงเป็นการพัฒนาต่อเนื่องของรุ่นเดียวกัน ไม่ใช่การออกรุ่นใหม่ให้ผู้ใช้ติดตั้งทับ
+    เมื่อมีการแก้ไขหลังส่งมอบจริง ให้เพิ่มเลขเวอร์ชันที่
+    <code>advance_file_search\core\constants.py</code> แล้วบันทึกไว้ในหัวข้อนี้ตามรูปแบบเดียวกัน
+    คือ <b>เวอร์ชัน · วันที่ · สิ่งที่เปลี่ยน · เหตุผล</b>
+  </div>
+
+  <h3>14.4 เอกสารอ้างอิงของโครงการ</h3>
+  <table>
+    <thead><tr><th>เอกสาร</th><th>เนื้อหา</th></tr></thead>
+    <tbody>
+      <tr><td><code>Manual\index.html</code></td><td>คู่มือการใช้งานสำหรับผู้ใช้ปลายทาง</td></tr>
+      <tr><td><code>Manual\report.html</code></td><td>รายงานสรุปโครงการฉบับนี้</td></tr>
+      <tr><td><code>docs\TEST_REPORT.md</code></td><td>รายงานผลการทดสอบฉบับเต็ม</td></tr>
+      <tr><td><code>docs\SECURITY.md</code></td><td>แนวปฏิบัติด้านความปลอดภัยและรายการตรวจก่อนปล่อยรุ่น</td></tr>
+      <tr><td><code>docs\BUILD.md</code></td><td>วิธีสร้างโปรแกรมและวิธีสร้างเอกสารประกอบใหม่</td></tr>
+      <tr><td><code>docs\decisions\</code></td><td>บันทึกการตัดสินใจเชิงสถาปัตยกรรม 10 ฉบับ</td></tr>
+      <tr><td><code>LICENSES\INDEX.txt</code></td><td>สัญญาอนุญาตของซอฟต์แวร์ที่นำมาใช้ทั้งหมด</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer class="credit">
+  รายงานสรุปโครงการ Advance File Search เวอร์ชัน 1.0.0 — จัดทำเมื่อ 12 กันยายน 2569<br>
+  เอกสารนี้เป็นไฟล์ในเครื่อง ไม่มีการเรียกข้อมูลจากอินเทอร์เน็ตใด ๆ ทั้งสิ้น
+  <div class="sig">Create by TnCyber@CS 2026</div>
+</footer>
+
+</main>
+
+</div>
+</body>
+</html>

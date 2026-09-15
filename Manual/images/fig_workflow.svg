@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 290"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1000" height="290" fill="none"/>
+<rect x="20" y="40" width="214" height="210" rx="18" fill="#e3eef3" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<circle cx="127" cy="40" r="25" fill="#1d6f8b"/>
+<text x="127" y="49" font-size="23" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+<text x="127" y="110" font-size="18" fill="#1d6f8b" font-weight="700" text-anchor="middle">เลือกโฟลเดอร์</text>
+<text x="127" y="148" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">เลือกโฟลเดอร์หรือไดรฟ์</text>
+<text x="127" y="172" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">ภายในเครื่องที่ต้องการค้นหา</text>
+<path d="M244 145 h20" stroke="#d9dfe5" stroke-width="3" stroke-linecap="round"/><path d="M258 138 l8 7 l-8 7" fill="none" stroke="#d9dfe5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="266" y="40" width="214" height="210" rx="18" fill="#eeeaf7" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<circle cx="373" cy="40" r="25" fill="#5f4b9b"/>
+<text x="373" y="49" font-size="23" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+<text x="373" y="110" font-size="18" fill="#5f4b9b" font-weight="700" text-anchor="middle">พิมพ์คำค้นหา</text>
+<text x="373" y="148" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">พิมพ์คำหรือวลี</text>
+<text x="373" y="172" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">ได้ทั้งภาษาไทยและอังกฤษ</text>
+<path d="M490 145 h20" stroke="#d9dfe5" stroke-width="3" stroke-linecap="round"/><path d="M504 138 l8 7 l-8 7" fill="none" stroke="#d9dfe5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="512" y="40" width="214" height="210" rx="18" fill="#fff3cd" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<circle cx="619" cy="40" r="25" fill="#f2b705"/>
+<text x="619" y="49" font-size="23" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+<text x="619" y="110" font-size="18" fill="#f2b705" font-weight="700" text-anchor="middle">กดค้นหา</text>
+<text x="619" y="148" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">โปรแกรมสร้างดัชนีให้อัตโนมัติ</text>
+<text x="619" y="172" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">ในครั้งแรก แล้วค้นหาให้ทันที</text>
+<path d="M736 145 h20" stroke="#d9dfe5" stroke-width="3" stroke-linecap="round"/><path d="M750 138 l8 7 l-8 7" fill="none" stroke="#d9dfe5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="758" y="40" width="214" height="210" rx="18" fill="#e4f3ec" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<circle cx="865" cy="40" r="25" fill="#1f7a4d"/>
+<text x="865" y="49" font-size="23" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+<text x="865" y="110" font-size="18" fill="#1f7a4d" font-weight="700" text-anchor="middle">เปิดไฟล์</text>
+<text x="865" y="148" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">ดูข้อความที่ตรงกัน</text>
+<text x="865" y="172" font-size="14" fill="#5a6b7b" font-weight="400" text-anchor="middle">แล้วเปิดไฟล์หรือโฟลเดอร์</text>
+</svg>

@@ -1,0 +1,75 @@
+Advance File Search - Privacy Statement
+=======================================
+
+English
+-------
+Advance File Search processes documents and search queries entirely on this
+computer. It does not upload files, use cloud services, send usage data, or
+require an Internet connection.
+
+ไทย
+---
+Advance File Search ประมวลผลเอกสารและคำค้นหาภายในเครื่องนี้เท่านั้น
+โปรแกรมจะไม่อัปโหลดไฟล์ ไม่ใช้บริการคลาวด์ ไม่ส่งข้อมูลการใช้งาน
+และไม่จำเป็นต้องเชื่อมต่ออินเทอร์เน็ต
+
+
+What is stored, and where
+-------------------------
+All of it under %LOCALAPPDATA%\Advance File Search\
+
+    index\search_index.sqlite3   file names, extracted text, file metadata
+    logs\application.log         operational events only (see below)
+    settings\settings.json       your preferences and recent folders
+    backups\                     index backups taken before a schema change
+    temp\                        emptied every time the program starts
+
+Nothing is written next to the program itself.
+
+
+What is NOT stored or transmitted
+---------------------------------
+  - Your search queries are never written to the log.
+  - Matching text from your documents is never written to the log.
+  - Extracted text is never written to a temporary file; it goes from memory
+    straight into the index.
+  - No usage statistics, crash reports or diagnostics are collected or sent.
+  - No connection of any kind is made to any server, for any reason.
+
+The log records only: a timestamp, the program version, which operation ran,
+how many files were processed, and a sanitised error type for a file that
+could not be read. File paths can be turned off entirely in
+Settings > Privacy & Logs.
+
+
+How this is verified
+--------------------
+This is not a promise; it is tested.
+
+  - The automated test suite fails the build if any source file imports a
+    networking library.
+  - A test indexes and searches the whole test corpus with the operating
+    system's socket functions replaced by ones that raise an error. Any
+    attempt to reach the network would fail the test loudly.
+  - Qt's networking and web-view modules are excluded from the packaged
+    application, so they are not merely unused - they are not present.
+  - A test searches for a unique word, then asserts that word appears nowhere
+    in the log file.
+  - A test indexes a document containing a unique secret and asserts the
+    secret appears nowhere in the log file, including when the file fails to
+    parse.
+
+
+Removing everything
+-------------------
+Deleting the program folder removes the program but keeps your index, because
+the index is your data.
+
+To remove the index and all settings as well, delete:
+
+    %LOCALAPPDATA%\Advance File Search\
+
+Deleting an index from inside the program overwrites the freed space and
+compacts the database file, so the removed text is not recoverable from it.
+
+Your original documents are never modified by this program.

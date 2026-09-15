@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+
+  <rect x="0" y="0" width="900" height="300" fill="none"/>
+
+  <g transform="translate(60,50)">
+    <path d="M85 0 L170 32 v78 c0 52 -36 90 -85 108 c-49 -18 -85 -56 -85 -108 V32 z"
+          fill="url(#shieldGrad)" filter="url(#soft)"/>
+    <path d="M52 108 l24 26 l46 -60" fill="none" stroke="#ffffff" stroke-width="13"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="300" y="78" font-size="21" fill="#1b2733" font-weight="700" text-anchor="start">ข้อมูลของคุณอยู่ในเครื่องนี้เท่านั้น</text>
+
+  <g font-size="15" fill="#5a6b7b">
+    <circle cx="312" cy="116" r="6" fill="#1f7a4d"/>
+    <text x="332" y="122">ไม่อัปโหลดไฟล์ ไม่ใช้บริการคลาวด์</text>
+    <circle cx="312" cy="152" r="6" fill="#1f7a4d"/>
+    <text x="332" y="158">ไม่ส่งข้อมูลการใช้งานหรือรายงานข้อผิดพลาด</text>
+    <circle cx="312" cy="188" r="6" fill="#1f7a4d"/>
+    <text x="332" y="194">ไม่บันทึกคำค้นหาหรือเนื้อหาเอกสารลงไฟล์บันทึก</text>
+    <circle cx="312" cy="224" r="6" fill="#1f7a4d"/>
+    <text x="332" y="230">ตัวโปรแกรมไม่มีไลบรารีเครือข่ายติดตั้งมาด้วยเลย</text>
+    <circle cx="312" cy="260" r="6" fill="#1f7a4d"/>
+    <text x="332" y="266">ใช้งานได้ตามปกติแม้ตัดการเชื่อมต่ออินเทอร์เน็ต</text>
+  </g>
+
+</svg>

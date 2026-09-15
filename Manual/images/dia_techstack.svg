@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 620"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="620" fill="none"/>
+<text x="24" y="32" font-size="18" fill="#1b2733" font-weight="700" text-anchor="start">เทคโนโลยีที่ใช้ และหน้าที่ของแต่ละอย่าง</text>
+<text x="24" y="56" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ทุกอย่างติดตั้งตอนสร้างโปรแกรมเท่านั้น เวลาใช้งานจริงไม่ต้องต่ออินเทอร์เน็ต</text>
+<rect x="24" y="74" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="74" width="7" height="48" rx="3.5" fill="#1d6f8b"/>
+<text x="46" y="104" font-size="14.5" fill="#1d6f8b" font-weight="700" text-anchor="start">Python 3.12.10</text>
+<line x1="300" y1="84" x2="300" y2="112" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="104" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ภาษาหลักของทั้งโปรแกรม</text>
+<line x1="600" y1="84" x2="600" y2="112" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="104" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ตรรกะทุกส่วน ไม่มีโค้ดภาษาอื่นปน</text>
+<rect x="24" y="126" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="126" width="7" height="48" rx="3.5" fill="#d9480f"/>
+<text x="46" y="156" font-size="14.5" fill="#d9480f" font-weight="700" text-anchor="start">PySide6 6.11.2 (Qt 6)</text>
+<line x1="300" y1="136" x2="300" y2="164" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="156" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ชุดสร้างหน้าจอ</text>
+<line x1="600" y1="136" x2="600" y2="164" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="156" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">หน้าต่าง ตาราง เธรด สัญญาณ และธีม</text>
+<rect x="24" y="178" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="178" width="7" height="48" rx="3.5" fill="#1f7a4d"/>
+<text x="46" y="208" font-size="14.5" fill="#1f7a4d" font-weight="700" text-anchor="start">SQLite 3.49 + FTS5</text>
+<line x1="300" y1="188" x2="300" y2="216" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="208" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ฐานข้อมูลและดัชนีข้อความเต็ม</text>
+<line x1="600" y1="188" x2="600" y2="216" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="208" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">เก็บรายการไฟล์ หน่วยข้อความ และใช้ค้นหา</text>
+<rect x="24" y="230" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="230" width="7" height="48" rx="3.5" fill="#f2b705"/>
+<text x="46" y="260" font-size="14.5" fill="#f2b705" font-weight="700" text-anchor="start">ตัวแยกคำ trigram</text>
+<line x1="300" y1="240" x2="300" y2="268" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="260" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ทำให้ค้นภาษาไทยได้จริง</text>
+<line x1="600" y1="240" x2="600" y2="268" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="260" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ค้นคำที่อยู่กลางข้อความไทยที่ไม่เว้นวรรค</text>
+<rect x="24" y="282" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="282" width="7" height="48" rx="3.5" fill="#5f4b9b"/>
+<text x="46" y="312" font-size="14.5" fill="#5f4b9b" font-weight="700" text-anchor="start">PyMuPDF 1.26.5</text>
+<line x1="300" y1="292" x2="300" y2="320" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="312" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">อ่านข้อความจาก PDF</text>
+<line x1="600" y1="292" x2="600" y2="320" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="312" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ดึงข้อความรายหน้า และตรวจไฟล์ที่ใส่รหัสผ่าน</text>
+<rect x="24" y="334" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="334" width="7" height="48" rx="3.5" fill="#5f4b9b"/>
+<text x="46" y="364" font-size="14.5" fill="#5f4b9b" font-weight="700" text-anchor="start">python-docx 1.2.0</text>
+<line x1="300" y1="344" x2="300" y2="372" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="364" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">อ่านเอกสาร Word</text>
+<line x1="600" y1="344" x2="600" y2="372" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="364" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ย่อหน้า ตาราง หัวกระดาษ ท้ายกระดาษ</text>
+<rect x="24" y="386" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="386" width="7" height="48" rx="3.5" fill="#5f4b9b"/>
+<text x="46" y="416" font-size="14.5" fill="#5f4b9b" font-weight="700" text-anchor="start">openpyxl 3.1.5</text>
+<line x1="300" y1="396" x2="300" y2="424" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="416" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">อ่านสมุดงาน Excel</text>
+<line x1="600" y1="396" x2="600" y2="424" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="416" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">อ่านรายเซลล์ และข้ามชีตที่ซ่อนไว้</text>
+<rect x="24" y="438" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="438" width="7" height="48" rx="3.5" fill="#5a6b7b"/>
+<text x="46" y="468" font-size="14.5" fill="#5a6b7b" font-weight="700" text-anchor="start">lxml 6.0.2</text>
+<line x1="300" y1="448" x2="300" y2="476" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="468" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ตัวอ่าน XML เบื้องหลัง</text>
+<line x1="600" y1="448" x2="600" y2="476" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="468" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">ถูกเรียกใช้โดย python-docx และ openpyxl</text>
+<rect x="24" y="490" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="490" width="7" height="48" rx="3.5" fill="#41566b"/>
+<text x="46" y="520" font-size="14.5" fill="#41566b" font-weight="700" text-anchor="start">PyInstaller (onedir)</text>
+<line x1="300" y1="500" x2="300" y2="528" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="520" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ห่อรวมเป็นไฟล์ .exe</text>
+<line x1="600" y1="500" x2="600" y2="528" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="520" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">รวม Python และไลบรารีไว้ในโฟลเดอร์เดียว</text>
+<rect x="24" y="542" width="992" height="48" rx="11" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.2"/>
+<rect x="24" y="542" width="7" height="48" rx="3.5" fill="#1d6f8b"/>
+<text x="46" y="572" font-size="14.5" fill="#1d6f8b" font-weight="700" text-anchor="start">pytest</text>
+<line x1="300" y1="552" x2="300" y2="580" stroke="#d9dfe5" stroke-width="1"/>
+<text x="318" y="572" font-size="13.5" fill="#1b2733" font-weight="400" text-anchor="start">ชุดทดสอบอัตโนมัติ</text>
+<line x1="600" y1="552" x2="600" y2="580" stroke="#d9dfe5" stroke-width="1"/>
+<text x="618" y="572" font-size="13.5" fill="#5a6b7b" font-weight="400" text-anchor="start">606 การทดสอบ ครอบคลุมทุกชั้นของระบบ</text>
+</svg>

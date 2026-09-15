@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 700"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="700" fill="none"/>
+<rect x="16" y="12" width="900" height="640" rx="18" fill="none" stroke="#d9480f" stroke-width="2" stroke-dasharray="9 7"/><text x="34" y="38" font-size="16" fill="#d9480f" font-weight="700" text-anchor="start">ขอบเขตความเชื่อถือ: เครื่องคอมพิวเตอร์ของผู้ใช้</text>
+<rect x="44" y="60" width="210" height="96" rx="12" fill="#eef2f6" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="44" y="60" width="7" height="96" rx="3.5" fill="#41566b"/>
+<text x="64" y="86" font-size="15" fill="#41566b" font-weight="700" text-anchor="start">ผู้ใช้</text>
+<text x="64" y="110" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เลือกโฟลเดอร์</text>
+<text x="64" y="130" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">พิมพ์คำค้นและตัวกรอง</text>
+<rect x="44" y="300" width="210" height="110" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="44" y="300" width="7" height="110" rx="3.5" fill="#1f7a4d"/>
+<text x="64" y="326" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">เอกสารต้นฉบับ</text>
+<text x="64" y="350" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">PDF · DOCX · XLSX · TXT</text>
+<text x="64" y="370" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">อ่านอย่างเดียว</text>
+<text x="64" y="390" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไม่ถูกแก้ไขหรือย้าย</text>
+<rect x="44" y="470" width="210" height="110" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="44" y="470" width="7" height="110" rx="3.5" fill="#1d6f8b"/>
+<text x="64" y="496" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">ค่าที่ตั้งไว้</text>
+<text x="64" y="520" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">settings.json</text>
+<text x="64" y="540" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ภาษา ขนาดตัวอักษร</text>
+<text x="64" y="560" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตำแหน่งหน้าต่าง</text>
+<circle cx="420" cy="108" r="62" fill="#ffffff" stroke="#5f4b9b" stroke-width="2.4" filter="url(#soft)"/>
+<text x="420" y="102" font-size="17" fill="#5f4b9b" font-weight="700" text-anchor="middle">1.0</text>
+<text x="420" y="128" font-size="15" fill="#1b2733" font-weight="600" text-anchor="middle">จัดดัชนี</text>
+<circle cx="420" cy="350" r="62" fill="#ffffff" stroke="#f2b705" stroke-width="2.4" filter="url(#soft)"/>
+<text x="420" y="344" font-size="17" fill="#f2b705" font-weight="700" text-anchor="middle">2.0</text>
+<text x="420" y="370" font-size="15" fill="#1b2733" font-weight="600" text-anchor="middle">ค้นหา</text>
+<circle cx="420" cy="560" r="62" fill="#ffffff" stroke="#1d6f8b" stroke-width="2.4" filter="url(#soft)"/>
+<text x="420" y="554" font-size="17" fill="#1d6f8b" font-weight="700" text-anchor="middle">3.0</text>
+<text x="420" y="580" font-size="15" fill="#1b2733" font-weight="600" text-anchor="middle">แสดงผล</text>
+<g>
+    <path d="M620 262 a100 12 0 0 1 200 0 v76
+             a100 12 0 0 1 -200 0 z" fill="url(#accentGrad)" opacity="0.92"/>
+    <ellipse cx="720" cy="262" rx="100" ry="12" fill="#39b3c9"/>
+    <text x="720" y="310" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle">D1  index.db</text>
+  </g>
+<text x="720" y="372" font-size="12" fill="#5a6b7b" font-weight="400" text-anchor="middle">files · content_units · content_fts · name_fts</text>
+<rect x="620" y="470" width="200" height="110" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="620" y="470" width="7" height="110" rx="3.5" fill="#f2b705"/>
+<text x="640" y="496" font-size="15" fill="#f2b705" font-weight="700" text-anchor="start">D2  app.log</text>
+<text x="640" y="520" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">เวลา · ระดับ · เหตุการณ์</text>
+<text x="640" y="540" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">จำนวนไฟล์ · ระยะเวลา</text>
+<text x="640" y="560" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ไม่มีข้อความในเอกสาร</text>
+<path d="M254 100 L356 100" fill="none" stroke="#41566b" stroke-width="2.4" marker-end="url(#ar_muted)"/>
+<text x="306" y="90" font-size="12" fill="#5a6b7b" font-weight="400" text-anchor="middle">โฟลเดอร์</text>
+<path d="M254 340 L358 340" fill="none" stroke="#1f7a4d" stroke-width="2.4" marker-end="url(#ar_green)"/>
+<text x="306" y="330" font-size="12" fill="#1f7a4d" font-weight="400" text-anchor="middle">ข้อความในไฟล์</text>
+<path d="M254 528 L358 545" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<text x="306" y="520" font-size="12" fill="#1d6f8b" font-weight="400" text-anchor="middle">ค่าที่ตั้งไว้</text>
+<path d="M300 128 L358 300" fill="none" stroke="#1f7a4d" stroke-width="2" marker-end="url(#ar_green)"/>
+<path d="M482 128 L616 250" fill="none" stroke="#5f4b9b" stroke-width="2.4" marker-end="url(#ar_violet)"/>
+<text x="576" y="176" font-size="12" fill="#5f4b9b" font-weight="400" text-anchor="start">หน่วยข้อความ + ข้อมูลไฟล์</text>
+<path d="M616 320 L484 340" fill="none" stroke="#f2b705" stroke-width="2.4" marker-end="url(#ar_amber)"/>
+<text x="548" y="306" font-size="12" fill="#f2b705" font-weight="400" text-anchor="middle">รายการที่ตรงกัน</text>
+<path d="M420 412 L420 496" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<text x="500" y="456" font-size="12" fill="#1d6f8b" font-weight="400" text-anchor="middle">ผลลัพธ์ + ข้อความรอบคำค้น</text>
+<path d="M358 560 L256 560" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<text x="180" y="586" font-size="12" fill="#1d6f8b" font-weight="400" text-anchor="start">บันทึกค่าที่ผู้ใช้เปลี่ยน</text>
+<path d="M482 96 H900 V500 H826" fill="none" stroke="#f2b705" stroke-width="2.4" marker-end="url(#ar_amber)"/>
+<text x="700" y="84" font-size="12" fill="#f2b705" font-weight="400" text-anchor="middle">สถิติการทำงานเท่านั้น ไม่มีข้อความจากเอกสาร</text>
+<line x1="916" y1="20" x2="916" y2="644" stroke="#d9480f" stroke-width="3" stroke-dasharray="10 8"/>
+<g opacity="0.9"><circle cx="978" cy="330" r="46" fill="#f2f5f7" stroke="#d9dfe5" stroke-width="2"/><ellipse cx="978" cy="330" rx="46" ry="18" fill="none" stroke="#d9dfe5" stroke-width="2"/><line x1="978" y1="284" x2="978" y2="376" stroke="#d9dfe5" stroke-width="2"/><g stroke="#d9480f" stroke-width="8" stroke-linecap="round"><line x1="948" y1="300" x2="1008" y2="360"/><line x1="1008" y1="300" x2="948" y2="360"/></g></g>
+<text x="978" y="400" font-size="12" fill="#d9480f" font-weight="700" text-anchor="middle">ไม่มีเส้นทาง</text>
+<text x="978" y="420" font-size="12" fill="#d9480f" font-weight="700" text-anchor="middle">ออกสู่ภายนอก</text>
+<text x="460" y="676" font-size="13" fill="#d9480f" font-weight="600" text-anchor="middle">ทุกลูกศรในแผนภาพนี้อยู่ในเครื่องเดียวกันทั้งหมด ไม่มีลูกศรใดข้ามเส้นประสีส้ม</text>
+</svg>

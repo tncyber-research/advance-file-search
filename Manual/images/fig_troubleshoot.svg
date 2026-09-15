@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 392"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b9e77"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+    <linearGradient id="solidBlue" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#5ec3d8"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="solidGreen" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#57c69a"/>
+      <stop offset="1" stop-color="#1f7a4d"/>
+    </linearGradient>
+    <linearGradient id="solidAmber" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#e0a500"/>
+    </linearGradient>
+    <linearGradient id="solidViolet" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#8f7ccc"/>
+      <stop offset="1" stop-color="#5f4b9b"/>
+    </linearGradient>
+    <linearGradient id="solidCoral" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f08a5d"/>
+      <stop offset="1" stop-color="#d9480f"/>
+    </linearGradient>
+    <radialGradient id="glossy" cx="0.32" cy="0.26" r="0.75">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lift" x="-40%" y="-40%" width="180%" height="190%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#1b2733"
+                    flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect x="0" y="0" width="1000" height="392" fill="none"/>
+<rect x="24" y="22" width="952" height="72" rx="16" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.4" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="70" cy="58" r="23" fill="url(#solidAmber)"/><circle cx="70" cy="58" r="23" fill="url(#glossy)"/></g>
+<text x="70" y="66" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">?</text>
+<text x="112" y="54" font-size="14.5" fill="#1b2733" font-weight="700" text-anchor="start">ค้นแล้วไม่พบเอกสารที่รู้ว่ามีอยู่</text>
+<text x="112" y="78" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">กด “อัปเดตดัชนี” แล้วค้นใหม่ · ตรวจว่าเลือกโฟลเดอร์ถูกต้อง</text>
+<rect x="24" y="106" width="952" height="72" rx="16" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.4" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="70" cy="142" r="23" fill="url(#solidCoral)"/><circle cx="70" cy="142" r="23" fill="url(#glossy)"/></g>
+<text x="70" y="150" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">?</text>
+<text x="112" y="138" font-size="14.5" fill="#1b2733" font-weight="700" text-anchor="start">ไฟล์ PDF ค้นข้อความไม่เจอ</text>
+<text x="112" y="162" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">อาจเป็นไฟล์จากการสแกน ซึ่งเป็นภาพทั้งหน้า ระบบไม่มี OCR</text>
+<rect x="24" y="190" width="952" height="72" rx="16" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.4" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="70" cy="226" r="23" fill="url(#solidViolet)"/><circle cx="70" cy="226" r="23" fill="url(#glossy)"/></g>
+<text x="70" y="234" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">?</text>
+<text x="112" y="222" font-size="14.5" fill="#1b2733" font-weight="700" text-anchor="start">โปรแกรมขอให้เลือกโฟลเดอร์ใหม่</text>
+<text x="112" y="246" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">โฟลเดอร์เดิมถูกย้ายหรือลบ ให้เลือกตำแหน่งปัจจุบันอีกครั้ง</text>
+<rect x="24" y="274" width="952" height="72" rx="16" fill="#ffffff" stroke="#d9dfe5" stroke-width="1.4" filter="url(#lift)"/>
+<g filter="url(#lift)"><circle cx="70" cy="310" r="23" fill="url(#solidBlue)"/><circle cx="70" cy="310" r="23" fill="url(#glossy)"/></g>
+<text x="70" y="318" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">?</text>
+<text x="112" y="306" font-size="14.5" fill="#1b2733" font-weight="700" text-anchor="start">ค้นช้ากว่าปกติ</text>
+<text x="112" y="330" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">คำค้นสั้นกว่า 3 ตัวอักษรจะไม่ใช้ดัชนี ลองพิมพ์ให้ยาวขึ้น</text>
+<text x="500" y="376" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="middle">หากยังไม่หาย ให้ใช้คำสั่ง “สร้างดัชนีใหม่ทั้งหมด” ซึ่งปลอดภัยเสมอ เพราะดัชนีสร้างขึ้นใหม่ได้จากเอกสารเดิม</text>
+</svg>

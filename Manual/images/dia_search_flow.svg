@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 900"
+     width="100%" role="img" font-family="Sarabun, 'Leelawadee UI', 'Noto Sans Thai', Tahoma, 'Segoe UI', system-ui, sans-serif">
+  <defs>
+    <marker id="ar_accent" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1d6f8b"/>
+    </marker>
+    <marker id="ar_muted" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5a6b7b"/>
+    </marker>
+    <marker id="ar_green" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#1f7a4d"/>
+    </marker>
+    <marker id="ar_amber" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#f2b705"/>
+    </marker>
+    <marker id="ar_coral" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#d9480f"/>
+    </marker>
+    <marker id="ar_violet" markerWidth="9" markerHeight="9" refX="7.5"
+            refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L7.5 3 L0 6 z" fill="#5f4b9b"/>
+    </marker>
+    <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#39b3c9"/>
+      <stop offset="1" stop-color="#1d6f8b"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4f7"/>
+    </linearGradient>
+    <filter id="soft" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2733"
+                    flood-opacity="0.13"/>
+    </filter>
+
+  </defs>
+<rect x="0" y="0" width="1040" height="900" fill="none"/>
+<rect x="340" y="16" width="320" height="42" rx="21" fill="#e3eef3" stroke="#1d6f8b" stroke-width="1.4"/><text x="500" y="42" font-size="13" fill="#1d6f8b" font-weight="600" text-anchor="middle">ผู้ใช้พิมพ์คำค้นแล้วกดค้นหา</text>
+<path d="M500 58 L500 84" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="260" y="84" width="480" height="82" rx="12" fill="#ffffff" stroke="#d9480f" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="260" y="84" width="7" height="82" rx="3.5" fill="#d9480f"/>
+<text x="280" y="110" font-size="15" fill="#d9480f" font-weight="700" text-anchor="start">1. ตรวจความปลอดภัยของคำค้น</text>
+<text x="280" y="134" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">จำกัดความยาว 500 ตัวอักษร และไม่เกิน 24 คำ</text>
+<text x="280" y="154" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">จำกัดจำนวน wildcard ต่อคำ เพื่อไม่ให้ค้นหานานผิดปกติ</text>
+<path d="M500 166 L500 192" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="260" y="192" width="480" height="82" rx="12" fill="#ffffff" stroke="#5f4b9b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="260" y="192" width="7" height="82" rx="3.5" fill="#5f4b9b"/>
+<text x="280" y="218" font-size="15" fill="#5f4b9b" font-weight="700" text-anchor="start">2. แปลคำค้น (QueryParser)</text>
+<text x="280" y="242" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">แยกวลีในเครื่องหมายคำพูด ออกจากคำเดี่ยว</text>
+<text x="280" y="262" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">อ่านสัญลักษณ์ * และ ? แล้วแปลงเป็นเงื่อนไขการเทียบ</text>
+<path d="M500 274 L500 306" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<polygon points="500,308 680,348 500,388 320,348" fill="#fff3cd" stroke="#f2b705" stroke-width="1.8"/>
+<text x="500" y="353" font-size="13" fill="#f2b705" font-weight="600" text-anchor="middle">คำค้นสั้นกว่า 3 ตัวอักษร?</text>
+<path d="M320 348 L274 348" fill="none" stroke="#f2b705" stroke-width="2.4" marker-end="url(#ar_amber)"/>
+<rect x="24" y="316" width="250" height="66" rx="12" fill="#ffffff" stroke="#f2b705" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="24" y="316" width="7" height="66" rx="3.5" fill="#f2b705"/>
+<text x="44" y="342" font-size="15" fill="#f2b705" font-weight="700" text-anchor="start">สแกนแบบจำกัดขอบเขต</text>
+<text x="44" y="366" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ใช้ LIKE ที่มีเพดานจำนวนแถว</text>
+<path d="M500 388 L500 420" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="260" y="420" width="480" height="88" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="260" y="420" width="7" height="88" rx="3.5" fill="#1f7a4d"/>
+<text x="280" y="446" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">3. ค้นจากดัชนี FTS5 (trigram)</text>
+<text x="280" y="470" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">name_fts สำหรับชื่อไฟล์ · content_fts สำหรับเนื้อหา</text>
+<text x="280" y="490" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">trigram ทำให้ค้นคำกลางข้อความไทยที่ไม่เว้นวรรคได้</text>
+<path d="M149 382 V404 H350 V420" fill="none" stroke="#f2b705" stroke-width="2.4" marker-end="url(#ar_amber)"/>
+<path d="M500 508 L500 534" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="260" y="534" width="480" height="82" rx="12" fill="#ffffff" stroke="#1f7a4d" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="260" y="534" width="7" height="82" rx="3.5" fill="#1f7a4d"/>
+<text x="280" y="560" font-size="15" fill="#1f7a4d" font-weight="700" text-anchor="start">4. ตรวจเงื่อนไขละเอียดอีกชั้น</text>
+<text x="280" y="584" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ตรงตัวพิมพ์เล็กใหญ่ · ทั้งคำ · รูปแบบ wildcard</text>
+<text x="280" y="604" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ทำในหน่วยความจำ เพราะ trigram ไม่แยกความต่างเหล่านี้</text>
+<path d="M500 616 L500 642" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="260" y="642" width="480" height="82" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="260" y="642" width="7" height="82" rx="3.5" fill="#1d6f8b"/>
+<text x="280" y="668" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">5. กรองและจัดอันดับ</text>
+<text x="280" y="692" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">กรองตามนามสกุล วันที่ ขนาด และโฟลเดอร์ย่อย</text>
+<text x="280" y="712" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ชื่อไฟล์ที่ตรงมาก่อนเนื้อหา แล้วดูจำนวนครั้งและความใหม่</text>
+<path d="M500 724 L500 750" fill="none" stroke="#1d6f8b" stroke-width="2.4" marker-end="url(#ar_accent)"/>
+<rect x="260" y="750" width="480" height="82" rx="12" fill="#ffffff" stroke="#1d6f8b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="260" y="750" width="7" height="82" rx="3.5" fill="#1d6f8b"/>
+<text x="280" y="776" font-size="15" fill="#1d6f8b" font-weight="700" text-anchor="start">6. ตัดข้อความรอบคำที่ตรง แล้วส่งกลับ</text>
+<text x="280" y="800" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">บอกตำแหน่ง: หน้า / ย่อหน้า / ชีตและเซลล์ / บรรทัด</text>
+<text x="280" y="820" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ส่งกลับหน้าจอผ่าน Qt signal พร้อมตำแหน่งไฮไลต์</text>
+<rect x="776" y="84" width="240" height="190" rx="12" fill="#eef2f6" stroke="#41566b" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="776" y="84" width="7" height="190" rx="3.5" fill="#41566b"/>
+<text x="796" y="110" font-size="15" fill="#41566b" font-weight="700" text-anchor="start">ทำงานในเธรดเบื้องหลัง</text>
+<text x="796" y="134" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">หน้าจอไม่ค้างระหว่างค้นหา</text>
+<text x="796" y="154" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">กดยกเลิกได้ตลอดเวลา</text>
+<text x="796" y="174" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">พิมพ์คำใหม่ = ยกเลิกงานเก่า</text>
+<text x="796" y="194" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ผลลัพธ์เก่าที่มาช้าถูกทิ้ง</text>
+<rect x="776" y="534" width="240" height="190" rx="12" fill="#ffffff" stroke="#d9480f" stroke-width="1.6" filter="url(#soft)"/>
+<rect x="776" y="534" width="7" height="190" rx="3.5" fill="#d9480f"/>
+<text x="796" y="560" font-size="15" fill="#d9480f" font-weight="700" text-anchor="start">ถ้าชนกับการจัดดัชนี</text>
+<text x="796" y="584" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ฐานข้อมูลอาจกำลังถูกเขียนอยู่</text>
+<text x="796" y="604" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ระบบจะรู้ว่าเป็นข้อผิดพลาดชั่วคราว</text>
+<text x="796" y="624" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ปิดการเชื่อมต่อของเธรดนั้น</text>
+<text x="796" y="644" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">รอ 120 มิลลิวินาที แล้วลองใหม่ 1 ครั้ง</text>
+<text x="796" y="664" font-size="13" fill="#5a6b7b" font-weight="400" text-anchor="start">ผู้ใช้ไม่เห็นความผิดพลาดนี้</text>
+<path d="M776 575 L744 575" fill="none" stroke="#d9480f" stroke-width="2.4" marker-end="url(#ar_coral)"/>
+</svg>

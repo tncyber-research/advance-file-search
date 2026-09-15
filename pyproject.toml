@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "advance-file-search"
+version = "1.0.0"
+description = "Offline local full-text search for Windows documents"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+
+[tool.setuptools]
+packages = ["advance_file_search"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: long-running tests",
+    "gui: requires a Qt application instance",
+    "security: privacy and security acceptance checks",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "C4", "SIM"]
+ignore = ["S101", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Fixtures are imported into a test module so pytest can find them, which
+# looks like an unused/redefined import to a linter but is the documented way.
+"tests/*" = ["S", "B", "F401", "F811"]
+# These scripts exist to launch the packaged build and the screenshot capture;
+# running a subprocess is their whole purpose, and the executable is a literal.
+"scripts/*" = ["S603"]

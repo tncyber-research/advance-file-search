@@ -1,0 +1,44 @@
+Third-party components bundled with Advance File Search
+============================================================
+
+Advance File Search itself performs no network access.  None of the
+components below are downloaded at runtime; every one is packaged
+inside the application directory.
+
+  PySide6 6.11.2 - PySide6.txt
+  PySide6_Essentials 6.11.2 - PySide6_Essentials.txt
+  PySide6_Addons 6.11.2 - PySide6_Addons.txt
+  shiboken6 6.11.2 - shiboken6.txt
+  PyMuPDF 1.26.5 - PyMuPDF.txt
+  python-docx 1.2.0 - python-docx.txt
+  openpyxl 3.1.5 - openpyxl.txt
+  et_xmlfile 2.0.0 - et_xmlfile.txt
+  lxml 6.0.2 - lxml.txt
+  typing_extensions 4.15.0 - typing_extensions.txt
+
+Python itself is distributed under the PSF License Agreement.
+SQLite (including the FTS5 extension) is in the public domain.
+
+Qt / PySide6 notice
+-------------------
+PySide6 and the Qt libraries it wraps are used here under the GNU
+Lesser General Public License v3.  Qt is dynamically linked and its
+unmodified shared libraries are shipped in the application folder,
+so they can be replaced by the recipient.  The full LGPLv3 text is
+available from the Qt Project and the Free Software Foundation.
+PySide6's own wheel ships only the commercial-licence reference file,
+which is reproduced for completeness and does not apply here.
+
+PyMuPDF notice - READ BEFORE DISTRIBUTING
+----------------------------------------
+PyMuPDF is dual licensed: GNU AFFERO GPL v3, or a commercial licence
+from Artifex.  The AGPL is strongly copyleft.  If this application is
+distributed outside the organisation that built it, either the whole
+application must be released under the AGPL with source available, or
+a commercial PyMuPDF licence must be obtained.
+
+If neither is acceptable, the PDF parser is the only module that uses
+PyMuPDF (advance_file_search/indexing/parsers/pdf_parser.py) and can
+be reimplemented on a permissively licensed library such as pypdf
+(BSD-3-Clause) or pdfminer.six (MIT).  See
+docs/decisions/0007-pdf-library-licensing.md.
