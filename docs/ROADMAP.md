@@ -34,12 +34,12 @@ Priority: **P1** blocks a release · **P2** valuable next · **P3** nice to have
 - [x] Repository documentation and `.gitignore` for publication
 - [x] Published to GitHub (private) with documentation in step with the code
 - [x] Lint clean: 72 findings fixed, the rest suppressed in place with reasons
-- [x] CI on Windows: lint + 529 non-GUI tests required, 91 Qt tests advisory
+- [x] CI on Windows: lint and all 620 tests, green including the Qt widget job
 
 ## In progress
 
-- [ ] **P2** Watch the advisory Qt job over a few CI runs and decide whether it
-      can be made required
+- [ ] **P1** Decide the licence position (see Planned) — everything else for a
+      release is done
 
 ## Planned
 

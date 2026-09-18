@@ -12,8 +12,9 @@ versions. Only changes with evidence in the repository are listed.
 
 ### Added
 - Continuous integration on Windows (`.github/workflows/ci.yml`): `ruff check`
-  and the 529 tests that need no windowing system as the required job, the 91
-  Qt widget tests as an advisory job.
+  and the whole test suite, split into a non-GUI job (529 tests) and a Qt
+  widget job (91 tests). Both are required; the first run showed the runner
+  can create real windows.
 - `ruff` pinned in `requirements-dev.txt` so CI and local runs agree.
 - Per-row **Open file** button beside the existing Open-folder button, with a
   fallback to the Windows "Open with" chooser when no program is registered

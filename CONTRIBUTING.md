@@ -86,9 +86,8 @@ If the change touches packaging or anything that ships, rebuild and verify:
 python scripts\test_packaged_build.py "dist\Advance File Search"
 ```
 
-CI runs `ruff check .` and the non-GUI tests on Windows for every push and
-pull request, so both must be clean. The Qt widget job is advisory — run it
-locally.
+CI runs `ruff check .` and the whole test suite on Windows for every push and
+pull request, split into a non-GUI job and a Qt widget job. Both must pass.
 
 State test results honestly in the pull request: what you ran, what passed,
 and what you did not run. "Tests pass" without having run them is worse than

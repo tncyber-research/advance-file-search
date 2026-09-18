@@ -5,10 +5,10 @@ name: CI
 # Two jobs, deliberately:
 #   checks  lint plus the 529 tests that need no windowing system.  This is the
 #           job that must stay green.
-#   gui     the 91 Qt widget tests.  They create real windows, which depends on
-#           the session the runner happens to provide, so the job is advisory:
-#           a failure here means "run these locally", not "the code is broken".
-#           They are run on every desktop before a release regardless.
+#   gui     the 91 Qt widget tests.  They create real windows; the first run on
+#           windows-latest showed the runner can do that, so this job is
+#           required too.  If a future runner image cannot, the honest fix is
+#           to say so here rather than to stop running them.
 
 on:
   push:
@@ -30,9 +30,9 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -53,14 +53,13 @@ jobs:
         run: python -m pytest -m "not gui"
 
   gui:
-    name: Qt widget tests (advisory)
+    name: Qt widget tests
     runs-on: windows-latest
     timeout-minutes: 25
-    continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip

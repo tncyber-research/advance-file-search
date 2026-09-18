@@ -271,10 +271,11 @@ or elevation to create a symlink; the same policy is covered by a junction
 test that runs.
 
 Continuous integration runs on Windows for every push and pull request
-(`.github/workflows/ci.yml`): `ruff check` plus the 529 tests that need no
-windowing system. The 91 Qt widget tests run in a second, advisory job,
-because creating real windows depends on the session the runner provides; they
-are run locally on a desktop before a release either way.
+(`.github/workflows/ci.yml`), in two jobs that between them run the whole
+suite: `ruff check` plus the 529 tests that need no windowing system, and the
+91 Qt widget tests. Both must pass. On the runner all 620 tests pass, the
+symlink test included — it has the privilege that a normal desktop session
+lacks.
 
 GUI tests create real windows and need an interactive Windows desktop
 session. Every test document is generated at run time by
@@ -414,7 +415,7 @@ Python. Details in [`docs/HANDOFF.md`](docs/HANDOFF.md).
 | Automated tests | 619 passed, 1 skipped, 0 failed (620 collected) |
 | Lint (`ruff check .`) | Clean — every remaining suppression carries a reason in place |
 | Packaged build | Verified: `verify_build.py` all checks, `test_packaged_build.py` 41 checks |
-| Continuous integration | Running on Windows: lint + 529 tests required, 91 Qt tests advisory |
+| Continuous integration | Green on Windows: lint + all 620 tests, in two required jobs |
 | Repository documentation | README, contributing, security, changelog, handoff, roadmap, architecture, decisions |
 | **Licence** | **Not decided** — no `LICENSE` file; depends on the PyMuPDF question below |
 | Network-monitor observation run | Outstanding — needs a person watching a live session |

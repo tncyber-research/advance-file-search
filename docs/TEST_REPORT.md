@@ -471,6 +471,30 @@ The first one is worth keeping as a lesson: the symptom pointed at Thai text,
 and the cause was quoting. An English path with a space failed identically,
 which is what identified it.
 
+### 4.6 Repository publication and continuous integration (2026-09-18)
+
+| Check | Result |
+|---|---|
+| Lint (`ruff check .`) | **PASS** — no findings, from 57. 72 fixed; the rest suppressed in place, each with its reason; `UP042` declined project-wide with a written justification |
+| Automated tests after the lint pass | **PASS** — 619 passed, 1 skipped, 0 failed |
+| `pip check` | **PASS** — no broken requirements |
+| Build + `verify_build.py` | **PASS** — all checks, including both Manual documents |
+| `test_packaged_build.py` | **PASS** — 41 checks, run with the system Python |
+| Secret scan before the first push | **PASS** — no keys, tokens, passwords or e-mail addresses in the staged tree |
+| **CI on GitHub Actions (Windows)** | **PASS** — run 35352303374: lint clean, 529 non-GUI tests passed, 91 Qt widget tests passed |
+
+The CI run is worth a note: the 91 Qt widget tests pass on `windows-latest`,
+so the runner can create real windows, and the job was promoted from advisory
+to required. The runner also *runs* `test_symlink_directory_is_detected`
+rather than skipping it — it has the privilege that an ordinary desktop
+session lacks — so all 620 tests execute there, while a developer machine
+reports 619 passed and 1 skipped.
+
+What CI does not cover, and why: the packaged build (`verify_build.py`,
+`test_packaged_build.py`) is not run there. It needs PyInstaller and produces
+a 136 MB artefact on every push; it is run locally before a release, and the
+release checklist in `docs/SECURITY.md` already requires it.
+
 ---
 
 ## 5. Packaged build acceptance
