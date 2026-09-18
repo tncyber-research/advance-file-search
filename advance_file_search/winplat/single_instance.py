@@ -9,6 +9,7 @@ application permanently unstartable.
 
 from __future__ import annotations
 
+import contextlib
 import os
 from pathlib import Path
 
@@ -43,17 +44,15 @@ class SingleInstance:
             return True
 
         try:
-            handle = open(self.path, "a+b")
+            handle = open(self.path, "a+b")  # noqa: SIM115 - the lock file stays open for the lifetime of the process
         except OSError as exc:
             log.warning("instance lock unavailable | %s", exc)
             self.acquired = True
             return True
 
         if not self._lock(handle):
-            try:
+            with contextlib.suppress(OSError):
                 handle.close()
-            except OSError:
-                pass
             self.acquired = False
             return False
 
@@ -117,7 +116,7 @@ class SingleInstance:
                 fcntl.flock(handle.fileno(), fcntl.LOCK_UN)  # type: ignore[attr-defined]
         except (OSError, ImportError):
             pass
-        try:
+        try:  # noqa: SIM105 - releasing the lock must never raise
             handle.close()  # type: ignore[attr-defined]
         except OSError:
             pass

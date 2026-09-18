@@ -136,10 +136,7 @@ class ResultModel(QAbstractItemModel):
         if not index.isValid():
             return None
         row = index.internalId()
-        if row == 0:
-            position = index.row()
-        else:
-            position = int(row) - 1
+        position = index.row() if row == 0 else int(row) - 1
         if 0 <= position < len(self._results):
             return self._results[position]
         return None
@@ -167,7 +164,7 @@ class ResultModel(QAbstractItemModel):
                 return
 
     # -- QAbstractItemModel ----------------------------------------------
-    def index(self, row: int, column: int, parent: QModelIndex = QModelIndex()) -> QModelIndex:
+    def index(self, row: int, column: int, parent: QModelIndex = QModelIndex()) -> QModelIndex:  # noqa: B008 - Qt's model API defines this default
         if not self.hasIndex(row, column, parent):
             return QModelIndex()
         if not parent.isValid():
@@ -184,7 +181,7 @@ class ResultModel(QAbstractItemModel):
             return QModelIndex()
         return self.createIndex(internal - 1, 0, 0)
 
-    def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:  # noqa: B008 - Qt's model API defines this default
         if not parent.isValid():
             return len(self._results)
         if int(parent.internalId()) != 0:
@@ -194,7 +191,7 @@ class ResultModel(QAbstractItemModel):
             return 0
         return max(0, len(result.locations) - 1)
 
-    def columnCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    def columnCount(self, parent: QModelIndex = QModelIndex()) -> int:  # noqa: B008 - Qt's model API defines this default
         del parent
         return COLUMN_COUNT
 

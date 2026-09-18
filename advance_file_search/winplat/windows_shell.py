@@ -56,7 +56,7 @@ def _explorer_path() -> str:
     Resolving ``explorer.exe`` through ``PATH`` would let a writable directory
     earlier in ``PATH`` supply a different binary.
     """
-    windir = os.environ.get("SystemRoot") or os.environ.get("WINDIR") or "C:\\Windows"
+    windir = os.environ.get("SystemRoot") or os.environ.get("WINDIR") or "C:\\Windows"  # noqa: SIM112 - SystemRoot is the spelling Windows itself uses
     return str(PureWindowsPath(windir) / "explorer.exe")
 
 

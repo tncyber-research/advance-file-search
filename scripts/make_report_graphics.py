@@ -724,9 +724,9 @@ def dia_ux() -> str:
     p.append(f'<rect x="40" y="230" width="410" height="240" rx="10" fill="{SURFACE}" '
              f'stroke="{BORDER}"/>')
     p.append(f'<rect x="40" y="230" width="410" height="30" rx="10" fill="{ACCENT_SOFT}"/>')
-    for i, (tx, header) in enumerate(((52, "ชื่อไฟล์"), (172, "ข้อความที่ตรง"),
-                                      (292, "ชนิด"), (336, "ขนาด"), (392, "แก้ไข"),
-                                      (428, "เปิด"))):
+    for tx, header in ((52, "ชื่อไฟล์"), (172, "ข้อความที่ตรง"),
+                       (292, "ชนิด"), (336, "ขนาด"), (392, "แก้ไข"),
+                       (428, "เปิด")):
         p.append(_text(tx, 250, header, size=11, fill=ACCENT, weight="700"))
     for r in range(6):
         ry = 268 + r * 32

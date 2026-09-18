@@ -19,7 +19,7 @@ import sqlite3
 import threading
 import time
 from collections.abc import Iterator, Sequence
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -159,10 +159,8 @@ class Database:
             # The connection is not registered yet, so close it explicitly or
             # it keeps an OS handle on the file and the caller cannot move the
             # damaged index aside.
-            try:
+            with suppress(sqlite3.Error):
                 conn.close()
-            except sqlite3.Error:
-                pass
             raise
         self._local.conn = conn
         with self._connections_lock:
@@ -185,10 +183,8 @@ class Database:
             cursor.execute("PRAGMA secure_delete = ON")
             # Untrusted-input hardening: we never load extensions or run
             # arbitrary SQL, and triggers/views from the file are our own.
-            try:
+            with suppress(AttributeError, sqlite3.Error):
                 conn.enable_load_extension(False)
-            except (AttributeError, sqlite3.Error):
-                pass
         except sqlite3.Error as exc:
             raise classify_sqlite_error(exc) from exc
         finally:
@@ -198,10 +194,8 @@ class Database:
         conn: sqlite3.Connection | None = getattr(self._local, "conn", None)
         if conn is None:
             return
-        try:
+        with suppress(sqlite3.Error):
             conn.close()
-        except sqlite3.Error:
-            pass
         with self._connections_lock:
             if conn in self._connections:
                 self._connections.remove(conn)
@@ -214,10 +208,8 @@ class Database:
             conns = list(self._connections)
             self._connections.clear()
         for conn in conns:
-            try:
+            with suppress(sqlite3.Error):
                 conn.close()
-            except sqlite3.Error:
-                pass
         self._local = threading.local()
 
     # -- statement helpers ------------------------------------------------
@@ -280,19 +272,15 @@ class Database:
             try:
                 yield conn
             except BaseException:
-                try:
+                with suppress(sqlite3.Error):
                     conn.execute("ROLLBACK")
-                except sqlite3.Error:
-                    pass
                 raise
             else:
                 try:
                     conn.execute("COMMIT")
                 except sqlite3.Error as exc:
-                    try:
+                    with suppress(sqlite3.Error):
                         conn.execute("ROLLBACK")
-                    except sqlite3.Error:
-                        pass
                     raise classify_sqlite_error(exc) from exc
 
     @contextmanager
@@ -413,10 +401,8 @@ def quarantine_corrupt_database(path: Path) -> Path | None:
         for suffix in ("-wal", "-shm"):
             side = Path(str(path) + suffix)
             if side.exists():
-                try:
+                with suppress(OSError):
                     side.unlink()
-                except OSError:
-                    pass
         log.warning("quarantined damaged index | file=%s", target.name)
         return target
     except OSError as exc:

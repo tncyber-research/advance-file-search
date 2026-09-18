@@ -1,6 +1,6 @@
 # Roadmap
 
-Status as of 2026-09-15. Nothing is ticked here that is not verifiable in the
+Status as of 2026-09-18. Nothing is ticked here that is not verifiable in the
 repository: test results are in `docs/TEST_REPORT.md`, and build results come
 from `scripts/verify_build.py` and `scripts/test_packaged_build.py`.
 
@@ -32,11 +32,14 @@ Priority: **P1** blocks a release · **P2** valuable next · **P3** nice to have
       running application
 - [x] Ten architecture decision records
 - [x] Repository documentation and `.gitignore` for publication
+- [x] Published to GitHub (private) with documentation in step with the code
+- [x] Lint clean: 72 findings fixed, the rest suppressed in place with reasons
+- [x] CI on Windows: lint + 529 non-GUI tests required, 91 Qt tests advisory
 
 ## In progress
 
-- [ ] **P1** Publish the repository and keep documentation in step with the
-      code from here on
+- [ ] **P2** Watch the advisory Qt job over a few CI runs and decide whether it
+      can be made required
 
 ## Planned
 
@@ -47,8 +50,6 @@ Priority: **P1** blocks a release · **P2** valuable next · **P3** nice to have
       (`docs/SECURITY.md` §11)
 - [ ] **P1** Clean-machine test on Windows without Python or build tools
       (`docs/BUILD.md`)
-- [ ] **P2** CI workflow running `ruff` and the non-GUI tests on Windows
-- [ ] **P2** Clear the 57 remaining lint findings (`docs/HANDOFF.md` §5)
 - [ ] **P2** Configure a type checker and get it to a clean baseline
 - [ ] **P3** Schema-migration path for index versions beyond v1
 

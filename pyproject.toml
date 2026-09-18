@@ -30,7 +30,16 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "S", "C4", "SIM"]
-ignore = ["S101", "E501"]
+ignore = [
+    "S101",  # assert is the point of a test
+    "E501",  # long lines are caught by review, not by a counter
+    # UP042 wants `class X(StrEnum)` instead of `class X(str, Enum)`.  The two
+    # differ where it matters here: `str(member)` yields the value under
+    # StrEnum and "Class.MEMBER" under `str, Enum`.  Several of these enums are
+    # formatted into messages and stored in the database, so the old spelling
+    # is kept deliberately rather than risk a silent change of text.
+    "UP042",
+]
 
 [tool.ruff.lint.per-file-ignores]
 # Fixtures are imported into a test module so pytest can find them, which

@@ -75,21 +75,21 @@ def ui_search(window, query: str) -> int:
 # Result model
 # ---------------------------------------------------------------------------
 def _result(**overrides) -> SearchResult:
-    defaults = dict(
-        file_id=1,
-        root_id=1,
-        display_path="D:\\Docs\\budget.xlsx",
-        relative_path="budget.xlsx",
-        file_name="budget.xlsx",
-        extension=".xlsx",
-        size_bytes=6013,
-        created_time=1700000000.0,
-        modified_time=1700000100.0,
-        content_status=C.STATUS_INDEXED,
-        match_source=MatchSource.CONTENT,
-        score=215.0,
-        match_count=2,
-        locations=[
+    defaults = {
+        "file_id": 1,
+        "root_id": 1,
+        "display_path": "D:\\Docs\\budget.xlsx",
+        "relative_path": "budget.xlsx",
+        "file_name": "budget.xlsx",
+        "extension": ".xlsx",
+        "size_bytes": 6013,
+        "created_time": 1700000000.0,
+        "modified_time": 1700000100.0,
+        "content_status": C.STATUS_INDEXED,
+        "match_source": MatchSource.CONTENT,
+        "score": 215.0,
+        "match_count": 2,
+        "locations": [
             MatchLocation(
                 unit_id=1,
                 sequence=1,
@@ -109,7 +109,7 @@ def _result(**overrides) -> SearchResult:
                 highlights=[Highlight(7, 13)],
             ),
         ],
-    )
+    }
     defaults.update(overrides)
     return SearchResult(**defaults)
 

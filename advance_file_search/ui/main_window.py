@@ -11,6 +11,7 @@ builds widgets and reacts to signals.
 
 from __future__ import annotations
 
+import contextlib
 import time
 from datetime import datetime, timedelta
 from pathlib import PureWindowsPath
@@ -1083,9 +1084,14 @@ class MainWindow(QMainWindow):
         max_size = self._size_max.value() * 1024 if self._size_max.value() else None
 
         subfolder = self._subfolder.text().strip()
-        if subfolder and self._current_root is not None:
-            if not pathutil.is_within_root(subfolder, self._current_root.display_path):
-                subfolder = ""
+        if (
+            subfolder
+            and self._current_root is not None
+            and not pathutil.is_within_root(
+                subfolder, self._current_root.display_path
+            )
+        ):
+            subfolder = ""
         return SearchFilters(
             extensions=extensions,
             modified_after=modified_after,
@@ -1176,12 +1182,10 @@ class MainWindow(QMainWindow):
         path = str(self._root_combo.currentData() or self.settings.last_root or "")
         if path:
             self._reload_root_combo(select=path)
-            try:
+            with contextlib.suppress(DatabaseError):
                 self._current_root = self.repos.roots.find_by_path(
                     pathutil.display_path(path)
                 )
-            except DatabaseError:
-                pass
             if self._current_root is not None:
                 self._update_index_status(
                     self._current_root.display_path, self._current_root
@@ -1649,12 +1653,10 @@ class MainWindow(QMainWindow):
         from PySide6.QtCore import QByteArray
 
         if self.settings.window_geometry:
-            try:
+            with contextlib.suppress(ValueError, TypeError):
                 self.restoreGeometry(
                     QByteArray.fromBase64(self.settings.window_geometry.encode("ascii"))
                 )
-            except (ValueError, TypeError):
-                pass
         if self.settings.column_widths:
             for column, width in enumerate(self.settings.column_widths):
                 if column < COLUMN_COUNT and width > 0:

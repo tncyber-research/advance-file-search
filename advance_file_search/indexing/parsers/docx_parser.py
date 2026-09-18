@@ -178,7 +178,7 @@ class DocxParser(DocumentParser):
         for row in rows:
             try:
                 cells = list(row.cells)
-            except Exception:  # noqa: BLE001
+            except Exception:  # noqa: BLE001, S112 - one unreadable paragraph must not discard the rest of the document
                 continue
             texts: list[str] = []
             previous = None

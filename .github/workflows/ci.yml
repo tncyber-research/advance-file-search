@@ -1,0 +1,75 @@
+name: CI
+
+# The application is Windows-only, so everything runs on a Windows runner.
+#
+# Two jobs, deliberately:
+#   checks  lint plus the 529 tests that need no windowing system.  This is the
+#           job that must stay green.
+#   gui     the 91 Qt widget tests.  They create real windows, which depends on
+#           the session the runner happens to provide, so the job is advisory:
+#           a failure here means "run these locally", not "the code is broken".
+#           They are run on every desktop before a release regardless.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Lint and tests
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Check dependency consistency
+        run: python -m pip check
+
+      - name: Lint
+        run: python -m ruff check .
+
+      - name: Tests (no windowing system required)
+        run: python -m pytest -m "not gui"
+
+  gui:
+    name: Qt widget tests (advisory)
+    runs-on: windows-latest
+    timeout-minutes: 25
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Tests (Qt widgets)
+        run: python -m pytest -m gui

@@ -285,9 +285,11 @@ def main(argv: list[str] | None = None) -> int:
     try:
         exit_code = app.exec()
     finally:
-        try:
+        try:  # noqa: SIM105 - suppress() would hide which call failed on the way out
             db.close()
-        except Exception:  # noqa: BLE001 - shutdown must not raise
+        # S110/SIM105: closing the database on the way out must never
+        # raise, and there is nowhere left to report it to.
+        except Exception:  # noqa: BLE001, S110, SIM105
             pass
         guard.release()
         log.info("exiting | code=%s", exit_code)

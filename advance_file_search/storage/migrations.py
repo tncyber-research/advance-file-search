@@ -12,6 +12,7 @@ Rules (section 13.2 of the handoff):
 
 from __future__ import annotations
 
+import contextlib
 import sqlite3
 import time
 from collections.abc import Callable
@@ -106,10 +107,8 @@ def _create_schema(db: Database) -> None:
         )
         conn.execute("COMMIT")
     except sqlite3.Error as exc:
-        try:
+        with contextlib.suppress(sqlite3.Error):
             conn.execute("ROLLBACK")
-        except sqlite3.Error:
-            pass
         raise classify_sqlite_error(exc) from exc
 
 
@@ -205,10 +204,8 @@ def migrate(db: Database) -> MigrationResult:
             _set_user_version(conn, version + 1)
             conn.execute("COMMIT")
         except sqlite3.Error as exc:
-            try:
+            with contextlib.suppress(sqlite3.Error):
                 conn.execute("ROLLBACK")
-            except sqlite3.Error:
-                pass
             raise MigrationError(
                 f"Migration from version {version} failed: {exc}"
             ) from exc

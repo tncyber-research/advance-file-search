@@ -69,7 +69,7 @@ def _license_texts(distribution: metadata.Distribution) -> list[tuple[str, str]]
         except (OSError, UnicodeDecodeError, TypeError):
             try:
                 text = entry.read_text()
-            except Exception:  # noqa: BLE001 - best effort only
+            except Exception:  # noqa: BLE001, S112 - one unreadable distribution must not stop the collection
                 continue
         if text and text.strip():
             seen.add(upper)

@@ -189,7 +189,9 @@ class XlsxParser(DocumentParser):
             return self._finish(units, metadata, warnings)
         finally:
             if workbook is not None:
-                try:
+                try:  # noqa: SIM105 - see below
                     workbook.close()
-                except Exception:  # noqa: BLE001 - best-effort cleanup
+                # S110/SIM105: the cells are already read; closing is
+                # cleanup and must not fail the parse.
+                except Exception:  # noqa: BLE001, S110, SIM105
                     pass

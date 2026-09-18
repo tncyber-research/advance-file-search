@@ -95,7 +95,7 @@ def build_snippet(
 
     # Grow the window to the end of the last match that still fits, so a
     # cluster of matches is shown together.
-    for span_start, span_end in spans:
+    for _span_start, span_end in spans:
         if span_end - start > max_length:
             break
         end = max(end, min(len(text), span_end + context_chars))

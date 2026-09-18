@@ -378,9 +378,9 @@ def test_paging(svc):
     assert len(first.results) == 2
     assert first.truncated
     second = run(svc, "needle", limit=2, offset=2)
-    assert not set(r.file_id for r in first.results) & set(
+    assert not {r.file_id for r in first.results} & {
         r.file_id for r in second.results
-    )
+    }
 
 
 def test_result_limit_is_clamped(svc):

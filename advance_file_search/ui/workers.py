@@ -90,7 +90,9 @@ class IndexWorker(QObject):
                 try:
                     db.close_thread_connection()
                     db.close()
-                except Exception:  # noqa: BLE001
+                # S110: the worker is finishing; a connection that will
+                # not close cleanly must not crash the thread.
+                except Exception:  # noqa: BLE001, S110
                     pass
 
     def _emit_progress(self, progress: IndexProgress) -> None:
@@ -138,7 +140,8 @@ class SearchWorker(QObject):
                 try:
                     db.close_thread_connection()
                     db.close()
-                except Exception:  # noqa: BLE001
+                # S110: same reasoning as the search worker above.
+                except Exception:  # noqa: BLE001, S110
                     pass
 
 

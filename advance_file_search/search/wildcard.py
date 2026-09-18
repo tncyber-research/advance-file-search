@@ -280,9 +280,7 @@ def _boundaries_ok(
     """
     if check_left and start > 0 and _is_word_char(text[start - 1]):
         return False
-    if check_right and end < len(text) and _is_word_char(text[end]):
-        return False
-    return True
+    return not (check_right and end < len(text) and _is_word_char(text[end]))
 
 
 def _candidate_starts(compiled: CompiledPattern, text: str, start: int, fold: bool):

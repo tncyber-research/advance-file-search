@@ -11,9 +11,8 @@ set PYTHONPATH=%CD%
 ```
 
 Python 3.12 is required: `requirements.txt` pins PySide6 6.11.2, which is
-built against a specific CPython ABI. Linting uses `ruff`, which is
-configured in `pyproject.toml` but not pinned in `requirements-dev.txt`;
-install it with `pip install ruff` when you need it.
+built against a specific CPython ABI. `requirements-dev.txt` also pins `ruff`,
+so your results match CI's.
 
 Windows is required for the GUI tests and for anything under `winplat/`.
 
@@ -86,6 +85,10 @@ If the change touches packaging or anything that ships, rebuild and verify:
 .venv\Scripts\python.exe scripts\verify_build.py "dist\Advance File Search"
 python scripts\test_packaged_build.py "dist\Advance File Search"
 ```
+
+CI runs `ruff check .` and the non-GUI tests on Windows for every push and
+pull request, so both must be clean. The Qt widget job is advisory — run it
+locally.
 
 State test results honestly in the pull request: what you ran, what passed,
 and what you did not run. "Tests pass" without having run them is worse than

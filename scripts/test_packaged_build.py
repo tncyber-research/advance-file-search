@@ -30,7 +30,7 @@ FAILURES: list[str] = []
 # printing one would abort the run.  Replace the unencodable characters instead:
 # the checks are what matter here, not the glyphs.
 for _stream in (sys.stdout, sys.stderr):
-    try:
+    try:  # noqa: SIM105 - reconfigure() is optional on redirected streams
         _stream.reconfigure(errors="replace")
     except (AttributeError, OSError):  # pragma: no cover - redirected output
         pass

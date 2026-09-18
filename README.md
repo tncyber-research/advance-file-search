@@ -1,5 +1,8 @@
 # Advance File Search
 
+[![CI](https://github.com/tncyber-research/advance-file-search/actions/workflows/ci.yml/badge.svg)](https://github.com/tncyber-research/advance-file-search/actions/workflows/ci.yml)
+
+
 Offline full-text search for local Windows documents, with first-class Thai
 support. It reads the text inside PDF, Word, Excel and plain-text files,
 stores it in a local index, and finds it again — telling you not just which
@@ -108,7 +111,7 @@ and the design and test report is in [`Manual/report.html`](Manual/report.html).
 | lxml | 6.0.2 | XML parsing used by the two libraries above |
 | PyInstaller | 6.22.2 | packaging into a onedir Windows application |
 | pytest | 9.1.1 | the test suite |
-| ruff | configured in `pyproject.toml` | linting |
+| ruff | 0.16.7 | linting, configured in `pyproject.toml` |
 
 ---
 
@@ -267,6 +270,12 @@ The skip is `test_symlink_directory_is_detected`, which needs Developer Mode
 or elevation to create a symlink; the same policy is covered by a junction
 test that runs.
 
+Continuous integration runs on Windows for every push and pull request
+(`.github/workflows/ci.yml`): `ruff check` plus the 529 tests that need no
+windowing system. The 91 Qt widget tests run in a second, advisory job,
+because creating real windows depends on the session the runner provides; they
+are run locally on a desktop before a release either way.
+
 GUI tests create real windows and need an interactive Windows desktop
 session. Every test document is generated at run time by
 `tests/make_fixtures.py` — no real or confidential document exists in this
@@ -397,6 +406,19 @@ Feature-complete for version 1.0.0 and verified on Windows 11 Education
 a network-monitor observation run, and a clean-machine test on a PC without
 Python. Details in [`docs/HANDOFF.md`](docs/HANDOFF.md).
 
-**Last verified:** 15 September 2026 — tests 619 passed / 1 skipped, lint 57
-advisory findings (see `docs/HANDOFF.md`), packaged build verified with 41
-acceptance checks.
+### Where the work stands
+
+| Item | Status |
+|---|---|
+| Application feature set for 1.0.0 | Complete |
+| Automated tests | 619 passed, 1 skipped, 0 failed (620 collected) |
+| Lint (`ruff check .`) | Clean — every remaining suppression carries a reason in place |
+| Packaged build | Verified: `verify_build.py` all checks, `test_packaged_build.py` 41 checks |
+| Continuous integration | Running on Windows: lint + 529 tests required, 91 Qt tests advisory |
+| Repository documentation | README, contributing, security, changelog, handoff, roadmap, architecture, decisions |
+| **Licence** | **Not decided** — no `LICENSE` file; depends on the PyMuPDF question below |
+| Network-monitor observation run | Outstanding — needs a person watching a live session |
+| Clean-machine test | Outstanding — needs a Windows PC without Python |
+| Type checker | Not configured (recorded as debt) |
+
+**Last verified:** 18 September 2026.

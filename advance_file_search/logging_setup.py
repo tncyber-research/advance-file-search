@@ -16,6 +16,7 @@ Search queries and snippets are never passed to the logger by any caller; the
 
 from __future__ import annotations
 
+import contextlib
 import logging
 import os
 from pathlib import Path
@@ -79,10 +80,8 @@ class SizeRotatingFileHandler(logging.FileHandler):
             self.stream = None  # type: ignore[assignment]
 
         if self.backup_count <= 0:
-            try:
+            with contextlib.suppress(OSError):
                 os.remove(self.baseFilename)
-            except OSError:
-                pass
             return
 
         try:
@@ -188,9 +187,11 @@ def configure_logging(
 
     if replace:
         for handler in list(logger.handlers):
-            try:
+            try:  # noqa: SIM105 - logging setup must not depend on contextlib
                 handler.close()
-            except Exception:  # noqa: BLE001 - shutting a handler must not raise
+            # S110/SIM105: a handler that cannot close is still being
+            # removed; raising here would break logging setup itself.
+            except Exception:  # noqa: BLE001, S110, SIM105
                 pass
             logger.removeHandler(handler)
         _configured = False
@@ -274,9 +275,10 @@ def clear_logs(directory: Path | None = None) -> int:
     logger = logging.getLogger(_LOGGER_NAME)
     for handler in list(logger.handlers):
         if isinstance(handler, SizeRotatingFileHandler):
-            try:
+            try:  # noqa: SIM105 - shutdown path; see the comment below
                 handler.close()
-            except Exception:  # pragma: no cover
+            # S110/SIM105: shutdown path; nothing to report to.
+            except Exception:  # noqa: BLE001, S110, SIM105 # pragma: no cover
                 pass
     try:
         for entry in target_dir.glob(C.LOG_FILE_NAME + "*"):

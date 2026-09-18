@@ -131,9 +131,11 @@ class PdfParser(DocumentParser):
                     break
         finally:
             if document is not None:
-                try:
+                try:  # noqa: SIM105 - see below
                     document.close()
-                except Exception:  # noqa: BLE001 - best-effort cleanup
+                # S110/SIM105: the page text is already extracted; a
+                # failure to close must not turn a good parse into an error.
+                except Exception:  # noqa: BLE001, S110, SIM105
                     pass
 
         if truncated:

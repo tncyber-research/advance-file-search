@@ -65,10 +65,7 @@ def name_score(
 
 def _at_word_boundary(name: str, term: str) -> bool:
     """True when ``term`` appears after a separator inside ``name``."""
-    for separator in (" ", "_", "-", ".", "(", "[", ",", "+"):
-        if separator + term in name:
-            return True
-    return False
+    return any(separator + term in name for separator in (" ", "_", "-", ".", "(", "[", ",", "+"))
 
 
 def content_score(*, phrase_match: bool, match_count: int) -> float:

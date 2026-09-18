@@ -103,10 +103,9 @@ def _imports_of(path: Path) -> set[str]:
             for alias in node.names:
                 names.add(alias.name)
                 names.add(alias.name.split(".")[0])
-        elif isinstance(node, ast.ImportFrom):
-            if node.module and node.level == 0:
-                names.add(node.module)
-                names.add(node.module.split(".")[0])
+        elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+            names.add(node.module)
+            names.add(node.module.split(".")[0])
     return names
 
 
@@ -154,12 +153,11 @@ def test_no_http_urls_are_fetched():
     for path in _python_files():
         for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             lowered = line.lower()
-            if "http://" in lowered or "https://" in lowered:
-                if any(
-                    token in lowered
-                    for token in ("urlopen", "get(", "post(", "request(", "fetch(")
-                ):
-                    offenders.append(f"{path.relative_to(PACKAGE_ROOT)}:{number}")
+            if ("http://" in lowered or "https://" in lowered) and any(
+                token in lowered
+                for token in ("urlopen", "get(", "post(", "request(", "fetch(")
+            ):
+                offenders.append(f"{path.relative_to(PACKAGE_ROOT)}:{number}")
     assert not offenders, f"possible network fetch at {offenders}"
 
 

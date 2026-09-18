@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import os
 import threading
 import time
@@ -518,10 +519,8 @@ def test_index_survives_a_file_disappearing_between_scan_and_read(
 
     def vanishing(path):
         if str(path).endswith("doomed.txt"):
-            try:
+            with contextlib.suppress(OSError):
                 os.unlink(path)
-            except OSError:
-                pass
         return original(path)
 
     registry.get(".txt").parse = vanishing  # type: ignore[method-assign]

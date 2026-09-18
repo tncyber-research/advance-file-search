@@ -22,6 +22,7 @@ sort direction chosen from a closed enum.
 
 from __future__ import annotations
 
+import contextlib
 import sqlite3
 import threading
 import time
@@ -232,10 +233,8 @@ class SearchService:
             if should_cancel():
                 raise SearchCancelled from exc
             log.info("search retrying after a transient database error | %s", exc)
-            try:
+            with contextlib.suppress(DatabaseError):
                 self.db.close_thread_connection()
-            except DatabaseError:
-                pass
             time.sleep(RETRY_DELAY_SECONDS)
             return self._execute(request, parsed, should_cancel)
 
@@ -456,7 +455,7 @@ class SearchService:
         hits: dict[int, _FileHit] = {}
         for file_id in list(common_files)[:MAX_VERIFY_FILES]:
             unit_ids: set[int] = set()
-            for index, mapping in enumerate(per_term):
+            for mapping in per_term:
                 unit_ids |= mapping.get(file_id, set())
             hits[file_id] = _FileHit(
                 file_id=file_id,

@@ -1,7 +1,7 @@
 # Handoff
 
 Everything a new maintainer needs to pick this project up. Written
-2026-09-15, against the state of the working tree on that date.
+2026-09-18, against the state of the working tree on that date.
 
 `handoff.md` in the repository root is a different document: it is the
 original specification the project was built from, kept for reference.
@@ -38,6 +38,8 @@ machine. Two constraints shaped nearly every decision:
 | Packaging | PyInstaller onedir, post-build stripping, build verification, packaged acceptance test |
 | Documentation | User manual and project report (Thai, illustrated), build/security/test docs, 10 ADRs |
 | Tests | 620 collected; 619 pass, 1 skipped |
+| Lint | Clean; every suppression carries its reason in place |
+| CI | GitHub Actions on Windows: lint + 529 non-GUI tests required, 91 Qt tests advisory |
 
 ---
 
@@ -51,7 +53,6 @@ machine. Two constraints shaped nearly every decision:
   the release checklist in `docs/SECURITY.md`.
 - **Clean-machine test.** Copying the distribution to a Windows PC with no
   Python and no build tools, and working through `docs/BUILD.md`.
-- **Linting is not clean.** 57 advisory findings remain (see §5).
 - **No packaging for other platforms.** Windows only, by design for v1.
 
 ---
@@ -76,26 +77,24 @@ the most code:
 
 ## 5. Known issues and technical debt
 
-**Lint (57 ruff findings, none blocking).** Run
-`.venv\Scripts\python.exe -m ruff check . --statistics` for the current list.
-As of 2026-09-15:
+**Lint is clean.** `ruff check .` reports nothing. Getting there fixed 72
+findings and left the rest suppressed *in place*, each with the reason written
+next to it: swallowed exceptions on shutdown paths, Qt-mandated default
+arguments, a lock file deliberately held open for the process lifetime,
+`SystemRoot`'s Windows spelling, and the SQL placeholder counting. One rule is
+declined project-wide in `pyproject.toml` with its reason — `UP042` would turn
+`class X(str, Enum)` into `StrEnum`, which changes what `str(member)` returns,
+and several of those values are formatted into messages and stored in the
+database.
 
-| Rule | Count | Nature |
-|---|---|---|
-| `SIM105` suppressible-exception | 22 | `try/except/pass` that could be `contextlib.suppress` |
-| `UP042` replace-str-enum | 8 | `class X(str, Enum)` could be `StrEnum` — a behaviour-adjacent change, deliberately deferred |
-| `S110`/`S112` try-except-pass/continue | 9 | Deliberate "ignore and carry on" paths; each deserves a comment or a `noqa` with a reason |
-| `SIM102`, `SIM108`, `SIM110`, `SIM115`, `C401`, `C408`, `B007`, `B008`, others | 18 | Ordinary style clean-ups |
-
-None affect behaviour. The four security-rule findings that *were* worth
-answering (error-code constants named `…PASSWORD…`, SQL placeholder counting)
-are annotated in place with the reason.
+Keep it at zero: the CI job fails on any new finding.
 
 **Other debt**
 
-- No CI. Everything is run by hand; a GitHub Actions workflow running
-  `ruff` + `pytest` on Windows would catch regressions earlier. GUI tests need
-  a desktop session, so they would need a windowed runner or a marker split.
+- CI covers lint and the 529 tests that need no windowing system. The 91 Qt
+  widget tests run in an advisory job, because whether real windows can be
+  created depends on the session the runner provides; they must still be run
+  on a desktop before a release.
 - No type checker configured. Type hints are used throughout but nothing
   verifies them.
 - `Manual/report.html` and `Manual/index.html` are edited as files; their
@@ -166,12 +165,12 @@ fit that way, `docs/TEST_REPORT.md` for what has actually been verified.
 
 ---
 
-## 9. Verification status (2026-09-15)
+## 9. Verification status (2026-09-18)
 
 | Check | Result |
 |---|---|
 | `pytest` | PASS — 619 passed, 1 skipped, 0 failed (620 collected) |
-| `ruff check .` | FAIL (advisory) — 57 findings, none blocking; see §5 |
+| `ruff check .` | PASS — no findings |
 | Type check | NOT RUN — no type checker is configured |
 | `pip check` | PASS — no broken requirements |
 | PyInstaller build | PASS |
@@ -187,9 +186,10 @@ fit that way, `docs/TEST_REPORT.md` for what has actually been verified.
 1. Decide the PyMuPDF licence question, then add the matching `LICENSE` file.
 2. Do the clean-machine test and the network-monitor run; both are the last
    items on the release checklist in `docs/SECURITY.md`.
-3. Add a CI workflow (`ruff` + non-GUI `pytest`) so regressions are caught
-   without remembering to run anything.
-4. Work through the lint backlog in §5 — mechanical, low-risk, and it makes
-   real findings visible in the noise.
-5. Consider a schema-migration path before the first change to `schema.sql`
+3. Configure a type checker and get it to a clean baseline; CI already has a
+   place to run it.
+4. Consider a schema-migration path before the first change to `schema.sql`
    that cannot be solved by rebuilding the index.
+5. Watch whether the advisory GUI job passes on the runner over a few runs. If
+   it does, promote it to required; if it never can, say so in the workflow and
+   stop looking at it.

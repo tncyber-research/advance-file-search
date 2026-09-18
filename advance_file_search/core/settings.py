@@ -188,7 +188,7 @@ def save_settings(settings: AppSettings, path: Path | None = None) -> bool:
     payload = json.dumps(asdict(settings), ensure_ascii=False, indent=2, sort_keys=True)
     try:
         target.parent.mkdir(parents=True, exist_ok=True)
-        handle = tempfile.NamedTemporaryFile(
+        handle = tempfile.NamedTemporaryFile(  # noqa: SIM115 - the handle is closed by the caller after an atomic replace
             mode="w",
             encoding="utf-8",
             dir=str(target.parent),

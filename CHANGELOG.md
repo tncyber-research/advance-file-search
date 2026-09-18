@@ -11,6 +11,10 @@ versions. Only changes with evidence in the repository are listed.
 ## [Unreleased]
 
 ### Added
+- Continuous integration on Windows (`.github/workflows/ci.yml`): `ruff check`
+  and the 529 tests that need no windowing system as the required job, the 91
+  Qt widget tests as an advisory job.
+- `ruff` pinned in `requirements-dev.txt` so CI and local runs agree.
 - Per-row **Open file** button beside the existing Open-folder button, with a
   fallback to the Windows "Open with" chooser when no program is registered
   for the file type.
@@ -53,9 +57,14 @@ versions. Only changes with evidence in the repository are listed.
 - The details panel clipped long paths, dropping whole folder components.
 - The Match column collapsed to a few characters once the base font and the
   details panel grew.
-- 49 lint findings fixed automatically by `ruff check --fix`; the four
-  security-rule false positives (error-code constants named `…PASSWORD…`, and
-  SQL placeholder counting) are now annotated with the reason.
+- Lint is clean. 72 findings fixed (unused imports, import order, redundant
+  branches, `contextlib.suppress`, unused loop variables, a nested `if`); the
+  rest are suppressed in place with the reason written next to them — swallowed
+  exceptions on shutdown paths, Qt-mandated default arguments, a lock file held
+  for the process lifetime, `SystemRoot`'s Windows spelling, and the SQL
+  placeholder counting. `UP042` (`str, Enum` → `StrEnum`) is declined in
+  `pyproject.toml` with its reason: `str(member)` would start returning a
+  different string.
 
 ### Security
 - Revealing a file builds no command line at all, removing a whole class of
